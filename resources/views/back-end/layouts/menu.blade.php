@@ -6,7 +6,7 @@
           <div class="clearfix"></div>
           <div class="profile clearfix">
             <div class="profile_pic">
-                <img src="{{asset('gentelella-master/production/images/img.jpg')}}" class="img-circle profile_img">
+                <img src="{{asset('public/uploads/images/'. Auth::user()->avatar )}}" class="img-circle profile_img">
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>
