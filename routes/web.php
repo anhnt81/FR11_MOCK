@@ -11,12 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Controllers Within The "App\Http\Controllers\Admin" Admin
+Route::group(['prefix'=>'admin'], function() {
+    //return view home admin
+    Route::get('/', ['as'=>'home','uses'=>'Admin\LoginController@home']);
+    //return view form login
+    Route::get('/login',['as'=>'getLogin','uses'=>'Admin\LoginController@getLogin']);
+    Route::post('/login',['as'=>'postLogin','uses'=>'Admin\LoginController@postLogin']);
+    //handle logout
+    Route::get('/logout', ['as'=>'logout','uses'=>'Admin\LoginController@logout']);
+    //Todo new Route
 });
-Route::get('admin/login',['as'=>'getLogin','uses'=>'Admin\LoginController@getLogin']);
-Route::post('admin/login',['as'=>'postLogin','uses'=>'Admin\LoginController@postLogin']);
-
-Route::get('/admin/home', ['as'=> 'admin', function () {
-    return view('back-end.layouts.master');
-}]);
