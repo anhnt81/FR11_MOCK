@@ -15,6 +15,7 @@
   <link href="{{asset('public/admin-master/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
   <!-- Custom Theme Style -->
   <link href="{{asset('public/admin-master/build/css/custom.min.css')}}" rel="stylesheet">
+  <link href="{{asset('public/css/adminStyle.css')}}" rel="stylesheet">
   </head>
 
   <body class="nav-md">

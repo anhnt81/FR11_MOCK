@@ -20,17 +20,26 @@
                 <ul class="nav side-menu">
                     <li>
                         <a href="">
-                            <i class="fa fa-home"></i> Quản Lý Tài Khoản
+                            <i class="fa fa-home"></i> Trang chủ
+                        </a>
+                    </li><li>
+                        <a href="">
+                            <i class="fa fa-user"></i> Quản Lý Tài Khoản
                         </a>
                     </li>
                     <li>
                         <a href="">
-                            <i class="fa fa-edit"></i>Quản Lý Type Product
+                            <i class="fa fa-user"></i> Quản Lý Khách Hàng
                         </a>
                     </li>
                     <li>
                         <a href="">
-                            <i class="fa fa-table"></i> Quản Lý Mặt Hàng
+                            <i class="fa fa-product-hunt"></i>Quản Lý Sản Phẩm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="fa fa-table"></i> Chuyên Mục và Hãng Sản Phẩm
                         </a>
                     </li>
                     <li>
@@ -40,14 +49,9 @@
                     </li>       
                     <li>
                     <a href="">
-                            <i class="fa fa-desktop"></i> Đơn Hàng Chưa Thanh Toán
+                            <i class="fa fa-desktop"></i> Quản lý Bình Luận
                         </a>
-                    </li>    
-                    <li>
-                    <a href="">
-                            <i class="fa fa-desktop"></i> Đơn Hàng Đã Thanh Toán
-                        </a>
-                    </li>   
+                    </li>
                 </ul>
             </div>
 
