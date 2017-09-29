@@ -14,9 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/login',['as'=>'getLogin','uses'=>'LoginController@getLogin']);
-Route::post('/login',['as'=>'postLogin','uses'=>'LoginController@postLogin']);
+Route::get('admin/login',['as'=>'getLogin','uses'=>'Admin\LoginController@getLogin']);
+Route::post('admin/login',['as'=>'postLogin','uses'=>'Admin\LoginController@postLogin']);
 
-Route::get('/admin', ['as'=> 'admin', function () {
+Route::get('/admin/home', ['as'=> 'admin', function () {
     return view('back-end.layouts.master');
 }]);
