@@ -12,13 +12,16 @@
 */
 
 // Controllers Within The "App\Http\Controllers\Admin" Admin
-Route::group(['prefix'=>'admin'], function() {
+Route::group(['prefix' => 'admin'], function () {
     //return view home admin
-    Route::get('/', ['as'=>'home','uses'=>'Admin\LoginController@home']);
+    Route::get('/', ['as' => 'home', 'uses' => 'Admin\LoginController@home']);
     //return view form login
-    Route::get('/login',['as'=>'getLogin','uses'=>'Admin\LoginController@getLogin']);
-    Route::post('/login',['as'=>'postLogin','uses'=>'Admin\LoginController@postLogin']);
+    Route::get('/login', ['as' => 'getLogin', 'uses' => 'Admin\LoginController@getLogin']);
+    Route::post('/login', ['as' => 'postLogin', 'uses' => 'Admin\LoginController@postLogin']);
     //handle logout
-    Route::get('/logout', ['as'=>'logout','uses'=>'Admin\LoginController@logout']);
+    Route::get('/logout', ['as' => 'logout', 'uses' => 'Admin\LoginController@logout']);
     //Todo new Route
+    /* AnhNT9 listView Product */
+    Route::get('/listView', ['as' => 'listProduct', 'user' => 'Admin\ProductController@listProduct']);
+
 });
