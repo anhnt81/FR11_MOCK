@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/login',['as'=>'getLogin','uses'=>'LoginController@getLogin']);
+Route::post('/login',['as'=>'postLogin','uses'=>'LoginController@postLogin']);
+
+Route::get('/admin', ['as'=> 'admin', function () {
+    return view('back-end.layouts.master');
+}]);
