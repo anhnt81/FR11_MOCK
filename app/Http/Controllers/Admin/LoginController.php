@@ -12,6 +12,15 @@ use Auth;
 
 class LoginController extends Controller
 {
+    public function home()
+    {
+        if(Auth::check()) {
+            return view('back-end.layouts.master') ;
+        }
+        else{
+            return redirect()->route('getLogin');
+        }
+    }
     public function getLogin(){
         return view('back-end.auth.login');
     }
@@ -26,5 +35,11 @@ class LoginController extends Controller
             $errors = new MessageBag(['errorlogin' => 'Email hoặc mật khẩu không đúng']);
             return redirect()->back()->withInput()->withErrors($errors);
         }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('getLogin');
     }
 }

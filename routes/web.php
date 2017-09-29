@@ -17,6 +17,5 @@ Route::get('/', function () {
 Route::get('admin/login',['as'=>'getLogin','uses'=>'Admin\LoginController@getLogin']);
 Route::post('admin/login',['as'=>'postLogin','uses'=>'Admin\LoginController@postLogin']);
 
-Route::get('/admin/home', ['as'=> 'admin', function () {
-    return view('back-end.layouts.master');
-}]);
+Route::get('admin', ['as'=>'home','uses'=>'Admin\LoginController@home']);
+Route::get('admin/logout', ['as'=>'logout','uses'=>'Admin\LoginController@logout']);
