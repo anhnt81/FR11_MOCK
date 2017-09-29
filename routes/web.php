@@ -21,4 +21,8 @@ Route::group(['prefix'=>'admin'], function() {
     //handle logout
     Route::get('/logout', ['as'=>'logout','uses'=>'Admin\LoginController@logout']);
     //Todo new Route
+    //Hien: Brand
+    Route::group(['prefix'=>'/brand'],function(){
+    	Route::get('/',['as'=>'listBrand','uses'=>'Admin\BrandController@listBrand']);
+    });
 });
