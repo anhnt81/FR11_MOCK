@@ -8,15 +8,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
       
-    <title>Menu Admin! | </title>
-  <!-- Style css -->
-  <link href="{{asset('admin-master/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
+    <title>@yield('title')</title>
   <!-- Bootstrap -->
-  <link href="{{asset('admin-master/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{asset('public/admin-master/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
   <!-- Font Awesome -->
-  <link href="{{asset('admin-master/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+  <link href="{{asset('public/admin-master/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
   <!-- Custom Theme Style -->
-  <link href="{{asset('admin-master/build/css/custom.min.css')}}" rel="stylesheet">
+  <link href="{{asset('public/admin-master/build/css/custom.min.css')}}" rel="stylesheet">
+  <link href="{{asset('public/css/adminStyle.css')}}" rel="stylesheet">
   </head>
 
   <body class="nav-md">
@@ -41,13 +40,13 @@
       </div>
     </div>
     <!-- jQuery -->
-    <script src="{{asset('js/admin-master/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('public/js/admin-master/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap -->
-    <script src="{{asset('js/admin-master/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('public/js/admin-master/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
   
 
-    <script src="{{asset('admin-master/build/js/custom.min.js')}}"></script>
+    <script src="{{asset('public/admin-master/build/js/custom.min.js')}}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </body>
 </html>
