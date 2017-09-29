@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
       
     <title>Menu Admin! | </title>
+  <!-- Style css -->
+  <link href="{{asset('admin-master/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
   <!-- Bootstrap -->
   <link href="{{asset('admin-master/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
   <!-- Font Awesome -->
