@@ -22,6 +22,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/logout', ['as' => 'logout', 'uses' => 'Admin\LoginController@logout']);
     //Todo new Route
     /* AnhNT9 listView Product */
-    Route::get('/listView', ['as' => 'listProduct', 'user' => 'Admin\ProductController@listProduct']);
+    Route::get('/list-product', ['as' => 'listProduct', 'uses' => 'Admin\ProductController@listProduct']);
 
 });

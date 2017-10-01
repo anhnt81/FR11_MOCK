@@ -33,10 +33,6 @@
        @yield('content')
       </div>
       <!-- /page content -->
-
-      <!-- footer content -->
-      @include('back-end.layouts.footer')
-      <!-- /footer content -->
       </div>
     </div>
     <!-- jQuery -->

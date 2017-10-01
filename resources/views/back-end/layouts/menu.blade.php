@@ -10,7 +10,7 @@
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>
-                <!-- <h2>{{Auth::User()->full_name}}</h2> -->
+                <!-- <h2>{{Auth::User()->username}}</h2> -->
             </div>
         </div>
         <br />
@@ -19,7 +19,7 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                     <li>
-                        <a href="">
+                        <a href="{{url('admin')}}">
                             <i class="fa fa-home"></i> Trang chủ
                         </a>
                     </li><li>
@@ -33,7 +33,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="{{ url('admin/list-product') }}">
                             <i class="fa fa-product-hunt"></i>Quản Lý Sản Phẩm
                         </a>
                     </li>
