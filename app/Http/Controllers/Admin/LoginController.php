@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\MessageBag;
 use Validator;
@@ -14,7 +15,7 @@ class LoginController extends Controller
     public function home()
     {
         if(Auth::check()) {
-            return view('back-end.index') ;
+            return view('back-end.home') ;
         }
         else{
             return redirect()->route('getLogin');
