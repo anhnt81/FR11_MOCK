@@ -11,6 +11,6 @@
         </a>
     </div>
     <div class="col-xs-12 col-md-4" id="btn-logout">
-        <a href=''>Đăng Xuất <span class="glyphicon glyphicon-log-out"></span></a>
+        <a href='{!! url('admin/dang-xuat') !!}'>Đăng Xuất <span class="glyphicon glyphicon-log-out"></span></a>
     </div>
 </header>

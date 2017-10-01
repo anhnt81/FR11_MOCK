@@ -11,11 +11,8 @@
 
         <li id='user' class="dropdown">
             <a href="{!! url('admin/user') !!}">
-                <span class="glyphicon glyphicon-user"></span> Quản Lý Người Dùng <span class="caret"></span>
+                <span class="glyphicon glyphicon-user"></span> Quản Lý Người Dùng</span>
             </a>
-            <ul class="dropdown-menu menu">
-
-            </ul>
         </li>
 
         <li id='customer' class="dropdown">
@@ -26,29 +23,31 @@
 
         <li id='product' class="dropdown">
             <a href="{!! url('admin/product') !!}">
-                <span class="glyphicon glyphicon-gift"></span> Quản lý Sản Phẩm <span class="caret"></span>
+                <span class="glyphicon glyphicon-gift"></span> Quản lý Sản Phẩm</span>
             </a>
-            <ul class="dropdown-menu menu">
-                <li><a href="">Quản lý đơn hàng</a></li>
-                <li><a href="">Quản lý giao dịch</a></li>
-            </ul>
+        </li>
+
+        <li id='bill' class="dropdown">
+            <a href="{!! url('admin/bill') !!}">
+                <span class="glyphicon glyphicon-list-alt"></span> Quản Lý Đơn Hàng
+            </a>
         </li>
 
         <li id='category' class="dropdown">
             <a href="{!! url('admin/category') !!}">
-                <span class="glyphicon glyphicon-list"></span> Quản lý Chuyên Mục
+                <span class="glyphicon glyphicon-list"></span> Quản Lý Chuyên Mục
             </a>
         </li>
 
         <li id='brand' class="dropdown">
             <a href="{!! url('admin/brand') !!}">
-                <span class="glyphicon glyphicon-list-alt"></span> Quản lý Thương Hiệu
+                <span class="glyphicon glyphicon-list-alt"></span> Quản Lý Thương Hiệu
             </a>
         </li>
 
         <li id='comment' class="dropdown">
             <a href="{!! url('admin/comment') !!}">
-                <span class="glyphicon glyphicon-home"></span> Quản lý bình luận</span>
+                <span class="glyphicon glyphicon-comment"></span> Quản lý bình luận</span>
             </a>
         </li>
 

@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Đăng Nhập</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/login') }}">
+                    <form class="form-horizontal" role="form" method="POST">
                         {{ csrf_field() }}
                         @if($errors->has('errorlogin'))
 						<div class="alert alert-danger">
