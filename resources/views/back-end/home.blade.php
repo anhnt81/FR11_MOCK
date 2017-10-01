@@ -3,7 +3,7 @@
     Trang chủ
 @endsection
 
-@section('title')
+@section('breadcrumb')
     <li>Trang chủ</li>
 @endsection
 

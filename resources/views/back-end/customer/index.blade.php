@@ -94,12 +94,12 @@
                             <label for='search-cus'>Tìm kiếm</label>
                             <div id='search-cus'>
                                 <input type='search' name='search' class='form-control' style='width : 60%; float:left; margin-right: 10px'
-                                       value='{!! $data['key'] !!}' placeholder='Nhập từ khóa'>
+                                       value='<?php if(isset($data['key'])) echo $data['key'] ?>' placeholder='Nhập từ khóa'>
                                 <select name='field_search' style='width : 35%' class='form-control'>
-                                    <option value='name' @if($data['field'] == 'name') selected @endif>Theo tên</option>
-                                    <option value='email' @if($data['field'] == 'email') selected @endif>Theo email</option>
-                                    <option value='address' @if($data['field'] == 'address') selected @endif>Theo địa chỉ</option>
-                                    <option value='phone' @if($data['field'] == 'phone') selected @endif>Theo số điện thoại</option>
+                                    <option value='name' @if(isset($data['field']) && $data['field'] == 'name') selected @endif>Theo tên</option>
+                                    <option value='email' @if(isset($data['field']) && $data['field'] == 'email') selected @endif>Theo email</option>
+                                    <option value='address' @if(isset($data['field']) && $data['field'] == 'address') selected @endif>Theo địa chỉ</option>
+                                    <option value='phone' @if(isset($data['field']) && $data['field'] == 'phone') selected @endif>Theo số điện thoại</option>
                                 </select>
                             </div>
                         </div>
