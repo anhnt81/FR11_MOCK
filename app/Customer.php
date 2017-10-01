@@ -8,4 +8,5 @@ class Customer extends Model
 {
     protected $table = 'tbl_customer';
     protected $guarded =[];
+
 }
