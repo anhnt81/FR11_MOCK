@@ -1,19 +1,19 @@
 @extends('back-end.layouts.layout-admin')
 
 @section('title')
-    Quản lý khách hàng
+    Quản lý đơn hàng
 @endsection
 
 @section('breadcrumb')
     <li><a href="{!! url('admin') !!}">Trang chủ</a></li>
-    <li>Khách hàng</li>
+    <li>Đơn hàng</li>
 @endsection
 
 @section('content')
     <!-- main content  -->
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="panel-title">Danh sách khách hàng</h3>
+            <h3 class="panel-title">Danh sách đơn hàng</h3>
         </div>
         <div class="panel-body">
             <!-- filter -->
@@ -29,11 +29,10 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tên</th>
-                        <th>Giới tính</th>
-                        <th>Số điện thoại</th>
-                        <th>E-mail</th>
-                        <th>Địa chỉ giao hàng</th>
+                        <th>Khách hàng</th>
+                        <th>Tổng tiền</th>
+                        <th>Ghi chú</th>
+                        <th>Tình trạng</th>
                         <th>Hành động</th>
                     </tr>
                     </thead>
@@ -46,21 +45,15 @@
                         @foreach($list as $row)
                             <tr>
                                 <td>{!! $row->id !!}</td>
-                                <td>{!! $row->name !!}</td>
+                                <td>{!! $row->cus !!}</td>
+                                <td>{!! $row->total !!}</td>
+                                <td>{!! $row->note !!}</td>
+                                <td>{!! $row->status !!}</td>
                                 <td>
-                                    @if($row->gender == 1) Nam
-                                    @elseif($row->gender == 2) Nữ
-                                    @else Khác
-                                    @endif
-                                </td>
-                                <td>{!! $row->phone !!}</td>
-                                <td>{!! $row->email !!}</td>
-                                <td>{!! $row->address !!}</td>
-                                <td>
-                                    <a href="{!! url('admin/customer/sua-thong-tin/'.$row->id) !!}"
-                                       class="btn btn-warning">
+                                    <a href="{!! url('admin/order/chi-tiet/'.$row->id) !!}"
+                                       class="btn btn-default">
                                         <span class="glyphicon glyphicon-edit"></span>
-                                        Sửa
+                                        Xem chi tiết
                                     </a>
                                 </td>
                             </tr>
@@ -89,8 +82,8 @@
 
                 <div class='modal-body'>
                     <form method='get' action='{!! url('admin/customer/filter') !!}' role='form' id='filter-cus-frm'>
-                        {{--{{ csrf_field() }}--}}
-                        <!-- search -->
+                    {{--{{ csrf_field() }}--}}
+                    <!-- search -->
                         <div class='form-group'>
                             <label for='search-cus'>Tìm kiếm</label>
                             <div id='search-cus'>
@@ -114,23 +107,23 @@
                                     <div id='feild-sort' class='form-control-static'>
                                         <div class='col-xs-6 col-md-2'>
                                             <input type='radio' name='sort' value='name'
-                                                <?php if(isset($data['sort']) && $data['sort'] == 'name') echo 'checked'?>> Tên
+                                            <?php if(isset($data['sort']) && $data['sort'] == 'name') echo 'checked'?>> Tên
                                         </div>
                                         <div class='col-xs-6 col-md-2'>
                                             <input type='radio' name='sort' value='id'
-                                                <?php if(empty($data['sort']) || (isset($data['sort']) && $data['sort'] == 'id')) echo 'checked'?>> ID
+                                            <?php if(empty($data['sort']) || (isset($data['sort']) && $data['sort'] == 'id')) echo 'checked'?>> ID
                                         </div>
                                         <div class='col-xs-6 col-md-2'>
                                             <input type='radio' name='sort' value='email'
-                                                <?php if(isset($data['sort']) && $data['sort'] == 'email') echo 'checked'?>> E-mail
+                                            <?php if(isset($data['sort']) && $data['sort'] == 'email') echo 'checked'?>> E-mail
                                         </div>
                                         <div class='col-xs-6 col-md-3'>
                                             <input type='radio' name='sort' value='address'
-                                                <?php if(isset($data['sort']) && $data['sort'] == 'address') echo 'checked'?>> Địa chỉ
+                                            <?php if(isset($data['sort']) && $data['sort'] == 'address') echo 'checked'?>> Địa chỉ
                                         </div>
                                         <div class='col-xs-12 col-md-3'>
                                             <input type='radio' name='sort' value='phone'
-                                                <?php if(isset($data['sort']) && $data['sort'] == 'phone') echo 'checked'?>> Số điện thoại
+                                            <?php if(isset($data['sort']) && $data['sort'] == 'phone') echo 'checked'?>> Số điện thoại
                                         </div>
                                     </div>
                                 </div>
@@ -140,12 +133,12 @@
                                     <div id='type-sort' class='form-control-static'>
                                         <div class='col-xs-6 col-md-6'>
                                             <input type='radio' name='type_sort' value='asc'
-                                                <?php if(empty($data['type']) || isset($data['type']) && $data['type'] == 'asc') echo 'checked'?>>
+                                            <?php if(empty($data['type']) || isset($data['type']) && $data['type'] == 'asc') echo 'checked'?>>
                                             Tăng dần
                                         </div>
                                         <div class='col-xs-6 col-md-6'>
                                             <input type='radio' name='type_sort' value='desc'
-                                                <?php if(isset($data['type']) && $data['type'] == 'desc') echo 'checked'?>>
+                                            <?php if(isset($data['type']) && $data['type'] == 'desc') echo 'checked'?>>
                                             Giảm dần
                                         </div>
                                     </div>
@@ -171,3 +164,4 @@
         })
     </script>
 @endsection
+

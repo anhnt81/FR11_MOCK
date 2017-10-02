@@ -1,23 +1,26 @@
 @extends('back-end.layouts.layout-admin')
 
 @section('title')
-    Quản lý khách hàng
+    Quản lý chuyên mục
 @endsection
 
 @section('breadcrumb')
     <li><a href="{!! url('admin') !!}">Trang chủ</a></li>
-    <li>Khách hàng</li>
+    <li>Chuyên mục</li>
 @endsection
 
 @section('content')
     <!-- main content  -->
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="panel-title">Danh sách khách hàng</h3>
+            <h3 class="panel-title">Danh sách chuyên mục</h3>
         </div>
         <div class="panel-body">
             <!-- filter -->
             <div>
+                <a class='btn btn-primary' role='button' href='{!! url('admin/category/them-moi') !!}'>
+                    <span class='glyphicon glyphicon-plus'></span> Thêm mới
+                </a>
                 <button class="btn btn-primary" role='button' data-toggle='modal' data-target='#filter-modal'>
                     <span class='glyphicon glyphicon-filter'></span> Lọc
                 </button>
@@ -30,37 +33,31 @@
                     <tr>
                         <th>ID</th>
                         <th>Tên</th>
-                        <th>Giới tính</th>
-                        <th>Số điện thoại</th>
-                        <th>E-mail</th>
-                        <th>Địa chỉ giao hàng</th>
+                        <th>Chuyên mục cha</th>
                         <th>Hành động</th>
                     </tr>
                     </thead>
                     <tbody>
                     @if(count($list) < 1)
                         <tr>
-                            <td colspan="7">Chưa có dữ liệu</td>
+                            <td colspan="4">Chưa có dữ liệu</td>
                         </tr>
                     @else
                         @foreach($list as $row)
                             <tr>
                                 <td>{!! $row->id !!}</td>
                                 <td>{!! $row->name !!}</td>
+                                <td>{!! $row->parentId !!}</td>
                                 <td>
-                                    @if($row->gender == 1) Nam
-                                    @elseif($row->gender == 2) Nữ
-                                    @else Khác
-                                    @endif
-                                </td>
-                                <td>{!! $row->phone !!}</td>
-                                <td>{!! $row->email !!}</td>
-                                <td>{!! $row->address !!}</td>
-                                <td>
-                                    <a href="{!! url('admin/customer/sua-thong-tin/'.$row->id) !!}"
+                                    <a href="{!! url('admin/category/sua-thong-tin/'.$row->id) !!}"
                                        class="btn btn-warning">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Sửa
+                                    </a>
+                                    <a href="{!! url('admin/category/xoa/'.$row->id) !!}"
+                                       class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        Xóa
                                     </a>
                                 </td>
                             </tr>
@@ -84,24 +81,18 @@
             <div class='modal-content'>
                 <div class='modal-header'>
                     <button type='button' class='close' data-dismiss='modal'>&times;</button>
-                    <h3>Lọc khách hàng</h3>
+                    <h3>Lọc chuyên mục</h3>
                 </div>
 
                 <div class='modal-body'>
-                    <form method='get' action='{!! url('admin/customer/filter') !!}' role='form' id='filter-cus-frm'>
-                        {{--{{ csrf_field() }}--}}
-                        <!-- search -->
+                    <form method='get' action='{!! url('admin/category/filter') !!}' role='form' id='filter-cat-frm'>
+                    {{--{{ csrf_field() }}--}}
+                    <!-- search -->
                         <div class='form-group'>
                             <label for='search-cus'>Tìm kiếm</label>
                             <div id='search-cus'>
-                                <input type='search' name='search' class='form-control' style='width : 60%; float:left; margin-right: 10px'
-                                       value='<?php if(isset($data['key'])) echo $data['key'] ?>' placeholder='Nhập từ khóa'>
-                                <select name='field_search' style='width : 35%' class='form-control'>
-                                    <option value='name' @if(isset($data['field']) && $data['field'] == 'name') selected @endif>Theo tên</option>
-                                    <option value='email' @if(isset($data['field']) && $data['field'] == 'email') selected @endif>Theo email</option>
-                                    <option value='address' @if(isset($data['field']) && $data['field'] == 'address') selected @endif>Theo địa chỉ</option>
-                                    <option value='phone' @if(isset($data['field']) && $data['field'] == 'phone') selected @endif>Theo số điện thoại</option>
-                                </select>
+                                <input type='search' name='search' class='form-control'
+                                       value='<?php if(isset($data['key'])) echo $data['key'] ?>' placeholder='Nhập tên chuyên mục......'>
                             </div>
                         </div>
 
@@ -112,25 +103,17 @@
                                 <div class='form-group'>
                                     <label for='feild-sort'>Sắp xếp theo :</label>
                                     <div id='feild-sort' class='form-control-static'>
-                                        <div class='col-xs-6 col-md-2'>
-                                            <input type='radio' name='sort' value='name'
-                                                <?php if(isset($data['sort']) && $data['sort'] == 'name') echo 'checked'?>> Tên
-                                        </div>
-                                        <div class='col-xs-6 col-md-2'>
+                                        <div class='col-md-4'>
                                             <input type='radio' name='sort' value='id'
-                                                <?php if(empty($data['sort']) || (isset($data['sort']) && $data['sort'] == 'id')) echo 'checked'?>> ID
+                                            <?php if(empty($data['sort']) || (isset($data['sort']) && $data['sort'] == 'id')) echo 'checked'?>> ID
                                         </div>
-                                        <div class='col-xs-6 col-md-2'>
-                                            <input type='radio' name='sort' value='email'
-                                                <?php if(isset($data['sort']) && $data['sort'] == 'email') echo 'checked'?>> E-mail
+                                        <div class='col-md-4'>
+                                            <input type='radio' name='sort' value='name'
+                                            <?php if(isset($data['sort']) && $data['sort'] == 'name') echo 'checked'?>> Tên
                                         </div>
-                                        <div class='col-xs-6 col-md-3'>
-                                            <input type='radio' name='sort' value='address'
-                                                <?php if(isset($data['sort']) && $data['sort'] == 'address') echo 'checked'?>> Địa chỉ
-                                        </div>
-                                        <div class='col-xs-12 col-md-3'>
-                                            <input type='radio' name='sort' value='phone'
-                                                <?php if(isset($data['sort']) && $data['sort'] == 'phone') echo 'checked'?>> Số điện thoại
+                                        <div class='col-md-4'>
+                                            <input type='radio' name='sort' value='parentId'
+                                            <?php if(isset($data['sort']) && $data['sort'] == 'parentId') echo 'checked'?>> Chuyên mục cha
                                         </div>
                                     </div>
                                 </div>
@@ -140,12 +123,12 @@
                                     <div id='type-sort' class='form-control-static'>
                                         <div class='col-xs-6 col-md-6'>
                                             <input type='radio' name='type_sort' value='asc'
-                                                <?php if(empty($data['type']) || isset($data['type']) && $data['type'] == 'asc') echo 'checked'?>>
+                                            <?php if(empty($data['type']) || isset($data['type']) && $data['type'] == 'asc') echo 'checked'?>>
                                             Tăng dần
                                         </div>
                                         <div class='col-xs-6 col-md-6'>
                                             <input type='radio' name='type_sort' value='desc'
-                                                <?php if(isset($data['type']) && $data['type'] == 'desc') echo 'checked'?>>
+                                            <?php if(isset($data['type']) && $data['type'] == 'desc') echo 'checked'?>>
                                             Giảm dần
                                         </div>
                                     </div>
@@ -156,7 +139,7 @@
                 </div>
 
                 <div class='modal-footer'>
-                    <button type="button" id='btn-filter-cus' class='btn btn-success'>Tìm</button>
+                    <button type="button" id='btn-filter-cat' class='btn btn-success'>Tìm</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
@@ -165,8 +148,8 @@
 
     <script>
         $(document).ready(function () {
-            $('#btn-filter-cus').click(function () {
-                $('#filter-cus-frm').submit();
+            $('#btn-filter-cat').click(function () {
+                $('#filter-cat-frm').submit();
             });
         })
     </script>
