@@ -45,7 +45,7 @@
                     @else
                         @foreach($list as $row)
                             <tr>
-                                <td>{!! $row->cus_id !!}</td>
+                                <td>{!! $row->id !!}</td>
                                 <td>{!! $row->name !!}</td>
                                 <td>
                                     @if($row->gender == 1) Nam
@@ -57,7 +57,7 @@
                                 <td>{!! $row->email !!}</td>
                                 <td>{!! $row->address !!}</td>
                                 <td>
-                                    <a href="{!! url('admin/customer/sua-thong-tin/'.$row->cus_id) !!}"
+                                    <a href="{!! url('admin/customer/sua-thong-tin/'.$row->id) !!}"
                                        class="btn btn-default">
                                         <span class="glyphicon glyphicon-edit">Sửa</span>
                                     </a>

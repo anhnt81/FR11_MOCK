@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $table = 'tbl_customer';
+    protected $table = 'tb_customer';
     protected $guarded =[];
 
 }

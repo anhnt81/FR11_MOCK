@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', function () {
+    return view('welcome');
+});
 // Controllers Within The "App\Http\Controllers\Admin" Admin
 Route::group(['prefix'=>'admin'], function() {
     //return view home admin
@@ -22,6 +24,7 @@ Route::group(['prefix'=>'admin'], function() {
     Route::get('dang-xuat', ['as'=>'logout','uses'=>'Admin\LoginController@logout']);
     //Todo new Route
 
+    //customer route
     Route::group(['prefix' => 'customer'], function () {
         Route::get('/', array(
             'as' => 'listCus',
@@ -38,6 +41,43 @@ Route::group(['prefix'=>'admin'], function() {
         Route::post('sua-thong-tin/{id}', array(
             'as' => 'postUpCus',
             'uses' => 'Admin\CustomerController@postUpdate'
+        ));
+    });
+
+
+    //category route
+    Route::group(['prefix' => 'category'], function () {
+        Route::get('/', array(
+            'as' => 'listCat',
+            'uses' => 'Admin\CategoryController@index'
+        ));
+
+        Route::get('filter', array(
+            'as' => 'filterCat',
+            'uses' => 'Admin\CategoryController@filter'
+        ));
+
+        Route::get('them-moi', array(
+            'as' => 'addCat',
+            'uses' => 'Admin\CategoryController@add'
+        ));
+        Route::post('them-moi', array(
+            'as' => 'postAddCat',
+            'uses' => 'Admin\CategoryController@postAdd'
+        ));
+
+        Route::get('sua-thong-tin/{id}', array(
+            'as' => 'upCat',
+            'uses' => 'Admin\CategoryController@update'
+        ));
+        Route::post('sua-thong-tin/{id}', array(
+            'as' => 'postUpCat',
+            'uses' => 'Admin\CategoryController@postUpdate'
+        ));
+
+        Route::get('xoa/{id}', array(
+            'as' => 'delCat',
+            'uses' => 'Admin\CategoryController@delete'
         ));
     });
 });

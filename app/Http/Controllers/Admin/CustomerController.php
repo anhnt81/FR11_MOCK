@@ -39,14 +39,14 @@ class CustomerController extends Controller
 
     public function update($id)
     {
-        $cus = $this->__cus->where('cus_id', $id)->first();
+        $cus = $this->__cus->where('id', $id)->first();
 
         return view('back-end.customer.update', compact('cus'));
     }
 
     public function postUpdate(UpdateCustomerRequest $r, $id)
     {
-        $this->__cus->where('cus_id', $id)
+        $this->__cus->where('id', $id)
             ->update([
                 'name'    => $r->name,
                 'email'   => $r->email,

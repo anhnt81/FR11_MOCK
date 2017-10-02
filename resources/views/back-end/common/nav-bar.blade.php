@@ -1,7 +1,7 @@
 <nav class='col-md-3 col-lg-2 collapse' id='nav-home'>
     <div style='text-align: center'>
         <img src='{{asset('public/uploads/images/'. Auth::user()->avatar )}}' class="img-circle" style="max-width: 80px"><br>
-        <span>{{Auth::User()->username}}</span>
+        <span>{{Auth::User()->name}}</span>
     </div>
     <hr color="darkgray">
     <ul class="nav nav-pills nav-stacked" role="tablist" style='border: none'>
