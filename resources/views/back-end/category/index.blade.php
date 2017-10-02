@@ -47,7 +47,7 @@
                             <tr>
                                 <td>{!! $row->id !!}</td>
                                 <td>{!! $row->name !!}</td>
-                                <td>{!! $row->parentId !!}</td>
+                                <td>@if(!empty($row->child->name)) {!! $row->child->name !!} @endif</td>
                                 <td>
                                     <a href="{!! url('admin/category/sua-thong-tin/'.$row->id) !!}"
                                        class="btn btn-warning">

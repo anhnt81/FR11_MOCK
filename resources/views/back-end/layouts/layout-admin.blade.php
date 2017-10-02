@@ -39,4 +39,4 @@
 </section>
 
 <!-- The footer -->
-@include('back-end.common.footer');
+@include('back-end.common.footer')

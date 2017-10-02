@@ -27,7 +27,7 @@
             </a>
         </li>
 
-        <li id='bill' class="dropdown">
+        <li id='order' class="dropdown">
             <a href="{!! url('admin/order') !!}">
                 <span class="glyphicon glyphicon-list-alt"></span> Quản Lý Đơn Hàng
             </a>
