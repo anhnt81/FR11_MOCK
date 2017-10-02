@@ -108,7 +108,7 @@
                         <!-- sort -->
                         <div class='form-group'>
                             <label for='sort-cus'>Sắp xếp</label>
-                            <div id='sort-cus' class='form-control-static'>
+                            <div id='sort-cus' class='form-control-static sort-frm'>
                                 <div class='form-group'>
                                     <label for='feild-sort'>Sắp xếp theo :</label>
                                     <div id='feild-sort' class='form-control-static'>

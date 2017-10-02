@@ -18,7 +18,7 @@ class LoginController extends Controller
             return view('back-end.home') ;
         }
         else{
-            return redirect()->route('getLogin');
+            return redirect()->route('login');
         }
     }
     public function getLogin(){
@@ -31,7 +31,8 @@ class LoginController extends Controller
 
         if( Auth::attempt(['email' => $email, 'password' =>$password])) {
             return redirect()->route('home');
-        } else {
+        }
+        else {
             $errors = new MessageBag(['errorlogin' => 'Email hoặc mật khẩu không đúng']);
             return redirect()->back()->withInput()->withErrors($errors);
         }
@@ -40,6 +41,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('getLogin');
+        return redirect()->route('login');
     }
 }

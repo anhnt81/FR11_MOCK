@@ -18,7 +18,7 @@ Route::group(['prefix'=>'admin'], function() {
     //return view home admin
     Route::get('/', ['as'=>'home','uses'=>'Admin\LoginController@home']);
     //return view form login
-    Route::get('dang-nhap',['as'=>'getLogin','uses'=>'Admin\LoginController@getLogin']);
+    Route::get('dang-nhap',['as'=>'login','uses'=>'Admin\LoginController@getLogin']);
     Route::post('dang-nhap',['as'=>'postLogin','uses'=>'Admin\LoginController@postLogin']);
     //handle logout
     Route::get('dang-xuat', ['as'=>'logout','uses'=>'Admin\LoginController@logout']);
@@ -78,6 +78,24 @@ Route::group(['prefix'=>'admin'], function() {
         Route::get('xoa/{id}', array(
             'as' => 'delCat',
             'uses' => 'Admin\CategoryController@delete'
+        ));
+    });
+
+    //order route
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('/', array(
+            'as' => 'listOrder',
+            'uses' => 'Admin\OrderController@index'
+        ));
+
+        Route::get('filter', array(
+            'as' => 'filterOrder',
+            'uses' => 'Admin\OrderController@filter'
+        ));
+
+        Route::get('chi-tiet/{id}', array(
+            'as' => 'orderDetail',
+            'uses' => 'Admin\OrderController@viewDetail'
         ));
     });
 });

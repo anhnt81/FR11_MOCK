@@ -89,8 +89,8 @@
                     {{--{{ csrf_field() }}--}}
                     <!-- search -->
                         <div class='form-group'>
-                            <label for='search-cus'>Tìm kiếm</label>
-                            <div id='search-cus'>
+                            <label for='search-cat'>Tìm kiếm</label>
+                            <div id='search-cat'>
                                 <input type='search' name='search' class='form-control'
                                        value='<?php if(isset($data['key'])) echo $data['key'] ?>' placeholder='Nhập tên chuyên mục......'>
                             </div>
@@ -98,8 +98,8 @@
 
                         <!-- sort -->
                         <div class='form-group'>
-                            <label for='sort-cus'>Sắp xếp</label>
-                            <div id='sort-cus' class='form-control-static'>
+                            <label for='sort-cat'>Sắp xếp</label>
+                            <div id='sort-cat' class='form-control-static sort-frm'>
                                 <div class='form-group'>
                                     <label for='feild-sort'>Sắp xếp theo :</label>
                                     <div id='feild-sort' class='form-control-static'>

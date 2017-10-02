@@ -45,10 +45,10 @@
                         @foreach($list as $row)
                             <tr>
                                 <td>{!! $row->id !!}</td>
-                                <td>{!! $row->cus !!}</td>
+                                <td>{!! $row->cid !!}</td>
                                 <td>{!! $row->total !!}</td>
                                 <td>{!! $row->note !!}</td>
-                                <td>{!! $row->status !!}</td>
+                                <td>{!! $row->st !!}</td>
                                 <td>
                                     <a href="{!! url('admin/order/chi-tiet/'.$row->id) !!}"
                                        class="btn btn-default">
@@ -81,49 +81,39 @@
                 </div>
 
                 <div class='modal-body'>
-                    <form method='get' action='{!! url('admin/customer/filter') !!}' role='form' id='filter-cus-frm'>
+                    <form method='get' action='{!! url('admin/order/filter') !!}' role='form' id='filter-cus-frm'>
                     {{--{{ csrf_field() }}--}}
                     <!-- search -->
                         <div class='form-group'>
-                            <label for='search-cus'>Tìm kiếm</label>
-                            <div id='search-cus'>
-                                <input type='search' name='search' class='form-control' style='width : 60%; float:left; margin-right: 10px'
-                                       value='<?php if(isset($data['key'])) echo $data['key'] ?>' placeholder='Nhập từ khóa'>
-                                <select name='field_search' style='width : 35%' class='form-control'>
-                                    <option value='name' @if(isset($data['field']) && $data['field'] == 'name') selected @endif>Theo tên</option>
-                                    <option value='email' @if(isset($data['field']) && $data['field'] == 'email') selected @endif>Theo email</option>
-                                    <option value='address' @if(isset($data['field']) && $data['field'] == 'address') selected @endif>Theo địa chỉ</option>
-                                    <option value='phone' @if(isset($data['field']) && $data['field'] == 'phone') selected @endif>Theo số điện thoại</option>
-                                </select>
+                            <label for='search-order'>Tìm kiếm</label>
+                            <div id='search-order'>
+                                <input type='search' name='search' class='form-control'
+                                       value='<?php if (isset($data['key'])) echo $data['key'] ?>'
+                                       placeholder='Nhập tên khác'>
                             </div>
                         </div>
 
                         <!-- sort -->
                         <div class='form-group'>
-                            <label for='sort-cus'>Sắp xếp</label>
-                            <div id='sort-cus' class='form-control-static'>
+                            <label for='sort-order'>Sắp xếp</label>
+                            <div id='sort-order' class='form-control-static sort-frm'>
                                 <div class='form-group'>
                                     <label for='feild-sort'>Sắp xếp theo :</label>
                                     <div id='feild-sort' class='form-control-static'>
-                                        <div class='col-xs-6 col-md-2'>
-                                            <input type='radio' name='sort' value='name'
-                                            <?php if(isset($data['sort']) && $data['sort'] == 'name') echo 'checked'?>> Tên
-                                        </div>
-                                        <div class='col-xs-6 col-md-2'>
+                                        <div class='col-xs-4 col-md-4'>
                                             <input type='radio' name='sort' value='id'
-                                            <?php if(empty($data['sort']) || (isset($data['sort']) && $data['sort'] == 'id')) echo 'checked'?>> ID
+                                            <?php if (empty($data['sort']) || (isset($data['sort']) && $data['sort'] == 'id')) echo 'checked'?>>
+                                            ID
                                         </div>
-                                        <div class='col-xs-6 col-md-2'>
-                                            <input type='radio' name='sort' value='email'
-                                            <?php if(isset($data['sort']) && $data['sort'] == 'email') echo 'checked'?>> E-mail
+                                        <div class='col-xs-4 col-md-4'>
+                                            <input type='radio' name='sort' value='name'
+                                            <?php if (isset($data['sort']) && $data['sort'] == 'name') echo 'checked'?>>
+                                            Tên khách hàng
                                         </div>
-                                        <div class='col-xs-6 col-md-3'>
-                                            <input type='radio' name='sort' value='address'
-                                            <?php if(isset($data['sort']) && $data['sort'] == 'address') echo 'checked'?>> Địa chỉ
-                                        </div>
-                                        <div class='col-xs-12 col-md-3'>
-                                            <input type='radio' name='sort' value='phone'
-                                            <?php if(isset($data['sort']) && $data['sort'] == 'phone') echo 'checked'?>> Số điện thoại
+                                        <div class='col-xs-4 col-md-4'>
+                                            <input type='radio' name='sort' value='total'
+                                            <?php if (isset($data['sort']) && $data['sort'] == 'total') echo 'checked'?>>
+                                            Tổng tiền
                                         </div>
                                     </div>
                                 </div>
@@ -133,16 +123,36 @@
                                     <div id='type-sort' class='form-control-static'>
                                         <div class='col-xs-6 col-md-6'>
                                             <input type='radio' name='type_sort' value='asc'
-                                            <?php if(empty($data['type']) || isset($data['type']) && $data['type'] == 'asc') echo 'checked'?>>
+                                            <?php if (empty($data['type']) || isset($data['type']) && $data['type'] == 'asc') echo 'checked'?>>
                                             Tăng dần
                                         </div>
                                         <div class='col-xs-6 col-md-6'>
                                             <input type='radio' name='type_sort' value='desc'
-                                            <?php if(isset($data['type']) && $data['type'] == 'desc') echo 'checked'?>>
+                                            <?php if (isset($data['type']) && $data['type'] == 'desc') echo 'checked'?>>
                                             Giảm dần
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- status filter -->
+                        <div class='form-group'>
+                            <label for='status-order'>Tình trạng</label>
+                            <select id='status-order' class='form-control' name='status'>
+                                @foreach($status as $key => $item)
+                                    <option value='{!! $key !!}'>{!! $item !!}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- money filter -->
+                        <div class='form-group'>
+                            <label for='money-order'>Tiền</label>
+                            <div id='money-order' class='form-control-static'>
+                                <input class='form-control' type='number' name='from' style='width:45%;float: left;margin-right: 10px'>
+                                <span> To </span>
+                                <input class='form-control' type='number' name='to' style='width:45%; float: right'>
                             </div>
                         </div>
                     </form>

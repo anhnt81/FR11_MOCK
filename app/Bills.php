@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bills extends Model
 {
-    protected $table = 'tbl_bills';
+    protected $table = 'tb_order';
+    protected $guarded =[];
 }
