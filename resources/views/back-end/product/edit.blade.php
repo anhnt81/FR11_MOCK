@@ -1,6 +1,6 @@
 @extends('back-end.layouts.layout-admin')
 @section('content')
-    <form class="form-horizontal" method="post" action="{{route('updateProduct',$product->id)}}" enctype="multipart/form-data">
+    <form style="margin-bottom: 50px;" class="form-horizontal" method="post" action="{{route('updateProduct',$product->id)}}" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <h4>Update Product</h4>
         <div class="form-group">
@@ -38,8 +38,8 @@
             <label class="col-sm-3 col-md-2 control-label">Category</label>
             <div class="col-sm-7 col-md-8">
                 <select class="form-control" id="id_type" name="category">
-                    <option id="category" value="{{$categoryByIds->id}}">{{$categoryByIds->name}}</option>
-                    @foreach($category as $cat)
+                    <option id="category" value="{{$categoryById->id}}">{{$categoryById->name}}</option>
+                    @foreach($categoryAll as $cat)
                     <option value="{{$cat->id}}">{{$cat->name}}</option>
                     @endforeach
                 </select>
@@ -54,8 +54,8 @@
             <label class="col-sm-3 col-md-2 control-label">Brand</label>
             <div class="col-sm-7 col-md-8">
                 <select class="form-control" id="brand" name="brand">
-                    <option id="brand" value="{{$brandByIds->id}}">{{$brandByIds->name}}</option>
-                    @foreach($brands as $brand)
+                    <option id="brand" value="{{$brandById->id}}">{{$brandById->name}}</option>
+                    @foreach($brandAll as $brand)
                         <option value="{{$brand->id}}">{{$brand->name}}</option>
                     @endforeach
                 </select>
@@ -69,7 +69,8 @@
         <div class="form-group">
             <label class="col-sm-3 col-md-2 control-label">Description</label>
             <div class="col-sm-7 col-md-8">
-                <input type="text" class="form-control" name="description" value="{{$product['description']}}">
+                <input type="text" class="form-control" name="description" value="{{$product->description}}">
+                <p>Description<textarea class="form-control" name="description" id="description" rows="5" cols="20" maxlength="20" value="{{$product->description}}"></textarea></p>
             </div>
             @if ($errors->has('description'))
                 <span class="help-block">
