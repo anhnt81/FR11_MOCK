@@ -23,6 +23,10 @@ Route::group(['prefix'=>'admin'], function() {
     //handle logout
     Route::get('dang-xuat', ['as'=>'logout','uses'=>'Admin\LoginController@logout']);
     //Todo new Route
+    //Hien: Brand
+    Route::group(['prefix'=>'/brand'],function(){
+    	Route::get('/',['as'=>'listBrand','uses'=>'Admin\BrandController@listBrand']);
+    });
 
     //customer route
     Route::group(['prefix' => 'customer'], function () {
@@ -43,6 +47,12 @@ Route::group(['prefix'=>'admin'], function() {
             'uses' => 'Admin\CustomerController@postUpdate'
         ));
     });
+    /* AnhNT9 listView Product */
+    Route::get('/list-product', ['as' => 'listProduct', 'uses' => 'Admin\ProductController@listProduct']);
+    Route::post('/list-product', ['as' => 'addProduct', 'uses' => 'Admin\ProductController@createProduct']);
+    Route::get('edit-product/{id}', ['as' => 'updateProduct', 'uses' => 'Admin\ProductController@updateProduct']);
+    Route::post('edit-product/{id}', ['as' => 'saveProduct', 'uses' => 'Admin\ProductController@saveProduct']);
+
 
 
     //category route

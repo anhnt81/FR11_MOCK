@@ -12,6 +12,10 @@ use Auth;
 
 class UserController extends Controller
 {
+    //
+   public function listBrand(){
+   		return view("brand.list");
+   }
     private  $__user;
 
     public function __construct()
