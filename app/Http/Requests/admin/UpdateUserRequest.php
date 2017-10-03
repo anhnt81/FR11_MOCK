@@ -24,7 +24,7 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'  => 'required|max:40|unique:tb_user,email' . $this->id,
+            'email'  => 'required|max:40|unique:tb_user,email,' . $this->id,
             'pass'   => 'nullable|min:8|max:16',
             'repass' => 'same:pass',
             'phone'  => 'required|regex:/^[0-9]+$/|min:10|max:11',

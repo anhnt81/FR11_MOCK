@@ -29,8 +29,20 @@ class LoginController extends Controller
         $email = $request->email;
         $password = $request->password;
 
-        if( Auth::attempt(['email' => $email, 'password' =>$password])) {
-            return redirect()->route('home');
+        if( Auth::attempt(['email' => $email, 'password' => $password])) {
+            if(Auth::User()->level < 2){
+                if(Auth::User()->status == 1){
+                    return redirect()->route('home');
+                }
+                else{
+                    $errors = new MessageBag(['errorlogin' => 'Tài khoản này đang bị khóa']);
+                    return redirect()->back()->withInput()->withErrors($errors);
+                }
+            }
+            else{
+                $errors = new MessageBag(['errorlogin' => 'Tài khoản này không đủ quyền quản trị']);
+                return redirect()->back()->withInput()->withErrors($errors);
+            }
         }
         else {
             $errors = new MessageBag(['errorlogin' => 'Email hoặc mật khẩu không đúng']);

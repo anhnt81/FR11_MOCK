@@ -105,15 +105,18 @@ class UserController extends Controller
 
         $user->email = $r->email;
         $user->name = $r->name;
+        $user->status = $r->status;
+        $user->level = $r->level;
         if(!empty($r->pass)){
-            $user->password = $r->pass;
+            $user->password = bcrypt($r->pass);
         }
         $user->phone = $r->phone;
-        if(Input::hasFile('avatar')){
-            $file=Input::file('avatar');
-            $file->move('public/uploads/images' , '');
-        }
+//        if(Input::hasFile('avatar')){
+//            $file=Input::file('avatar');
+//            $file->move('public/uploads/images' , '');
+//        }
 
+        $user->save();
 
         return redirect()->route('listUser');
     }

@@ -63,7 +63,7 @@
                     @endif
                     <input type='file' name='avatar' onchange='previewImage(this, "pv-ava-user")' id='avatar' class='form-val'>
                     <img id='pv-ava-user' src='{{asset('public/uploads/images/'.$user->avatar)}}'
-                         style='max-height: 60px;'>
+                         style='max-height: 97px;'>
                 </div>
 
                 <div class="form-group">
