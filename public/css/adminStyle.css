@@ -1,0 +1,65 @@
+body {
+    padding-top      : 50px;
+    background-color : #eee;
+}
+
+#btn-logout {
+    text-align  : right;
+    margin-top  : 15px;
+    font-weight : bold;
+}
+
+#btn-logout a:hover {
+    color           : #fff;
+    text-decoration : none;
+}
+
+#nav-home {
+    padding    : 10px 0;
+    overflow-y : auto;
+    overflow-x : hidden;
+    left       : 0;
+    bottom     : 0;
+    background : white;
+}
+
+#nav-home > ul > li a {
+    color : #30a5ff;
+}
+
+#nav-home > ul > li.active a {
+    background-color : #30a5ff;
+    color            : #fff;
+}
+
+#nav-home .dropdown-menu {
+    position : static;
+    float    : none;
+}
+
+.glyphicon {
+    margin-right : 10px;
+}
+
+#content {
+    padding : 0;
+}
+
+#content > article {
+    margin : 0 20px;
+}
+
+#sort-cus{
+    border : 1px #eee solid;
+    border-radius: 5px;
+    padding : 15px 15px 0 15px;
+}
+
+.order-info { padding : 0; }
+.order-info .panel-body > div { margin-top : 15px; }
+.order-info .panel-body > div > span:nth-child(1) { font-weight : bold; }
+
+.right { float : right; }
+.breadcrumb{
+    background-color:#eeeeee;
+}
