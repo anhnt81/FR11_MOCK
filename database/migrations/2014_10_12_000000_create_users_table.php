@@ -16,13 +16,14 @@ class CreateUsersTable extends Migration
         Schema::create('tb_user', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('password', 60);
-            $table->string('phone', 15);
+            $table->string('phone', 15)->unique();
             $table->string('avatar');
+            $table->integer('level');
+            $table->integer('status');
             $table->rememberToken();
             $table->timestamps();
-            $table->unique('email');
         });
     }
 

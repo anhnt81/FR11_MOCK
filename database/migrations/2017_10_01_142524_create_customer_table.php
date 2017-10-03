@@ -20,7 +20,9 @@ class CreateCustomerTable extends Migration
             $table->string('phone');
             $table->string('email');
             $table->string('address');
+            $table->unsignedInteger('uid');
             $table->timestamps();
+            $table->foreign('uid')->references('id')->on('tb_user');
         });
     }
 
