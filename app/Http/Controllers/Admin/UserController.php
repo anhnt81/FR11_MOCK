@@ -8,4 +8,7 @@ use App\Http\Controllers\Controller;
 class UserController extends Controller
 {
     //
+   public function listBrand(){
+   		return view("brand.list");
+   }
 }
