@@ -35,11 +35,13 @@ class LoginController extends Controller
                     return redirect()->route('home');
                 }
                 else{
+                    Auth::logout();
                     $errors = new MessageBag(['errorlogin' => 'Tài khoản này đang bị khóa']);
                     return redirect()->back()->withInput()->withErrors($errors);
                 }
             }
             else{
+                Auth::logout();
                 $errors = new MessageBag(['errorlogin' => 'Tài khoản này không đủ quyền quản trị']);
                 return redirect()->back()->withInput()->withErrors($errors);
             }

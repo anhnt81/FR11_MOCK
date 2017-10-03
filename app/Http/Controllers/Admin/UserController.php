@@ -9,7 +9,6 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
-use Symfony\Component\Console\Input\Input;
 
 class UserController extends Controller
 {

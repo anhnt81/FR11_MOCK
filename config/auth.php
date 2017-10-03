@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'tb_user',
+            'provider' => 'user',
         ],
 
         'api' => [
@@ -48,7 +48,7 @@ return [
 
         'admin' => [
             'driver' => 'session',
-            'provider' => 'tb_user',
+            'provider' => 'admin',
         ],
     ],
 
@@ -70,7 +70,11 @@ return [
     */
 
     'providers' => [
-        'tb_user' => [
+        'user' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
+        'admin' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
