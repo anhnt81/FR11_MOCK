@@ -13,7 +13,7 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_order', function (Blueprint $table) {
+        Schema::create('tb_bills', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('cid');
             $table->double('total');
@@ -31,6 +31,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_orders');
+        Schema::dropIfExists('tb_bills');
     }
 }
