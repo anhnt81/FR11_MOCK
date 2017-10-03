@@ -1,7 +1,7 @@
 <nav class='col-md-3 col-lg-2 collapse' id='nav-home'>
     <div style='text-align: center'>
         <img src='{{asset('public/uploads/images/'. Auth::user()->avatar )}}' class="img-circle" style="max-width: 80px"><br>
-        <span>{{Auth::User()->username}}</span>
+        <span>{{Auth::User()->name}}</span>
     </div>
     <hr color="darkgray">
     <ul class="nav nav-pills nav-stacked" role="tablist" style='border: none'>
@@ -27,8 +27,8 @@
             </a>
         </li>
 
-        <li id='bill' class="dropdown">
-            <a href="{!! url('admin/bill') !!}">
+        <li id='order' class="dropdown">
+            <a href="{!! url('admin/order') !!}">
                 <span class="glyphicon glyphicon-list-alt"></span> Quản Lý Đơn Hàng
             </a>
         </li>
@@ -53,12 +53,14 @@
 
         <li id='setting' class="dropdown">
             <a href="{!! url('admin/setting') !!}">
-                <span class="glyphicon glyphicon-wrench"></span> Cài Đặt</span>
+                <span class="glyphicon glyphicon-cog"></span> Cài Đặt</span>
             </a>
         </li>
     </ul>
     <hr>
-    <div style='text-align: center'>
-        <a>Vào Website</a>
+    <div style='text-align: center; line-height: 30px;'>
+        <a href='{!! url('admin/user/update'.Auth::User()->id) !!}'>Sửa thông tin cá nhân</a>
+        <br>
+        <a href='{!! url('/') !!}'>Vào Website</a>
     </div>
 </nav>

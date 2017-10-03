@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('cid');
             $table->double('total');
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->integer('status');
             $table->timestamps();
             $table->foreign('cid')->references('id')->on('tb_customer')->onDelete('cascade');

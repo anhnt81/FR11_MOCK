@@ -18,7 +18,7 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $list = $this->__cus->paginate(7);
+        $list = $this->__cus->orderBy('updated_at', 'desc')->paginate(7);
 
         return view('back-end.customer.index', compact('list'));
     }
@@ -32,21 +32,22 @@ class CustomerController extends Controller
 
         $list = $this->__cus->where($data['field'], 'LIKE', '%' . $data['key'] . '%')
             ->orderBy($data['sort'], $data['type'])
-            ->paginate(7);
+            ->paginate(5)
+            ->withPath("?search={$data['key']}&field_search={$data['field']}&sort={$data['sort']}&type_sort={$data['type']}");
 
         return view('back-end.customer.index', compact('list'))->with('data', $data);
     }
 
     public function update($id)
     {
-        $cus = $this->__cus->where('cus_id', $id)->first();
+        $cus = $this->__cus->where('id', $id)->first();
 
         return view('back-end.customer.update', compact('cus'));
     }
 
     public function postUpdate(UpdateCustomerRequest $r, $id)
     {
-        $this->__cus->where('cus_id', $id)
+        $this->__cus->where('id', $id)
             ->update([
                 'name'    => $r->name,
                 'email'   => $r->email,

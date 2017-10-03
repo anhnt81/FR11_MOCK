@@ -18,7 +18,6 @@ class CreateCategoryTable extends Migration
             $table->string('name');
             $table->unsignedInteger('parentId')->nullable();
             $table->timestamps();
-            $table->unique(['id', 'parentId']);
             $table->foreign('parentId')
                 ->references('id')
                 ->on('tb_category')

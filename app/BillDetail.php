@@ -6,5 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class BillDetail extends Model
 {
-    protected $table = 'tbl_bill_detail';
+    protected $table = 'tb_order_detail';
+    protected $guarded = [];
+
+    public function order()
+    {
+        return $this->belongsTo('App\Order', 'oid','id');
+    }
+
+    public function product()
+    {
+        return $this->hasMany('App\Product', 'pid','id');
+    }
 }

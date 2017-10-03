@@ -45,7 +45,7 @@
                     @else
                         @foreach($list as $row)
                             <tr>
-                                <td>{!! $row->cus_id !!}</td>
+                                <td>{!! $row->id !!}</td>
                                 <td>{!! $row->name !!}</td>
                                 <td>
                                     @if($row->gender == 1) Nam
@@ -57,9 +57,10 @@
                                 <td>{!! $row->email !!}</td>
                                 <td>{!! $row->address !!}</td>
                                 <td>
-                                    <a href="{!! url('admin/customer/sua-thong-tin/'.$row->cus_id) !!}"
-                                       class="btn btn-default">
-                                        <span class="glyphicon glyphicon-edit">Sửa</span>
+                                    <a href="{!! url('admin/customer/sua-thong-tin/'.$row->id) !!}"
+                                       class="btn btn-warning">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        Sửa
                                     </a>
                                 </td>
                             </tr>
@@ -107,7 +108,7 @@
                         <!-- sort -->
                         <div class='form-group'>
                             <label for='sort-cus'>Sắp xếp</label>
-                            <div id='sort-cus' class='form-control-static'>
+                            <div id='sort-cus' class='form-control-static sort-frm'>
                                 <div class='form-group'>
                                     <label for='feild-sort'>Sắp xếp theo :</label>
                                     <div id='feild-sort' class='form-control-static'>
@@ -116,8 +117,8 @@
                                                 <?php if(isset($data['sort']) && $data['sort'] == 'name') echo 'checked'?>> Tên
                                         </div>
                                         <div class='col-xs-6 col-md-2'>
-                                            <input type='radio' name='sort' value='cus_id'
-                                                <?php if(empty($data['sort']) || (isset($data['sort']) && $data['sort'] == 'cus_id')) echo 'checked'?>> ID
+                                            <input type='radio' name='sort' value='id'
+                                                <?php if(empty($data['sort']) || (isset($data['sort']) && $data['sort'] == 'id')) echo 'checked'?>> ID
                                         </div>
                                         <div class='col-xs-6 col-md-2'>
                                             <input type='radio' name='sort' value='email'
@@ -167,17 +168,6 @@
             $('#btn-filter-cus').click(function () {
                 $('#filter-cus-frm').submit();
             });
-
-            if($(location).attr('href').indexOf('filter') != -1) {
-                var a = $('.pagination a');
-                var page;
-
-                for (var i = 0; i < a.length; i++){
-                    page = $(a[i]).attr('href').split('?');
-                    page = page[page.length - 1];
-                    $(a[i]).attr('href', $(location).attr('href') + '&' + page);
-                }
-            }
         })
     </script>
 @endsection
