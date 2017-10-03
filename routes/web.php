@@ -42,5 +42,8 @@ Route::group(['prefix'=>'admin'], function() {
     });
     /* AnhNT9 listView Product */
     Route::get('/list-product', ['as' => 'listProduct', 'uses' => 'Admin\ProductController@listProduct']);
+    Route::post('/list-product', ['as' => 'addProduct', 'uses' => 'Admin\ProductController@createProduct']);
+    Route::get('edit-product/{id}', ['as' => 'updateProduct', 'uses' => 'Admin\ProductController@updateProduct']);
+    Route::post('edit-product/{id}', ['as' => 'saveProduct', 'uses' => 'Admin\ProductController@saveProduct']);
 
 });
