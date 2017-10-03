@@ -23,9 +23,11 @@ class AddCatRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|unique:tb_category,name'
-        ];
+        if(empty($this->id))
+            $err = ['name' => 'required|unique:tb_category,name'];
+        else
+            $err = ['name' => 'required|unique:tb_category,name,'.$this->id];
+        return $err;
     }
 
     public function messages()

@@ -33,6 +33,16 @@ class Helper
         );
     }
 
+    public static function levelArr()
+    {
+        return array(
+            1 => 'Boss',
+            2 => 'Admin',
+            3 => 'Người dùng vip',
+            4 => 'Người dùng thường'
+        );
+    }
+
     public static function valOfArr($arr = array(), $k)
     {
         foreach ($arr as $key => $value) {

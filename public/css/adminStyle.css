@@ -60,3 +60,7 @@ body {
 .order-info .panel-body > div > span:nth-child(1) { font-weight : bold; }
 
 .right { float : right; }
+
+.img-ava { max-height : 80px; }
+
+.required { color : red; }

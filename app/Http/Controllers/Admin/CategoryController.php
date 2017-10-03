@@ -41,7 +41,7 @@ class CategoryController extends Controller
 
     public function add()
     {
-        $list = $this->__cat->orderBy('updated_at');
+        $list = $list = Category::all();
 
         return view('back-end.category.add', compact('list'));
     }

@@ -51,6 +51,7 @@
                 </div>
 
                 <div class="form-group">
+                    <input type='hidden' name='id' value='{!! $cat->id !!}'>
                     <button class="btn btn-primary">Lưu</button>
                     <a href="{!! url('admin/category') !!}" class="btn btn-danger">Quay Lại</a>
                 </div>

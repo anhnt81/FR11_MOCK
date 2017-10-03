@@ -50,15 +50,18 @@
                                 <td>@if(!empty($row->child->name)) {!! $row->child->name !!} @endif</td>
                                 <td>
                                     <a href="{!! url('admin/category/sua-thong-tin/'.$row->id) !!}"
-                                       class="btn btn-warning">
+                                       class="btn btn-warning"  style='margin-right:10px;float:left;'>
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Sửa
                                     </a>
-                                    <a href="{!! url('admin/category/xoa/'.$row->id) !!}"
-                                       class="btn btn-danger">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                        Xóa
-                                    </a>
+                                    <form method='post' action='{!! url('admin/category/xoa') !!}'>
+                                        {{ csrf_field() }}--
+                                        <input name='id' type='hidden' value='{{$row->id}}'>
+                                       <button type='submit' class="btn btn-danger">
+                                           <span class="glyphicon glyphicon-remove"></span>
+                                           Xóa
+                                       </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

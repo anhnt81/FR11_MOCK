@@ -67,5 +67,18 @@ function navActive(id)
     $("#nav-home > ul > li.active").removeClass("active");
     $(id).addClass("active");
     $(id).addClass("open");
+}
 
+function previewImage(input, id)
+{
+    if (input.files && input.files[0])
+    {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $("#" + id).attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
 }

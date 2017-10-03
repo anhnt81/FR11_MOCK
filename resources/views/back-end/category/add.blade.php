@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button class="btn btn-primary">Tạo mới</button>
+                    <button type='submit' class="btn btn-primary">Tạo mới</button>
                     <a href="{!! url('admin/category') !!}" class="btn btn-danger">Quay Lại</a>
                 </div>
             </form>

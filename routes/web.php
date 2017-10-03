@@ -75,7 +75,7 @@ Route::group(['prefix'=>'admin'], function() {
             'uses' => 'Admin\CategoryController@postUpdate'
         ));
 
-        Route::get('xoa/{id}', array(
+        Route::post('xoa', array(
             'as' => 'delCat',
             'uses' => 'Admin\CategoryController@delete'
         ));
@@ -115,5 +115,41 @@ Route::group(['prefix'=>'admin'], function() {
 
         Route::get('sua-thong-tin/{id}', ['uses' => 'Admin\CmtController@changeStatus']);
         Route::get('filter', ['uses' => 'Admin\CmtController@filter']);
+    });
+
+    //users route
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/', array(
+            'as' => 'listUser',
+            'uses' => 'Admin\UserController@index'
+        ));
+
+        Route::get('filter', array(
+            'as' => 'filterUser',
+            'uses' => 'Admin\UserController@filter'
+        ));
+
+        Route::get('them-moi', array(
+            'as' => 'addUser',
+            'uses' => 'Admin\UserController@add'
+        ));
+        Route::post('them-moi', array(
+            'as' => 'postAddUser',
+            'uses' => 'Admin\UserController@postAdd'
+        ));
+
+        Route::get('sua-thong-tin/{id}', array(
+            'as' => 'upUser',
+            'uses' => 'Admin\UserController@update'
+        ));
+        Route::post('sua-thong-tin/{id}', array(
+            'as' => 'postUpUser',
+            'uses' => 'Admin\UserController@postUpdate'
+        ));
+
+        Route::post('xoa', array(
+            'as' => 'delUser',
+            'uses' => 'Admin\UserController@delete'
+        ));
     });
 });
