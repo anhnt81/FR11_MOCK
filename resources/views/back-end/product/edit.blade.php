@@ -70,6 +70,7 @@
             <label class="col-sm-3 col-md-2 control-label">Description</label>
             <div class="col-sm-7 col-md-8">
                 <input type="text" class="form-control" name="description" value="{{$product->description}}">
+                <p>Description<textarea class="form-control" name="description" id="description" rows="5" cols="20" maxlength="20" value="{{$product->description}}"></textarea></p>
             </div>
             @if ($errors->has('description'))
                 <span class="help-block">

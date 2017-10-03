@@ -14,7 +14,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 // Controllers Within The "App\Http\Controllers\Admin" Admin
-Route::group(['prefix'=>'admin'], function() {
+Route::group(['prefix'=>'admin','middleware' => 'auth'], function() {
     //return view home admin
     Route::get('/', ['as'=>'home','uses'=>'Admin\LoginController@home']);
     //return view form login
