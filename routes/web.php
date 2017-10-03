@@ -97,5 +97,23 @@ Route::group(['prefix'=>'admin'], function() {
             'as' => 'orderDetail',
             'uses' => 'Admin\OrderController@viewDetail'
         ));
+
+        Route::get('sua-thong-tin/{id}', array(
+            'uses' => 'Admin\OrderController@update'
+        ));
+        Route::post('sua-thong-tin/{id}', array(
+            'uses' => 'Admin\OrderController@postUpdate'
+        ));
+    });
+
+    //comment route
+    Route::group(['prefix' => 'comment'], function () {
+        Route::get('/', array(
+            'as' => 'listCmt',
+            'uses' => 'Admin\CmtController@index'
+        ));
+
+        Route::get('sua-thong-tin/{id}', ['uses' => 'Admin\CmtController@changeStatus']);
+        Route::get('filter', ['uses' => 'Admin\CmtController@filter']);
     });
 });

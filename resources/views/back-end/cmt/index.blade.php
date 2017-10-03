@@ -29,11 +29,11 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Khách hàng</th>
-                        <th>Tổng tiền</th>
-                        <th>Ghi chú</th>
+                        <th>Người đăng</th>
+                        <th>Sản phẩm</th>
+                        <th>Nội dung</th>
                         <th>Tình trạng</th>
-                        <th>Ngày tạo</th>
+                        <th>Ngày đăng</th>
                         <th>Hành động</th>
                     </tr>
                     </thead>
@@ -46,20 +46,16 @@
                         @foreach($list as $row)
                             <tr>
                                 <td>{!! $row->id !!}</td>
-                                <td>{!! $row->cid !!}</td>
-                                <td>{!! $row->total !!}</td>
-                                <td>{!! $row->note !!}</td>
-                                <td>{!! $row->st !!}</td>
+                                <td>{!! $row->user->name !!}</td>
+                                <td>{!! $row->product->name !!}</td>
+                                <td>{!! $row->content !!}</td>
+                                <td>@if($row->status == 0) Khóa @else Hiển thị @endif</td>
+                                <td>{!! $row->create_at !!}</td>
                                 <td>
-                                    <a href="{!! url('admin/order/chi-tiet/'.$row->id) !!}"
-                                       class="btn btn-default">
-                                        <span class="glyphicon glyphicon-eye-open"></span>
-                                        Xem chi tiết
-                                    </a>
-                                    <a href="{!! url('admin/order/sua-thong-tin/'.$row->id) !!}"
+                                    <a href="{!! url('admin/comment/sua-thong-tin/'.$row->id) !!}"
                                        class="btn btn-warning">
                                         <span class="glyphicon glyphicon-edit"></span>
-                                        Sửa
+                                        @if($row->status == 0) Mở @else Khóa @endif
                                     </a>
                                 </td>
                             </tr>
@@ -81,14 +77,13 @@
     <div id='filter-modal' class='modal fade' role='dialog'>
         <div class='modal-dialog'>
             <div class='modal-content'>
-                <form method='get' action='{!! url('admin/order/filter') !!}' role='form' id='filter-cus-frm'>
+                <form method='get' action='{!! url('admin/comment/filter') !!}' role='form'>
                     <div class='modal-header'>
                         <button type='button' class='close' data-dismiss='modal'>&times;</button>
-                        <h3>Lọc khách hàng</h3>
+                        <h3>Lọc bình luận</h3>
                     </div>
 
                     <div class='modal-body'>
-
                     {{--{{ csrf_field() }}--}}
                     <!-- search -->
                         <div class='form-group'>
@@ -96,7 +91,7 @@
                             <div id='search-order'>
                                 <input type='search' name='search' class='form-control'
                                        value='<?php if (isset($data['key'])) echo $data['key'] ?>'
-                                       placeholder='Nhập tên khách hàng .....'>
+                                       placeholder='Nhập từ khóa .....'>
                             </div>
                         </div>
 
@@ -113,14 +108,14 @@
                                             ID
                                         </div>
                                         <div class='col-xs-4 col-md-4'>
-                                            <input type='radio' name='sort' value='cid'
-                                            <?php if (isset($data['sort']) && $data['sort'] == 'name') echo 'checked'?>>
-                                            Khách hàng
+                                            <input type='radio' name='sort' value='uid'
+                                            <?php if (isset($data['sort']) && $data['sort'] == 'uid') echo 'checked'?>>
+                                            Người đăng
                                         </div>
                                         <div class='col-xs-4 col-md-4'>
-                                            <input type='radio' name='sort' value='total'
-                                            <?php if (isset($data['sort']) && $data['sort'] == 'total') echo 'checked'?>>
-                                            Tổng tiền
+                                            <input type='radio' name='sort' value='pid'
+                                            <?php if (isset($data['sort']) && $data['sort'] == 'pid') echo 'checked'?>>
+                                            Sản phẩm
                                         </div>
                                     </div>
                                 </div>
@@ -147,28 +142,11 @@
                         <div class='form-group'>
                             <label for='status-order'>Tình trạng</label>
                             <select id='status-order' class='form-control' name='status'>
-                                <option value='0'>--Chọn tình trạng đơn hàng--</option>
-                                @foreach($status as $key => $item)
-                                    <option value='{!! $key !!}'
-                                            @if(isset($data['status']) && $data['status'] == $key)
-                                            selected
-                                            @endif>{!! $item !!}</option>
-                                @endforeach
+                                <option value='-1'>--Tất cả--</option>
+                                <option value='1'>Hiên thị</option>
+                                <option value='0'>Khóa</option>
                             </select>
                         </div>
-
-                        <!-- money filter -->
-                        <div class='form-group'>
-                            <label for='money-order'>Tiền</label>
-                            <div id='money-order' class='form-control-static'>
-                                <input class='form-control' type='number' name='from' placeholder='000000000 VNĐ'
-                                       style='width:45%;float: left;margin-right: 15px;'>
-                                <span> To </span>
-                                <input class='form-control' type='number' name='to' placeholder='000000000 VNĐ'
-                                       style='width:45%; float: right'>
-                            </div>
-                        </div>
-
                     </div>
 
                     <div class='modal-footer'>

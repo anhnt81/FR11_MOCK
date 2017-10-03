@@ -55,8 +55,8 @@ body {
     padding : 15px 15px 0 15px;
 }
 
-#cus-info { width : 40%; }
-#cus-info .panel-body > div { margin-top : 15px; }
-#cus-info .panel-body > div > span:nth-child(1) { font-weight : bold; }
+.order-info { padding : 0; }
+.order-info .panel-body > div { margin-top : 15px; }
+.order-info .panel-body > div > span:nth-child(1) { font-weight : bold; }
 
 .right { float : right; }
