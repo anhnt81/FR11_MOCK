@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\MessageBag;
 use Validator;
-use App\User;
 use Auth;
 
 class LoginController extends Controller
@@ -29,7 +28,7 @@ class LoginController extends Controller
         $email = $request->email;
         $password = $request->password;
 
-        if( Auth::attempt(['email' => $email, 'password' =>$password])) {
+        if( Auth::guard('admin')->attempt(['email' => $email, 'password' =>$password])) {
             return redirect()->route('home');
         }
         else {
@@ -40,7 +39,7 @@ class LoginController extends Controller
 
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('admin')->logout();
         return redirect()->route('login');
     }
 }
