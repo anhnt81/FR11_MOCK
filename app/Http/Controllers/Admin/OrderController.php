@@ -67,16 +67,19 @@ class OrderController extends Controller
 
     public function viewDetail($id)
     {
+        $total = 0;
         $order = $this->__order->find($id);
         $order->s_status = Helper::valOfArr(Helper::orderStatusArr(), $order->status);
         $cus = $this->__cus->find($order->id);
         $cus->s_gender = Helper::valOfArr(Helper::genderArr(), $cus->gender);
-//        $detail = $this->__orderDetail->find($order->id);
-//        foreach ($detail as $item) {
-//            $prd[] = $this->__prd->find($item->pid);
-//        }
+        $detail = $order->orderDetail;
 
-        return view('back-end.order.detail', compact('order', 'cus', 'detail', 'prd'));
+        foreach ($detail as $item) {
+            $total += $item->total;
+//            $ava[] = explode(',', $item->product->images)[0];
+        }
+
+        return view('back-end.order.detail', compact('order', 'cus', 'detail', 'total'));
     }
 
     public function update($id)

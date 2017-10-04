@@ -53,7 +53,7 @@
 
             <div>
                 <span>Tổng tiền</span>
-                <span class='right'>{!! $order->total !!}</span>
+                <span class='right'>{!! $order->total !!} VNĐ</span>
             </div>
 
             <div>
@@ -70,7 +70,7 @@
 
     <div id='detail-info' class='panel panel-info' style='clear:both;'>
         <div class='panel-heading'>
-            <h3 class='panel-title'>Chi tiết đơn hàng</h3>
+            <h3 class='panel-title'>Sản phẩm mua</h3>
         </div>
 
         <div class='panel-body table-responsive'>
@@ -79,17 +79,35 @@
                 <tr>
                     <th>Id</th>
                     <th>Tên sản phẩm</th>
-                    <th>Ảnh đại diện</th>
+                    <th>Ảnh sản phẩm</th>
                     <th>Đơn giá</th>
                     <th>Số lượng</th>
                     <th>Thành tiền</th>
                 </tr>
                 </thead>
+
+                <tbody>
+
+                @foreach($detail as $item)
+                    <tr>
+                        <td>{{$item->product->id}}</td>
+                        <td>{{$item->product->name}}</td>
+                        <td><img src='{{url('uploads/images/'.explode(',', $item->product->images)[0])}}'></td>
+                        <td>{{$item->product->unit_price}} VNĐ</td>
+                        <td>{{$item->qty}}</td>
+                        <td>{{$item->total}} VNĐ</td>
+                    </tr>
+                @endforeach
+                <tr>
+                    <td colspan='5' style='text-align: right'>Số tiền phải thanh toán : </td>
+                    <td>{{$total}} VNĐ</td>
+                </tr>
+                </tbody>
             </table>
         </div>
     </div>
 
     <div>
-        <a href='admin/order' class='btn btn-warning'>Quay lại</a>
+        <a href='{!! url('admin/order') !!}' class='btn btn-warning'>Quay lại</a>
     </div>
 @endsection
