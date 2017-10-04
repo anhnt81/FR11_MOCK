@@ -2,15 +2,22 @@ $(document).ready(function () {
     var url = $(location).attr('href');
     var ctr = url.split('/');
 
-    if(ctr.length < 5)
-    {
-        ctr[4] = 'home';
+    if(ctr.length < 5) {
+        ctr = 'home';
     }
-    setCss();
-    hoverDropdown(ctr[4]);
-    navActive('#' + ctr[4]);
+    else {
+        ctr = ctr[4];
+        if(ctr.indexOf('?') != -1) {
+            ctr = ctr.split('?');
+            ctr = ctr[0];
+        }
+    }
 
-    remove(ctr[4]);
+    setCss();
+    hoverDropdown(ctr);
+    navActive('#' + ctr);
+
+    remove(ctr);
 })
 
 
