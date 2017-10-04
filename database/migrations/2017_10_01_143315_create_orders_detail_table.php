@@ -13,14 +13,14 @@ class CreateOrdersDetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_bill_detail', function (Blueprint $table) {
+        Schema::create('tb_order_detail', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('oid');
             $table->unsignedInteger('pid');
             $table->integer('qty');
             $table->double('total');
             $table->timestamps();
-            $table->foreign('oid')->references('id')->on('tb_bills')->onDelete('cascade');
+            $table->foreign('oid')->references('id')->on('tb_order')->onDelete('cascade');
             $table->foreign('pid')->references('id')->on('tb_product')->onDelete('cascade');
         });
     }

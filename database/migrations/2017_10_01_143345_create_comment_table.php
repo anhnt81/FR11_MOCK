@@ -19,6 +19,7 @@ class CreateCommentTable extends Migration
             $table->unsignedInteger('pid');
             $table->string('content');
             $table->integer('status');
+            $table->float('rate');
             $table->timestamps();
             $table->foreign('uid')->references('id')->on('tb_user')->onDelete('cascade');
             $table->foreign('pid')->references('id')->on('tb_product')->onDelete('cascade');
