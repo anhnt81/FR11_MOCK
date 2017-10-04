@@ -18,4 +18,8 @@ class Category extends Model
     {
         return $this->hasMany('App\Product', 'cid','id');
     }
+
+    public function childHas(){
+        return $this->hasMany('App\Category', 'parentId', 'id');
+    }
 }
