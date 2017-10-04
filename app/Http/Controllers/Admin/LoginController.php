@@ -29,8 +29,8 @@ class LoginController extends Controller
         $email = $request->email;
         $password = $request->password;
 
-        if( Auth::attempt(['email' => $email, 'password' => $password])) {
-            if(Auth::User()->level < 2){
+        if( Auth::attempt(['email' => $email, 'password' => $password], $request->remember)) {
+            if(Auth::User()->level <= 2){
                 if(Auth::User()->status == 1){
                     return redirect()->route('home');
                 }

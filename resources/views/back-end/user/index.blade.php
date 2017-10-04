@@ -16,8 +16,11 @@
             <h3 class="panel-title">Danh sách người dùng</h3>
         </div>
         <div class="panel-body">
-            @if(!empty($success))
-                <div class='alert alert-success'>{{$success}}</div>
+            @if(!empty(session('success')))
+                <div class='alert alert-success'>{{session('success')}}</div>
+            @endif
+            @if(!empty(session('error')))
+                    <div class='alert alert-danger'>{{session('error')}}</div>
             @endif
             <!-- filter -->
             <div>
@@ -70,15 +73,11 @@
                                             Sửa
                                         </a>
                                         @if($row->level != 1)
-                                            <form method='post' action='{!! url('admin/user/xoa') !!}'
-                                                  style='margin-top:10px' id='del-frm'>
-                                                {{ csrf_field() }}
-                                                <input name='id' type='hidden' value='{{$row->id}}'>
-                                                <button type='button' class="btn btn-danger"  role='button' data-toggle='modal' data-target='#remove-modal'>
-                                                    <span class="glyphicon glyphicon-remove"></span>
-                                                    Xóa
-                                                </button>
-                                            </form>
+                                            <button type='button' class="btn btn-danger btn-del"
+                                                    frm-id='{{$row->id}}' link='{!! url('admin/user/xoa') !!}'>
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                                Xóa
+                                            </button>
                                         @endif
                                     @endif
                                 </td>

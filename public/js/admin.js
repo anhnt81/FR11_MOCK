@@ -9,6 +9,8 @@ $(document).ready(function () {
     setCss();
     hoverDropdown(ctr[4]);
     navActive('#' + ctr[4]);
+
+    remove(ctr[4]);
 })
 
 
@@ -81,4 +83,12 @@ function previewImage(input, id)
 
         reader.readAsDataURL(input.files[0]);
     }
+}
+
+function remove(ctr) {
+    $('.btn-del').click(function () {
+        $('#del-id').val($(this).attr('frm-id'));
+        $('#del-id').parent().attr('action', $(this).attr('link'));
+        $('#remove-modal').modal('show');
+    });
 }

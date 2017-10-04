@@ -60,9 +60,6 @@ body {
 .order-info .panel-body > div > span:nth-child(1) { font-weight : bold; }
 
 .right { float : right; }
-.breadcrumb{
-    background-color:#eeeeee;
-}
 
 .img-ava { max-height : 80px; }
 

@@ -16,7 +16,10 @@
             <h3 class="panel-title">Danh sách chuyên mục</h3>
         </div>
         <div class="panel-body">
-            <!-- filter -->
+            @if(!empty(session('success')))
+                <div class='alert alert-success'>{{session('success')}}</div>
+            @endif
+
             <div>
                 <a class='btn btn-primary' role='button' href='{!! url('admin/category/them-moi') !!}'>
                     <span class='glyphicon glyphicon-plus'></span> Thêm mới
@@ -54,14 +57,11 @@
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Sửa
                                     </a>
-                                    <form method='post' action='{!! url('admin/category/xoa') !!}'>
-                                        {{ csrf_field() }}--
-                                        <input name='id' type='hidden' value='{{$row->id}}'>
-                                       <button type='submit' class="btn btn-danger">
-                                           <span class="glyphicon glyphicon-remove"></span>
-                                           Xóa
-                                       </button>
-                                    </form>
+                                    <button type='button' class="btn btn-danger btn-del"
+                                            frm-id='{{$row->id}}' link='{!! url('admin/category/xoa') !!}'>
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        Xóa
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -149,6 +149,7 @@
         </div>
     </div>
 
+    @include('back-end.common.remove-modal')
     <script>
         $(document).ready(function () {
             $('#btn-filter-cat').click(function () {

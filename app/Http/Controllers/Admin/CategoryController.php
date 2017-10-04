@@ -53,7 +53,7 @@ class CategoryController extends Controller
 
         $this->__cat->save();
 
-        return redirect()->route('listCat');
+        return redirect()->route('listCat')->with('success', 'Thêm thành công!');
     }
 
     public function update($id)
@@ -72,14 +72,14 @@ class CategoryController extends Controller
                 'parentId' => $r->parentId
             ]);
 
-        return redirect()->route('listCat');
+        return redirect()->route('listCat')->with('success', 'Sửa thành công!');
     }
 
-    public function delete($id)
+    public function delete(Request $r)
     {
-        $this->__cat->find($id)
+        $this->__cat->find($r->id)
             ->delete();
 
-        return redirect()->route('listCat');
+        return redirect()->route('listCat')->with('success', 'Xóa thành công!');
     }
 }

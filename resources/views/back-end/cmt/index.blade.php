@@ -1,12 +1,12 @@
 @extends('back-end.layouts.layout-admin')
 
 @section('title')
-    Quản lý đơn hàng
+    Quản lý Bình luận
 @endsection
 
 @section('breadcrumb')
     <li><a href="{!! url('admin') !!}">Trang chủ</a></li>
-    <li>Đơn hàng</li>
+    <li>Bình luận</li>
 @endsection
 
 @section('content')

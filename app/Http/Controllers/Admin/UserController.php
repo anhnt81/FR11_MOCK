@@ -91,15 +91,21 @@ class UserController extends Controller
 
         $this->__user->save();
 
-        return redirect()->route('listUser');
+        return redirect()->route('listUser')->with('success', 'Thêm thành công!');
     }
 
     public function update($id)
     {
         $user = $this->__user->where('id', $id)->first();
-        $level = Helper::levelArr();
 
-        return view('back-end.user.update', compact('user', 'level'));
+        if(Auth::User()->level == 1 || Auth::User()->id == $id || Auth::User()->level < $user->level) {
+            $level = Helper::levelArr();
+
+            return view('back-end.user.update', compact('user', 'level'));
+        }
+        else {
+            return redirect()->route('listUser')->with('error', 'Bạn không được phép sửa thành viên này!');
+        }
     }
 
     public function postUpdate(UpdateUserRequest $r, $id)
@@ -134,6 +140,6 @@ class UserController extends Controller
         $this->__user->find($r->id)
             ->delete();
 
-        return redirect()->route('listUser');
+        return redirect()->route('listUser')->with('success', 'Xóa thành công!');
     }
 }
