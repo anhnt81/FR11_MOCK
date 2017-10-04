@@ -29,30 +29,32 @@ Route::group(['prefix'=>'admin', 'middleware' => 'admin'], function() {
             Route::get('/',['as'=>'listBrand','uses'=>'Admin\BrandController@listBrand']);
         });
 
-        //customer route
-        Route::group(['prefix' => 'customer'], function () {
-            Route::get('/', array(
-                'as' => 'listCus',
-                'uses' => 'Admin\CustomerController@index'
-            ));
-            Route::get('filter', array(
-                'as' => 'filterCus',
-                'uses' => 'Admin\CustomerController@filter'
-            ));
-            Route::get('sua-thong-tin/{id}', array(
-                'as' => 'upCus',
-                'uses' => 'Admin\CustomerController@update'
-            ));
-            Route::post('sua-thong-tin/{id}', array(
-                'as' => 'postUpCus',
-                'uses' => 'Admin\CustomerController@postUpdate'
-            ));
-        });
-        /* AnhNT9 listView Product */
-        Route::get('/list-product', ['as' => 'listProduct', 'uses' => 'Admin\ProductController@listProduct']);
-        Route::post('/list-product', ['as' => 'addProduct', 'uses' => 'Admin\ProductController@createProduct']);
-        Route::get('edit-product/{id}', ['as' => 'updateProduct', 'uses' => 'Admin\ProductController@updateProduct']);
-        Route::post('edit-product/{id}', ['as' => 'saveProduct', 'uses' => 'Admin\ProductController@saveProduct']);
+    //customer route
+    Route::group(['prefix' => 'customer'], function () {
+        Route::get('/', array(
+            'as' => 'listCus',
+            'uses' => 'Admin\CustomerController@index'
+        ));
+        Route::get('filter', array(
+            'as' => 'filterCus',
+            'uses' => 'Admin\CustomerController@filter'
+        ));
+        Route::get('sua-thong-tin/{id}', array(
+            'as' => 'upCus',
+            'uses' => 'Admin\CustomerController@update'
+        ));
+        Route::post('sua-thong-tin/{id}', array(
+            'as' => 'postUpCus',
+            'uses' => 'Admin\CustomerController@postUpdate'
+        ));
+    });
+    /* AnhNT9 listView Product */
+    Route::get('/list-product', ['as' => 'listProduct', 'uses' => 'Admin\ProductController@listProduct']);
+    Route::post('/list-product', ['as' => 'addProduct', 'uses' => 'Admin\ProductController@createProduct']);
+    Route::get('/list-product/filter', ['as' => 'filterProduct', 'uses' => 'Admin\ProductController@filterProduct']);
+    Route::get('edit-product/{id}', ['as' => 'updateProduct', 'uses' => 'Admin\ProductController@updateProduct']);
+    Route::post('edit-product/{id}', ['as' => 'saveProduct', 'uses' => 'Admin\ProductController@saveProduct']);
+    Route::get('del-product/{id}', ['as' => 'deleteProduct', 'uses' => 'Admin\ProductController@deleteProduct']);
 
 
 
