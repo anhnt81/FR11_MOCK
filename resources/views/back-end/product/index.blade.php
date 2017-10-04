@@ -119,7 +119,8 @@
                                 <td>
                                     <a href="{!! url('admin/product/edit/'.$row->id) !!}"
                                        class="btn btn-warning">
-                                        <span class="glyphicon glyphicon-edit">Sửa</span>
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        Sửa
                                     </a>
                                     <button type='button' class="btn btn-danger btn-del"
                                             frm-id='{{$row->id}}' link='{!! url('admin/product/del') !!}'>
