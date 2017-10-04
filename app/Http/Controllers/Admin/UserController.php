@@ -108,20 +108,25 @@ class UserController extends Controller
 
         $user->email = $r->email;
         $user->name = $r->name;
-        $user->status = $r->status;
-        $user->level = $r->level;
+
+        if($user->level != 1) {
+            $user->level = $r->level;
+            $user->status = $r->status;
+        }
         if(!empty($r->pass)){
             $user->password = bcrypt($r->pass);
         }
         $user->phone = $r->phone;
-//        if(Input::hasFile('avatar')){
-//            $file=Input::file('avatar');
-//            $file->move('public/uploads/images' , '');
-//        }
+        if($r->hasFile('avatar')) {
+            $ava = $r->file('avatar');
+            $user->avatar = 'u-ava-' . $id . '.' . $ava->getClientOriginalExtension();
+
+            $ava->move('uploads/images/', $user->avatar);
+        }
 
         $user->save();
 
-        return redirect()->route('listUser');
+        return redirect()->route('listUser')->with('success', 'Sửa thành công!');
     }
 
     public function delete(Request $r)
