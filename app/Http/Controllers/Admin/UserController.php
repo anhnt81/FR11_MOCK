@@ -91,15 +91,21 @@ class UserController extends Controller
 
         $this->__user->save();
 
-        return redirect()->route('listUser');
+        return redirect()->route('listUser')->with('success', 'Thêm thành công!');
     }
 
     public function update($id)
     {
         $user = $this->__user->where('id', $id)->first();
-        $level = Helper::levelArr();
 
-        return view('back-end.user.update', compact('user', 'level'));
+        if(Auth::User()->level == 1 || Auth::User()->id == $id || Auth::User()->level < $user->level) {
+            $level = Helper::levelArr();
+
+            return view('back-end.user.update', compact('user', 'level'));
+        }
+        else {
+            return redirect()->route('listUser')->with('error', 'Bạn không được phép sửa thành viên này!');
+        }
     }
 
     public function postUpdate(UpdateUserRequest $r, $id)
@@ -108,20 +114,25 @@ class UserController extends Controller
 
         $user->email = $r->email;
         $user->name = $r->name;
-        $user->status = $r->status;
-        $user->level = $r->level;
+
+        if($user->level != 1) {
+            $user->level = $r->level;
+            $user->status = $r->status;
+        }
         if(!empty($r->pass)){
             $user->password = bcrypt($r->pass);
         }
         $user->phone = $r->phone;
-//        if(Input::hasFile('avatar')){
-//            $file=Input::file('avatar');
-//            $file->move('public/uploads/images' , '');
-//        }
+        if($r->hasFile('avatar')) {
+            $ava = $r->file('avatar');
+            $user->avatar = 'u-ava-' . $id . '.' . $ava->getClientOriginalExtension();
+
+            $ava->move('uploads/images/', $user->avatar);
+        }
 
         $user->save();
 
-        return redirect()->route('listUser');
+        return redirect()->route('listUser')->with('success', 'Sửa thành công!');
     }
 
     public function delete(Request $r)
@@ -129,6 +140,6 @@ class UserController extends Controller
         $this->__user->find($r->id)
             ->delete();
 
-        return redirect()->route('listUser');
+        return redirect()->route('listUser')->with('success', 'Xóa thành công!');
     }
 }

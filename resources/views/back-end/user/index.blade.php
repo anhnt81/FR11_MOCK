@@ -16,6 +16,12 @@
             <h3 class="panel-title">Danh sách người dùng</h3>
         </div>
         <div class="panel-body">
+            @if(!empty(session('success')))
+                <div class='alert alert-success'>{{session('success')}}</div>
+            @endif
+            @if(!empty(session('error')))
+                    <div class='alert alert-danger'>{{session('error')}}</div>
+            @endif
             <!-- filter -->
             <div>
                 <a class='btn btn-primary' role='button' href='{!! url('admin/user/them-moi') !!}'>
@@ -52,7 +58,7 @@
                             <tr>
                                 <td>{!! $row->id !!}</td>
                                 <td>{!! $row->name !!}</td>
-                                <td><img src='{!! asset('public/uploads/images/' . $row->avatar) !!}' class='img-ava'>
+                                <td><img src='{!! asset('uploads/images/' . $row->avatar) !!}' class='img-ava'>
                                 </td>
                                 <td>{!! $row->email !!}</td>
                                 <td>{!! $row->phone !!}</td>
@@ -66,15 +72,13 @@
                                             <span class="glyphicon glyphicon-edit"></span>
                                             Sửa
                                         </a>
-                                        <form method='post' action='{!! url('admin/user/xoa') !!}'
-                                              style='margin-top:10px'>
-                                            {{ csrf_field() }}
-                                            <input name='id' type='hidden' value='{{$row->id}}'>
-                                            <button type='submit' class="btn btn-danger">
+                                        @if($row->level != 1)
+                                            <button type='button' class="btn btn-danger btn-del"
+                                                    frm-id='{{$row->id}}' link='{!! url('admin/user/xoa') !!}'>
                                                 <span class="glyphicon glyphicon-remove"></span>
                                                 Xóa
                                             </button>
-                                        </form>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>
@@ -217,4 +221,6 @@
             </div>
         </div>
     </div>
+
+    @include('back-end.common.remove-modal')
 @endsection
