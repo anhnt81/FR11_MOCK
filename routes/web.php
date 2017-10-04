@@ -51,11 +51,9 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function() {
     Route::get('/list-product', ['as' => 'listProduct', 'uses' => 'Admin\ProductController@listProduct']);
     Route::post('/list-product', ['as' => 'addProduct', 'uses' => 'Admin\ProductController@createProduct']);
     Route::get('/list-product/filter', ['as' => 'filterProduct', 'uses' => 'Admin\ProductController@filterProduct']);
-    Route::get('edit-product/{id}', ['as' => 'updateProduct', 'uses' => 'Admin\ProductController@updateProduct']);
-    Route::post('edit-product/{id}', ['as' => 'saveProduct', 'uses' => 'Admin\ProductController@saveProduct']);
-    Route::get('del-product/{id}', ['as' => 'deleteProduct', 'uses' => 'Admin\ProductController@deleteProduct']);
-
-
+    Route::get('edit-product/{id}', ['as' => 'updateProduct', 'uses' => 'Admin\ProductController@updateProduct'])->where('id','[0-9]+');
+    Route::post('edit-product/{id}', ['as' => 'saveProduct', 'uses' => 'Admin\ProductController@saveProduct'])->where('id','[0-9]+');
+    Route::get('del-product/{id}', ['as' => 'deleteProduct', 'uses' => 'Admin\ProductController@deleteProduct'])->where('id','[0-9]+');
 
     //category route
     Route::group(['prefix' => 'category'], function () {
@@ -92,7 +90,6 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function() {
             'uses' => 'Admin\CategoryController@delete'
         ));
     });
-
     //order route
     Route::group(['prefix' => 'order'], function () {
         Route::get('/', array(
@@ -117,7 +114,6 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function() {
             'uses' => 'Admin\OrderController@postUpdate'
         ));
     });
-
     //comment route
     Route::group(['prefix' => 'comment'], function () {
         Route::get('/', array(
@@ -128,7 +124,6 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function() {
         Route::get('sua-thong-tin/{id}', ['uses' => 'Admin\CmtController@changeStatus']);
         Route::get('filter', ['uses' => 'Admin\CmtController@filter']);
     });
-
     //users route
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', array(
@@ -165,3 +160,10 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function() {
         ));
     });
 });
+
+// Controllers Within The "App\Http\Controllers\Front-End"
+Route::get('/trang-chu',['as' => 'homePage', 'uses' => 'Frontend\HomePageController@homePage']);
+
+Route::get('/contact',['as' => 'contact', 'uses' => 'Frontend\ContactController@getContact']);
+
+Route::get('/gioi-thieu',['as' => 'gioithieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);

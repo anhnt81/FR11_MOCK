@@ -1,4 +1,13 @@
 @extends('back-end.layouts.layout-admin')
+@section('title')
+    Quản lý sản phẩm
+@endsection
+
+@section('breadcrumb')
+    <li><a href="{!! url('admin') !!}">Trang chủ</a></li>
+    <li><a href="{!! url('admin/user') !!}">Sản phẩm</a></li>
+    <li>Cập nhật thông tin</li>
+@endsection
 @section('content')
     <form style="margin-bottom: 50px;" class="form-horizontal" method="post" action="{{route('updateProduct',$product->id)}}" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
