@@ -68,6 +68,7 @@ class OrderController extends Controller
     public function viewDetail($id)
     {
         $order = $this->__order->find($id);
+        $order->s_status = Helper::valOfArr(Helper::orderStatusArr(), $order->status);
         $cus = $this->__cus->find($order->id);
         $cus->s_gender = Helper::valOfArr(Helper::genderArr(), $cus->gender);
 //        $detail = $this->__orderDetail->find($order->id);

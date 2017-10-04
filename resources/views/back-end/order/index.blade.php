@@ -50,6 +50,7 @@
                                 <td>{!! $row->total !!}</td>
                                 <td>{!! $row->note !!}</td>
                                 <td>{!! $row->st !!}</td>
+                                <td>{!! $row->create_at !!}</td>
                                 <td>
                                     <a href="{!! url('admin/order/chi-tiet/'.$row->id) !!}"
                                        class="btn btn-default">

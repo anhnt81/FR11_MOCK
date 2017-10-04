@@ -58,12 +58,12 @@
 
             <div>
                 <span>Tình trạng đơn hàng</span>
-                <span class='right'>{!! $cus->status !!}</span>
+                <span class='right'>{!! $order->s_status !!}</span>
             </div>
 
             <div>
                 <span>Ghi chú</span>
-                <span class='right'>{!! $cus->note !!}</span>
+                <span class='right'>{!! $order->note !!}</span>
             </div>
         </div>
     </div>
@@ -87,5 +87,9 @@
                 </thead>
             </table>
         </div>
+    </div>
+
+    <div>
+        <a href='admin/order' class='btn btn-warning'>Quay lại</a>
     </div>
 @endsection
