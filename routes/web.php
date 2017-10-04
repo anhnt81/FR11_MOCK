@@ -16,6 +16,7 @@ Route::get('/', function () {
 // Controllers Within The "App\Http\Controllers\Admin" Admin
 Route::get('admin/dang-nhap',['as'=>'login','uses'=>'Admin\LoginController@getLogin']);
 Route::post('admin/dang-nhap',['as'=>'postLogin','uses'=>'Admin\LoginController@postLogin']);
+
 Route::group(['prefix'=>'admin', 'middleware' => 'admin'], function() {
         //return view home admin
         Route::get('/', ['as'=>'home','uses'=>'Admin\LoginController@home']);
