@@ -212,13 +212,6 @@ Route::group(['prefix'=>'admin', 'middleware' => 'admin'], function() {
         });
     });
 
-        Route::post('xoa', array(
-            'as' => 'delUser',
-            'uses' => 'Admin\UserController@delete'
-        ));
-    });
-});
-
 // Controllers Within The "App\Http\Controllers\Front-End"
 Route::get('/trang-chu',['as' => 'homePage', 'uses' => 'Frontend\HomePageController@homePage']);
 
