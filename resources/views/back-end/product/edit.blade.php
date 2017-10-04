@@ -1,16 +1,27 @@
 @extends('back-end.layouts.layout-admin')
+@section('title')
+    Quản lý sản phẩm
+@endsection
+
+@section('breadcrumb')
+    <li><a href="{!! url('admin') !!}">Trang chủ</a></li>
+    <li><a href="{!! url('admin/user') !!}">Sản phẩm</a></li>
+    <li>Cập nhật thông tin</li>
+@endsection
 @section('content')
-    <form class="form-horizontal" method="post" action="{{route('updateProduct',$product->id)}}" enctype="multipart/form-data">
+    <form style="margin-bottom: 50px;" class="form-horizontal" method="post" action="{{route('updateProduct',$product->id)}}" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <h4>Update Product</h4>
         <div class="form-group">
             <div class="col-sm-7 col-md-offset-4">
-                <img src="{{ asset('images/front-end/product/'.$product->images) }}" height="140px" width="150px">
+                @foreach($images as $item)
+                    <img src="{{ asset('images/front-end/product/'.$item) }}" height="140px" width="150px">
+                @endforeach
             </div>
             <div class="col-md-4">
 
             </div>
-            <input type="file" name="image" id="file" multiple="">
+            <input type="file" name="image[]" id="file" multiple>
             @if ($errors->has('image'))
                 <span class="help-block">
                     <strong style="color: red">{{ $errors->first('image') }}</strong>
@@ -38,8 +49,8 @@
             <label class="col-sm-3 col-md-2 control-label">Category</label>
             <div class="col-sm-7 col-md-8">
                 <select class="form-control" id="id_type" name="category">
-                    <option id="category" value="{{$categoryByIds->id}}">{{$categoryByIds->name}}</option>
-                    @foreach($category as $cat)
+                    <option id="category" value="{{$categoryById->id}}">{{$categoryById->name}}</option>
+                    @foreach($categoryAll as $cat)
                     <option value="{{$cat->id}}">{{$cat->name}}</option>
                     @endforeach
                 </select>
@@ -54,8 +65,8 @@
             <label class="col-sm-3 col-md-2 control-label">Brand</label>
             <div class="col-sm-7 col-md-8">
                 <select class="form-control" id="brand" name="brand">
-                    <option id="brand" value="{{$brandByIds->id}}">{{$brandByIds->name}}</option>
-                    @foreach($brands as $brand)
+                    <option id="brand" value="{{$brandById->id}}">{{$brandById->name}}</option>
+                    @foreach($brandAll as $brand)
                         <option value="{{$brand->id}}">{{$brand->name}}</option>
                     @endforeach
                 </select>
@@ -69,7 +80,9 @@
         <div class="form-group">
             <label class="col-sm-3 col-md-2 control-label">Description</label>
             <div class="col-sm-7 col-md-8">
-                <input type="text" class="form-control" name="description" value="{{$product['description']}}">
+                <p>Description
+                    <textarea class="form-control" name="description" id="description" rows="5" cols="20">{{$product->description}}
+                    </textarea></p>
             </div>
             @if ($errors->has('description'))
                 <span class="help-block">

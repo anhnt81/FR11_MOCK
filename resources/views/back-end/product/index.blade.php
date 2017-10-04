@@ -13,7 +13,7 @@
                     <span class='glyphicon glyphicon-filter'></span> Lọc
                 </button>
                 @if(Session::has('message'))
-                    <p style="text-align:center;color:red">{{Session::get('message')}}</p>
+                    <div class='alert alert-success'>{{Session::get('message')}}</div>
                 @endif
             </div>
             <!-- Modal create Product -->
@@ -28,25 +28,31 @@
                                     <h4 class="modal-title">Add Product</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Image<input type="file" name="image" id="file" multiple=""></p>
+                                    <p>Image<input type="file" name="file[]" id="upload" multiple></p>
                                     <p>Name<input type="text" name="name" id="name" class="form-control"></p>
                                     <p>Category
                                         <select class="form-control" selected="" id="category" name="category">
                                             <option id="type" value="0">Select</option>
+                                            @if(isset($category))
                                             @foreach($category as $cat)
                                                 <option id="type" value="{{ $cat->id }}">{{ $cat->name }}</option>
                                             @endforeach
+                                            @endif
                                         </select>
                                     </p>
                                     <p>Brand
                                         <select class="form-control" selected="" id="brand" name="brand">
                                             <option id="type" value="0">Select</option>
+                                            @if(isset($brands))
                                             @foreach($brands as $brand)
                                                 <option id="type" value="{{ $brand->id }}">{{ $brand->name }}</option>
                                             @endforeach
+                                            @endif
                                         </select>
                                     </p>
-                                    <p>Description<input type="text" name="description" id="description" class="form-control"></p>
+                                    {{--<p>Description<input type="text" name="description" id="description" class="form-control"></p>--}}
+                                    <p>Description<textarea class="form-control" name="description" id="description" rows="5" cols="20" maxlength="20"></textarea></p>
+
                                     <p>Unit Price<input type="text" name="unit_price" id="unit_price" class="form-control"></p>
                                     <p>Promotion Price<input type="text" name="promotion_price" id="promotion_price" class="form-control"></p>
                                     <p>Quantity<input type="text" name="quantity" id="quantity" class="form-control"></p>
@@ -84,7 +90,6 @@
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Images</th>
@@ -101,20 +106,26 @@
                     @else
                         @foreach($products as $row)
                             <tr>
-                                <td>{!! $row->id !!}</td>
                                 <td width="100px;">{!! $row->name !!}</td>
                                 <td width="300px;">{!! $row->description !!}</td>
-                                {{--<td><img src="images/front-end/product/{!! $row->images !!}" /></td>--}}
-                                <td><img style="height: 80px;width: 90px;" src="{{asset('images/front-end/product/'.$row->images)}}" /></td>
+                                <td>
+                                    @foreach($images[$row->id] as $item)
+                                        <img style="max-height: 60px;" src="{{asset('images/front-end/product/'.$item)}}" />
+                                    @endforeach
+                                </td>
                                 <td>{!! $row->unit_price !!}</td>
                                 <td>{!! $row->promotion_price !!}</td>
                                 <td align="center">{!! $row->qty !!}</td>
                                 <td>
-                                    <a href="{!! url('admin/edit-product/'.$row->id) !!}"
-                                       class="btn btn-default">
+                                    <a href="{!! url('admin/product/edit/'.$row->id) !!}"
+                                       class="btn btn-warning">
                                         <span class="glyphicon glyphicon-edit">Sửa</span>
                                     </a>
-                                    <a href="{!!url('admin/sanpham/del/'.$row->id)!!}"  title="Xóa" onclick="return xacnhan('Xóa danh mục này ?')"><span class="glyphicon glyphicon-remove">remove</span> </a>
+                                    <button type='button' class="btn btn-danger btn-del"
+                                            frm-id='{{$row->id}}' link='{!! url('admin/product/del') !!}'>
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        Xóa
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -137,11 +148,11 @@
             <div class='modal-content'>
                 <div class='modal-header'>
                     <button type='button' class='close' data-dismiss='modal'>&times;</button>
-                    <h3>Lọc khách hàng</h3>
+                    <h3>Search Product</h3>
                 </div>
 
                 <div class='modal-body'>
-                    <form method='get' action='{!! url('admin/customer/filter') !!}' role='form' id='filter-cus-frm'>
+                    <form method='get' action='{!! url('admin/list-product/filter') !!}' role='form' id="filter-product-form">
                     {{--{{ csrf_field() }}--}}
                     <!-- search -->
                         <div class='form-group'>
@@ -150,10 +161,10 @@
                                 <input type='search' name='search' class='form-control' style='width : 60%; float:left; margin-right: 10px'
                                        value='<?php if(isset($data['key'])) echo $data['key'] ?>' placeholder='Nhập từ khóa'>
                                 <select name='field_search' style='width : 35%' class='form-control'>
-                                    <option value='name' @if(isset($data['field']) && $data['field'] == 'name') selected @endif>Theo tên</option>
-                                    <option value='email' @if(isset($data['field']) && $data['field'] == 'email') selected @endif>Theo email</option>
-                                    <option value='address' @if(isset($data['field']) && $data['field'] == 'address') selected @endif>Theo địa chỉ</option>
-                                    <option value='phone' @if(isset($data['field']) && $data['field'] == 'phone') selected @endif>Theo số điện thoại</option>
+                                    <option value='name' @if(isset($data['field']) && $data['field'] == 'name') selected @endif>Name</option>
+                                    <option value='unit_price' @if(isset($data['field']) && $data['field'] == 'unit_price') selected @endif>Unit Price</option>
+                                    <option value='promotion_price' @if(isset($data['field']) && $data['field'] == 'promotion_price') selected @endif>Promotion Price</option>
+                                    <option value='quantity' @if(isset($data['field']) && $data['field'] == 'quantity') selected @endif>Quantity</option>
                                 </select>
                             </div>
                         </div>
@@ -167,23 +178,23 @@
                                     <div id='feild-sort' class='form-control-static'>
                                         <div class='col-xs-6 col-md-2'>
                                             <input type='radio' name='sort' value='name'
-                                            <?php if(isset($data['sort']) && $data['sort'] == 'name') echo 'checked'?>> Tên
+                                            <?php if(isset($data['sort']) && $data['sort'] == 'name') echo 'checked'?>> Name
                                         </div>
                                         <div class='col-xs-6 col-md-2'>
-                                            <input type='radio' name='sort' value='cus_id'
-                                            <?php if(empty($data['sort']) || (isset($data['sort']) && $data['sort'] == 'cus_id')) echo 'checked'?>> ID
+                                            <input type='radio' name='sort' value='id'
+                                            <?php if(empty($data['sort']) || (isset($data['sort']) && $data['sort'] == 'id')) echo 'checked'?>> ID
                                         </div>
                                         <div class='col-xs-6 col-md-2'>
-                                            <input type='radio' name='sort' value='email'
-                                            <?php if(isset($data['sort']) && $data['sort'] == 'email') echo 'checked'?>> E-mail
+                                            <input type='radio' name='sort' value='unit_price'
+                                            <?php if(isset($data['sort']) && $data['sort'] == 'unit_price') echo 'checked'?>> Unit Price
                                         </div>
                                         <div class='col-xs-6 col-md-3'>
-                                            <input type='radio' name='sort' value='address'
-                                            <?php if(isset($data['sort']) && $data['sort'] == 'address') echo 'checked'?>> Địa chỉ
+                                            <input type='radio' name='sort' value='promotion_price'
+                                            <?php if(isset($data['sort']) && $data['sort'] == 'promotion_price') echo 'checked'?>> Promotion Price
                                         </div>
                                         <div class='col-xs-12 col-md-3'>
-                                            <input type='radio' name='sort' value='phone'
-                                            <?php if(isset($data['sort']) && $data['sort'] == 'phone') echo 'checked'?>> Số điện thoại
+                                            <input type='radio' name='sort' value='quantity'
+                                            <?php if(isset($data['sort']) && $data['sort'] == 'quantity') echo 'checked'?>> Quantity
                                         </div>
                                     </div>
                                 </div>
@@ -209,17 +220,17 @@
                 </div>
 
                 <div class='modal-footer'>
-                    <button type="button" id='btn-filter-cus' class='btn btn-success'>Tìm</button>
+                    <button type="button" id='btn-filter-product' class='btn btn-success'>Tìm</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
     </div>
-
+    @include('back-end.common.remove-modal')
     <script>
         $(document).ready(function () {
-            $('#btn-filter-cus').click(function () {
-                $('#filter-cus-frm').submit();
+            $('#btn-filter-product').click(function () {
+                $('#filter-product-form').submit();
             });
 
             if($(location).attr('href').indexOf('filter') != -1) {
