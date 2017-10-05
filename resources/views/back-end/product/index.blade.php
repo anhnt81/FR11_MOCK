@@ -150,8 +150,6 @@
                                 @else
                                     <td align="center">New Product</td>
                                 @endif
-                                <td>
-                                <td align="center">{!! $row->status !!}</td>
                                 @if($row->status == 0)
                                     <td align="center">Not Active</td>
                                 @else
