@@ -41,6 +41,7 @@ function setCss()
 
         $('#nav-home').css('display', 'block');
         $('#nav-home').css('position', 'fixed');
+
         heightHeader = $("header.nav").height();
         $("#nav-home").css("top", heightHeader);
 
