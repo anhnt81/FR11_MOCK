@@ -15,7 +15,6 @@
 
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/admin.js') }}"></script>
 </head>
 
 <body>
@@ -39,4 +38,8 @@
 </section>
 
 <!-- The footer -->
-@include('back-end.common.footer')
+<footer>
+    <script src="{{ asset('js/admin.js') }}"></script>
+</footer>
+</body>
+</html>
