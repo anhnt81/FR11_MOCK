@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
         </button>
         <a href='' id='title-site' style='color : #eaf2d5; font-size:2.4em'>
-            <span style='color:#2AABD2'>Cake</span> Shop Online - Administer
+            <span style='color:#2AABD2'>Fresh Garden</span> Online Shop - Administrator
         </a>
     </div>
     <div class="col-xs-12 col-md-4" id="btn-logout">

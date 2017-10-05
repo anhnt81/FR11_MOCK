@@ -56,7 +56,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('filter', ['as' => 'filterProduct', 'uses' => 'Admin\ProductController@filterProduct']);
         Route::get('edit/{id}', ['as' => 'updateProduct', 'uses' => 'Admin\ProductController@updateProduct'])->where('id', '[0-9]+');
         Route::post('edit/{id}', ['as' => 'saveProduct', 'uses' => 'Admin\ProductController@saveProduct'])->where('id', '[0-9]+');
-        Route::get('del/{id}', ['as' => 'deleteProduct', 'uses' => 'Admin\ProductController@deleteProduct'])->where('id', '[0-9]+');
+        Route::post('del/{id}', ['as' => 'deleteProduct', 'uses' => 'Admin\ProductController@deleteProduct'])->where('id', '[0-9]+');
     });
 
     //category route

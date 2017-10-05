@@ -5,7 +5,7 @@
 
 @section('breadcrumb')
     <li><a href="{!! url('admin') !!}">Trang chủ</a></li>
-    <li><a href="{!! url('admin/user') !!}">Sản phẩm</a></li>
+    <li><a href="{!! url('admin/product') !!}">Sản phẩm</a></li>
     <li>Cập nhật thông tin</li>
 @endsection
 @section('content')
@@ -15,16 +15,16 @@
         <div class="form-group">
             <div class="col-sm-7 col-md-offset-4">
                 @foreach($images as $item)
-                    <img src="{{ asset('images/front-end/product/'.$item) }}" height="140px" width="150px">
+                    <img id="image" src="{{ asset('images/front-end/product/'.$item) }}" height="140px" width="150px">
                 @endforeach
             </div>
             <div class="col-md-4">
 
             </div>
-            <input type="file" name="image[]" id="file" multiple>
-            @if ($errors->has('image'))
-                <span class="help-block">
-                    <strong style="color: red">{{ $errors->first('image') }}</strong>
+            <input type="file" name="image[]" onchange='previewImage(this, "image")' id="file" multiple>
+            @if ($errors->has('image[]'))
+                <span class="help-block" style="margin-left: 400px">
+                    <strong style="color: red">{{ $errors->first('image[]') }}</strong>
                 </span>
             @endif
         </div>
@@ -80,9 +80,7 @@
         <div class="form-group">
             <label class="col-sm-3 col-md-2 control-label">Description</label>
             <div class="col-sm-7 col-md-8">
-                <p>Description
-                    <textarea class="form-control" name="description" id="description" rows="5" cols="20">{{$product->description}}
-                    </textarea></p>
+                <textarea class="form-control" name="description" id="description" rows="5" cols="20">{{$product->description}}</textarea>
             </div>
             @if ($errors->has('description'))
                 <span class="help-block">
@@ -120,6 +118,54 @@
             @if ($errors->has('quantity'))
                 <span class="help-block">
                     <strong style="color: red">{{ $errors->first('quantity') }}</strong>
+                </span>
+            @endif
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 col-md-2 control-label">Action</label>
+            <div class="col-sm-7 col-md-8">
+                <select class="form-control" id="new" name="new">
+                    <option id="new" value="{{$product['new']}}">
+                        @if($product['new'] == 1)
+                            New Product
+                            @else
+                            Old Product
+                        @endif
+                    </option>
+                    @if($product['new'] == 1)
+                        <option value="0">Old Product</option>
+                    @else
+                        <option value="1">New Product</option>
+                    @endif
+                </select>
+            </div>
+            @if ($errors->has('new'))
+                <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('new') }}</strong>
+                </span>
+            @endif
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 col-md-2 control-label">Status</label>
+            <div class="col-sm-7 col-md-8">
+                <select class="form-control" id="status" name="status">
+                    <option id="status" value="{{$product['status']}}">
+                        @if($product['status'] == 1)
+                            Active
+                        @else
+                            Not Active
+                        @endif
+                    </option>
+                    @if($product['status'] == 1)
+                        <option value="0">Not Active</option>
+                    @else
+                        <option value="1">Active</option>
+                    @endif
+                </select>
+            </div>
+            @if ($errors->has('status'))
+                <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('status') }}</strong>
                 </span>
             @endif
         </div>
