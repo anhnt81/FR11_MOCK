@@ -6,7 +6,7 @@ use App\Http\Helper\Helper;
 use App\Http\Requests\admin\AddUserRequest;
 use App\Http\Requests\admin\UpdateUserRequest;
 use App\User;
-use Illuminate\Http\Request;
+use Request;
 use App\Http\Controllers\Controller;
 use Auth;
 
@@ -25,24 +25,23 @@ class UserController extends Controller
 
     public function index()
     {
-        $list = $this->__user->orderBy('updated_at', 'desc')->paginate(5);
-        $level = Helper::levelArr();
+        $data['per'] = 7;
+        $data['key'] = '';
+        $data['field'] = 'name';
+        $data['sort'] = 'id';
+        $data['type'] = 'desc';
+        $data['status'] = '';
+        $data['level'] = '';
 
-        for ($i = 0; $i < count($list); $i++){
-            $list[$i]->slevel = Helper::valOfArr($level, $list[$i]->level);
+        if(Request::ajax()) {
+            $data['per'] = $_POST['per'];
+            $data['key'] = $_POST['search'];
+            $data['field'] = $_POST['field_search'];
+            $data['sort'] = $_POST['sort'];
+            $data['type'] = $_POST['type_sort'];
+            $data['status'] = $_POST['status'];
+            $data['level'] = $_POST['level'];
         }
-
-        return view('back-end.user.index', compact('list', 'level'));
-    }
-
-    public function filter(Request $r)
-    {
-        $data['key'] = $r->search;
-        $data['field'] = $r->field_search;
-        $data['sort'] = $r->sort;
-        $data['type'] = $r->type_sort;
-        $data['status'] = $r->status;
-        $data['level'] = $r->level;
 
         $opStatus = empty($data['status']) ? '<>' : '=';
         $opLevel = empty($data['level']) ? '<>' : '=';
@@ -51,17 +50,60 @@ class UserController extends Controller
             ->where('level', $opLevel, $data['level'])
             ->where('status', $opStatus, $data['status'])
             ->orderBy($data['sort'], $data['type'])
-            ->paginate(5)
-            ->withPath("?search={$data['key']}&field_search={$data['field']}&sort={$data['sort']}&type_sort={$data['type']}".
-                "&status={$data['status']}&level={$data['level']}");
+            ->paginate($data['per']);
+
+        $total = $this->__user->where($data['field'], 'LIKE', '%' . $data['key'] . '%')
+            ->where('level', $opLevel, $data['level'])
+            ->where('status', $opStatus, $data['status'])
+            ->count();
+
+        $start = $list->perPage() * ($list->currentPage() - 1) + 1;
+        $end = $list->perPage() * ($list->currentPage() - 1) + $list->perPage();
+
+        if($end > $total) {
+            $end = $total;
+        }
 
         $level = Helper::levelArr();
+
         for ($i = 0; $i < count($list); $i++){
             $list[$i]->slevel = Helper::valOfArr($level, $list[$i]->level);
         }
 
-        return view('back-end.user.index', compact('list', 'data', 'level'));
+        if(Request::ajax()) {
+            return view('back-end.user.list', compact('list', 'start', 'end', 'total', 'level'));
+        }
+
+        return view('back-end.user.index', compact('list', 'level', 'start', 'end', 'total', 'data'));
     }
+
+//    public function filter(Request $r)
+//    {
+//        $data['key'] = $r->search;
+//        $data['field'] = $r->field_search;
+//        $data['sort'] = $r->sort;
+//        $data['type'] = $r->type_sort;
+//        $data['status'] = $r->status;
+//        $data['level'] = $r->level;
+//
+//        $opStatus = empty($data['status']) ? '<>' : '=';
+//        $opLevel = empty($data['level']) ? '<>' : '=';
+//
+//        $list = $this->__user->where($data['field'], 'LIKE', '%' . $data['key'] . '%')
+//            ->where('level', $opLevel, $data['level'])
+//            ->where('status', $opStatus, $data['status'])
+//            ->orderBy($data['sort'], $data['type'])
+//            ->paginate(5)
+//            ->withPath("?search={$data['key']}&field_search={$data['field']}&sort={$data['sort']}&type_sort={$data['type']}".
+//                "&status={$data['status']}&level={$data['level']}");
+//
+//        $level = Helper::levelArr();
+//        for ($i = 0; $i < count($list); $i++){
+//            $list[$i]->slevel = Helper::valOfArr($level, $list[$i]->level);
+//        }
+//
+//        return view('back-end.user.index', compact('list', 'data', 'level'));
+//    }
 
     public function add()
     {

@@ -1,25 +1,43 @@
 $(document).ready(function () {
+    var ctr = getCtrName();
+
+    setCss();
+
+    hoverDropdown(ctr);
+
+    navActive('#' + ctr);
+
+    remove(ctr);
+
+    eventsFilter(ctr);
+})
+
+/*
+ * Get controller name from url
+ * @return ctr : controller name
+ */
+function getCtrName()
+{
     var url = $(location).attr('href');
     var ctr = url.split('/');
 
-    if(ctr.length < 5) {
+    if (ctr.length < 5) {
         ctr = 'home';
     }
     else {
         ctr = ctr[4];
-        if(ctr.indexOf('?') != -1) {
+        if (ctr.indexOf('?') != -1) {
             ctr = ctr.split('?');
+            ctr = ctr[0];
+        }
+        else if (ctr.indexOf('#') != -1) {
+            ctr = ctr.split('#');
             ctr = ctr[0];
         }
     }
 
-    setCss();
-    hoverDropdown(ctr);
-    navActive('#' + ctr);
-
-    remove(ctr);
-})
-
+    return ctr;
+}
 
 /*
  * Setting css for the nav-bar
@@ -28,7 +46,7 @@ function setCss()
 {
     var heightHeader = 0;
 
-    if($(window).width() < 768){
+    if ($(window).width() < 768) {
         $('#nav-home').css('position', 'static');
         $('#nav-home').css('top', 0);
         $('#nav-home').css('padding', '20px');
@@ -36,7 +54,7 @@ function setCss()
         $('#content article').css('padding', '0 20px');
         $('#title-site').css('font-size', '1.5em');
     }
-    else{
+    else {
         $('#title-site').css('font-size', '2.4em');
 
         $('#nav-home').css('display', 'block');
@@ -52,26 +70,34 @@ function setCss()
     $("body").css("padding-top", heightHeader);
 }
 
+/*
+ * Event hover for dropdown menu
+ * @param ctr : controller name
+ * @return void
+ */
 function hoverDropdown(ctr)
 {
     var parentID;
 
     $(".dropdown").mouseover(function () {
         parentID = $(this).attr("id");
-        if(ctr != parentID)
-        {
+        if (ctr != parentID) {
             $(this).addClass("open");
         }
     });
     $(".dropdown").mouseout(function () {
         parentID = $(this).attr("id");
-        if(ctr != parentID)
-        {
+        if (ctr != parentID) {
             $(this).removeClass("open");
         }
     });
 }
 
+/*
+ * change active for header nav-bar
+ * @param id
+ * @return void
+ */
 function navActive(id)
 {
     $("#nav-home > ul > li.active").removeClass("active");
@@ -81,8 +107,7 @@ function navActive(id)
 
 function previewImage(input, id)
 {
-    if (input.files && input.files[0])
-    {
+    if (input.files && input.files[0]) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
@@ -93,10 +118,92 @@ function previewImage(input, id)
     }
 }
 
-function remove(ctr) {
+/*
+ * show modal while click button delete
+ * @param ctr : controller name
+ * @return void
+ */
+function remove(ctr)
+{
     $('.btn-del').click(function () {
         $('#del-id').val($(this).attr('frm-id'));
         $('#del-id').parent().attr('action', $(this).attr('link'));
         $('#remove-modal').modal('show');
+    });
+}
+
+/*
+ * Ajax filter
+ * @param page : page number
+ * @param link : url send request
+ * @return void
+ */
+function ajaxFilter(page, ctr)
+{
+    var input = $(".form-val");
+
+    var data = new FormData();
+    var dt = {};
+
+    for (var i = 0; i < input.length; i++) {
+        if ($(input[i]).attr("type") == 'radio' || $(input[i]).attr("type") == 'checkbox') {
+            if ($(input[i]).is(':checked')) {
+                data.append($(input[i]).attr("name"), $(input[i]).val());
+                dt[$(input[i]).attr("name")] = $(input[i]).val();
+            }
+        }
+        else {
+            data.append($(input[i]).attr("name"), $(input[i]).val());
+            dt[$(input[i]).attr("name")] = $(input[i]).val();
+        }
+    }
+
+    console.log(dt);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: ctr + '?page=' + page,
+        type: 'post',
+        contentType: false,
+        processData: false,
+        cache: false,
+        data: data,
+        success: function (responce) {
+            //console.log(data);
+            $('#list-data').html(responce);
+            remove(ctr);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+}
+
+/*
+ * Events send ajax filter
+ */
+function eventsFilter(ctr)
+{
+    $('#btn-filter').click(function () {
+        ajaxFilter(1, ctr);
+    });
+
+    $('#per').change(function () {
+        ajaxFilter(1, ctr);
+    });
+
+    $(window).on('hashchange', function () {
+        page = window.location.hash.replace('#', '');
+        ajaxFilter(page, ctr);
+    });
+
+    $(document).on('click', '.pagination a', function (e) {
+        e.preventDefault();
+        var page = $(this).attr('href').split('page=')[1];
+        //ajaxPaginate(page, ctr);
+        location.hash = page;
     });
 }

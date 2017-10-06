@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Http\Requests\admin\AddCatRequest;
-use Illuminate\Http\Request;
+use Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
@@ -20,24 +19,49 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $list = $this->__cat->orderBy('updated_at', 'desc')->paginate(5);
+        $data['per'] = 7;
+        $data['key'] = '';
+        $data['sort'] = 'id';
+        $data['type'] = 'desc';
 
-        return view('back-end.category.index', compact('list'));
-    }
-
-    public function filter(Request $r)
-    {
-        $data['key'] = $r->search;
-        $data['sort'] = $r->sort;
-        $data['type'] = $r->type_sort;
+        if(Request::ajax()) {
+            $data['per'] = $_POST['per'];
+            $data['key'] = $_POST['search'];
+            $data['sort'] = $_POST['sort'];
+            $data['type'] = $_POST['type_sort'];
+        }
 
         $list = $this->__cat->where('name', 'LIKE', '%' . $data['key'] . '%')
             ->orderBy($data['sort'], $data['type'])
-            ->paginate(5)
-            ->withPath("?search={$data['key']}&sort={$data['sort']}&type_sort={$data['type']}");
+            ->paginate($data['per']);
 
-        return view('back-end.category.index', compact('list'))->with('data', $data);
+        $total = $this->__cat->where('name', 'LIKE', '%' . $data['key'] . '%')->count();
+        $start = $list->perPage() * ($list->currentPage() - 1) + 1;
+        $end = $list->perPage() * ($list->currentPage() - 1) + $list->perPage();
+
+        if($end > $total) {
+            $end = $total;
+        }
+
+        if(Request::ajax()) {
+            return view('back-end.category.list', compact('list', 'start', 'end', 'total', 'data'));
+        }
+        return view('back-end.category.index', compact('list', 'start', 'end', 'total', 'data'));
     }
+
+//    public function filter(Request $r)
+//    {
+//        $data['key'] = $r->search;
+//        $data['sort'] = $r->sort;
+//        $data['type'] = $r->type_sort;
+//
+//        $list = $this->__cat->where('name', 'LIKE', '%' . $data['key'] . '%')
+//            ->orderBy($data['sort'], $data['type'])
+//            ->paginate(5)
+//            ->withPath("?search={$data['key']}&sort={$data['sort']}&type_sort={$data['type']}");
+//
+//        return view('back-end.category.index', compact('list'))->with('data', $data);
+//    }
 
     public function add()
     {
@@ -77,8 +101,8 @@ class CategoryController extends Controller
 
     public function delete(Request $r)
     {
-        $this->__cat->find($r->id)
-            ->delete();
+//        $this->__cat->find($r->id)
+//            ->delete();
 
         return redirect()->route('listCat')->with('success', 'Xóa thành công!');
     }
