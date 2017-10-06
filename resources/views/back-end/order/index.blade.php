@@ -65,7 +65,7 @@
                         @foreach($list as $row)
                             <tr>
                                 <td>{!! $row->id !!}</td>
-                                <td>{!! $row->cid !!}</td>
+                                <td>{!! $row->customer->name !!}</td>
                                 <td>{!! $row->total !!}</td>
                                 <td>{!! $row->note !!}</td>
                                 <td>{!! $row->st !!}</td>
@@ -94,7 +94,7 @@
                     @if($total > 0)
                         <div style='float:left;'>
                             Hiển thị : {{ $start }} <span class='glyphicon glyphicon-arrow-right'></span> {{ $end }}
-                            Trong {{ $total }} Người dùng.
+                            Trong {{ $total }} Đơn hàng.
                         </div>
                     @endif
                     {!! $list->links() !!}
@@ -189,13 +189,22 @@
                             <label for='money-order'>Tiền</label>
                             <div id='money-order' class='form-control-static'>
                                 <input class='form-control form-val' type='number' name='from'
-                                       placeholder='000000000 VNĐ' style='width:45%;float: left;margin-right: 15px;'>
-                                <span> To </span>
+                                       placeholder='000000000 VNĐ' style='width:45%;float: left;'>
+                                <div style='width:10%;text-align: center;float:left;'> - </div>
                                 <input class='form-control form-val' type='number' name='to'
                                        placeholder='000000000 VNĐ' style='width:45%; float: right'>
                             </div>
                         </div>
 
+                        <!-- created filter -->
+                        <div class='form-group'>
+                            <label for='date-order'>Lọc theo ngày mua</label>
+                            <div id='date-order' class='form-control-static'>
+                                <input class='form-control form-val datepicker' name='fromDate' style='width:45%;float:left'>
+                                <div style='width:10%;text-align: center;float:left;'> - </div>
+                                <input class='form-control form-val datepicker' name='toDate' style='width:45%'>
+                            </div>
+                        </div>
                     </div>
 
                     <div class='modal-footer'>

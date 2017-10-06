@@ -35,6 +35,8 @@ class OrderController extends Controller
         $data['status'] = '';
         $data['from'] = 0;
         $data['to'] =  999999999999;
+        $data['fromDate'] = '1990-01-01';
+        $data['toDate'] = Date('Y-m-d', time() + 84600);
 
         if(Request::ajax()) {
             $data['per'] = $_POST['per'];
@@ -42,8 +44,10 @@ class OrderController extends Controller
             $data['sort'] = $_POST['sort'];
             $data['type'] = $_POST['type_sort'];
             $data['status'] = $_POST['status'];
+            $data['toDate'] = $_POST['toDate'] . ' 23:59:59';
+            $data['from'] = $_POST['fromDate'];
             $data['from'] = (empty($_POST['from'])) ? $data['from'] : $_POST['from'];
-            $data['to'] = (empty($_POST['to'])) ? $data['to'] : $_POST['to'];
+            $data['to'] = ((empty($_POST['to'])) ? $data['to'] : $_POST['to']);
         }
 
         $temp = empty($data['status']) ? '<>' : '=';
@@ -52,6 +56,8 @@ class OrderController extends Controller
             ->where('status', $temp, $data['status'])
             ->where('total', '>=', $data['from'])
             ->where('total', '<=', $data['to'])
+            ->where('created_at', '>=', $data['fromDate'])
+            ->where('created_at', '<=', $data['toDate'])
             ->orderBy($data['sort'], $data['type'])
             ->paginate($data['per']);
 
@@ -59,6 +65,8 @@ class OrderController extends Controller
             ->where('status', $temp, $data['status'])
             ->where('total', '>=', $data['from'])
             ->where('total', '<=', $data['to'])
+            ->where('created_at', '>=', $data['fromDate'])
+            ->where('created_at', '<=', $data['toDate'])
             ->count();
 
         $start = $list->perPage() * ($list->currentPage() - 1) + 1;

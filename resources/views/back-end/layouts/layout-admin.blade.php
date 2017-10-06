@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/adminStyle.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/datepicker3.css') }}">
 
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
@@ -39,6 +40,7 @@
 
 <!-- The footer -->
 <footer>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}"></script>
 </footer>
 </body>

@@ -10,6 +10,21 @@ $(document).ready(function () {
     remove(ctr);
 
     eventsFilter(ctr);
+
+    // $('.input-daterange input').each(function() {
+    //     $(this).datepicker('clearDates');
+    // });
+    $(function () {
+        $('.datepicker').datepicker({
+            format: "yyyy-mm-dd"
+        }).on('changeDate', function (ev) {
+            $(this).datepicker('hide');
+        });
+
+        var dpk = $('.datepicker');
+        $(dpk[0]).datepicker('setDate', '1990-01-01');
+        $(dpk[1]).datepicker('setDate', getTomorowDate());
+    });
 })
 
 /*
@@ -206,4 +221,24 @@ function eventsFilter(ctr)
         //ajaxPaginate(page, ctr);
         location.hash = page;
     });
+}
+
+function getTomorowDate()
+{
+    var today = new Date();
+    var dd = today.getDate()+1;
+    var mm = today.getMonth()+1;
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd = '0'+dd
+    }
+
+    if(mm<10) {
+        mm = '0'+mm
+    }
+
+    today = yyyy + '-' + mm + '-' + dd;
+
+    return today;
 }

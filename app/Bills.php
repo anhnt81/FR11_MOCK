@@ -11,7 +11,7 @@ class Bills extends Model
 
     public function customer()
     {
-        return $this->hasOne('App\Customer', 'cid', 'id');
+        return $this->hasOne('App\Customer', 'id', 'cid');
     }
 
     public function orderDetail()
