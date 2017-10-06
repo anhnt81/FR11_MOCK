@@ -59,6 +59,8 @@ body {
 .order-info .panel-body > div { margin-top : 15px; }
 .order-info .panel-body > div > span:nth-child(1) { font-weight : bold; }
 
+.table-responsive { clear: both }
+
 .right { float : right; }
 
 .img-ava { max-height : 80px; }
@@ -88,4 +90,9 @@ body {
 #week-chart {
     width : inherit;
     height: 300px;
+}
+
+.pagination {
+    margin : 0;
+    float: right;
 }

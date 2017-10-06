@@ -83,7 +83,7 @@ class ProductController extends Controller
             $filename = $request->file('image');
 
             foreach ($filename as $key => $item) {
-                $temp = 'p-ava-'. $request->id . $key . $item->getClientOriginalExtension();
+                $temp = 'p-ava-'. $request->id . $key . '.' . $item->getClientOriginalExtension();
                 $item->move('images/front-end/product', $temp);
                 $img .= $temp . ',';
             }

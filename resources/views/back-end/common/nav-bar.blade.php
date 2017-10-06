@@ -47,13 +47,19 @@
 
         <li id='comment' class="dropdown">
             <a href="{!! url('admin/comment') !!}">
-                <span class="glyphicon glyphicon-comment"></span> Quản lý bình luận</span>
+                <span class="glyphicon glyphicon-comment"></span> Quản lý bình luận
+            </a>
+        </li>
+
+        <li id='comment' class="dropdown">
+            <a href="{!! url('admin/reports') !!}">
+                <span class="glyphicon glyphicon-glyphicon glyphicon-euro"></span> Thống kê
             </a>
         </li>
 
         <li id='setting' class="dropdown">
             <a href="{!! url('admin/setting') !!}">
-                <span class="glyphicon glyphicon-cog"></span> Cài Đặt</span>
+                <span class="glyphicon glyphicon-cog"></span> Cài Đặt
             </a>
         </li>
     </ul>

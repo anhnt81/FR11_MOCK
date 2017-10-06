@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Customer;
 use App\Http\Requests\admin\UpdateCustomerRequest;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Request;
 
 class CustomerController extends Controller
 {
@@ -18,25 +19,52 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $list = $this->__cus->orderBy('updated_at', 'desc')->paginate(7);
-        
-        return view('back-end.customer.index', compact('list'));
-    }
+        $data['per'] = 7;
+        $data['key'] = '';
+        $data['field'] = 'name';
+        $data['sort'] = 'id';
+        $data['type'] = 'desc';
 
-    public function filter(Request $r)
-    {
-        $data['key'] = $r->search;
-        $data['field'] = $r->field_search;
-        $data['sort'] = $r->sort;
-        $data['type'] = $r->type_sort;
+        if(Request::ajax()) {
+            $data['per'] = $_POST['per'];
+            $data['key'] = $_POST['search'];
+            $data['field'] = $_POST['field_search'];
+            $data['sort'] = $_POST['sort'];
+            $data['type'] = $_POST['type_sort'];
+        }
 
         $list = $this->__cus->where($data['field'], 'LIKE', '%' . $data['key'] . '%')
             ->orderBy($data['sort'], $data['type'])
-            ->paginate(5)
-            ->withPath("?search={$data['key']}&field_search={$data['field']}&sort={$data['sort']}&type_sort={$data['type']}");
+            ->paginate($data['per']);
 
-        return view('back-end.customer.index', compact('list'))->with('data', $data);
+        $total = $this->__cus->where($data['field'], 'LIKE', '%' . $data['key'] . '%')->count();
+        $start = $list->perPage() * ($list->currentPage() - 1) + 1;
+        $end = $list->perPage() * ($list->currentPage() - 1) + $list->perPage();
+
+        if($end > $total) {
+            $end = $total;
+        }
+
+        if(Request::ajax()) {
+            return view('back-end.customer.list', compact('list', 'start', 'end', 'total'));
+        }
+        return view('back-end.customer.index', compact('list', 'start', 'end', 'total', 'data'));
     }
+
+//    public function filter(Request $r)
+//    {
+//        $data['key'] = $r->search;
+//        $data['field'] = $r->field_search;
+//        $data['sort'] = $r->sort;
+//        $data['type'] = $r->type_sort;
+//
+//        $list = $this->__cus->where($data['field'], 'LIKE', '%' . $data['key'] . '%')
+//            ->orderBy($data['sort'], $data['type'])
+//            ->paginate(5)
+//            ->withPath("?search={$data['key']}&field_search={$data['field']}&sort={$data['sort']}&type_sort={$data['type']}");
+//
+//        return view('back-end.customer.index', compact('list'))->with('data', $data);
+//    }
 
     public function update($id)
     {
