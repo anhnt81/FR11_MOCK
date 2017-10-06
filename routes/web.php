@@ -176,3 +176,5 @@ Route::get('/trang-chu', ['as' => 'homePage', 'uses' => 'Frontend\HomePageContro
 Route::get('/contact', ['as' => 'contact', 'uses' => 'Frontend\ContactController@getContact']);
 
 Route::get('/gioi-thieu', ['as' => 'gioithieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
+
+
