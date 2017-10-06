@@ -212,8 +212,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 });
 
 // Controllers Within The "App\Http\Controllers\Front-End"
-Route::get('/trang-chu', ['as' => 'homePage', 'uses' => 'Frontend\HomePageController@homePage']);
+Route::group(['prefix' => 'front-end'], function () {
+    Route::get('/trang-chu', ['as' => 'homePage', 'uses' => 'Frontend\HomePageController@homePage']);
 
-Route::get('/contact', ['as' => 'contact', 'uses' => 'Frontend\ContactController@getContact']);
+    Route::get('/contact', ['as' => 'contact', 'uses' => 'Frontend\ContactController@getContact']);
 
-Route::get('/gioi-thieu', ['as' => 'gioithieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
+    Route::get('/gioi-thieu', ['as' => 'gioithieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
+
+    Route::get('/', ['as' => 'gioithieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
+});

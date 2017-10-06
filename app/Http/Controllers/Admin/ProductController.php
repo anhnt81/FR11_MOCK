@@ -9,10 +9,12 @@ use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Support\Facades\DB;
 use App\Product;
 use App\Category;
+use File;
 
 class ProductController extends Controller
 {
-    public function listProduct(){
+    public function listProduct()
+    {
         $products = Product::paginate(5);
         $brands = Brand::all();
         $category = Category::all();
@@ -21,17 +23,18 @@ class ProductController extends Controller
             $images[$item->id] = explode(',', $item->images);
         }
 
-        return view('back-end.product.index',compact('products','brands','category', 'images'));
+        return view('back-end.product.index', compact('products', 'brands', 'category', 'images'));
     }
 
-    public function createProduct(Request $req){
+    public function createProduct( Request $req )
+    {
         $product = new Product();
         $img = '';
-        if($req->hasFile('image')){
+        if ($req->hasFile('image')) {
             $filename = $req->file('image');
 
             foreach ($filename as $key => $item) {
-                $temp = 'p-ava-'. $req->id . $key . $item->getClientOriginalExtension();
+                $temp = 'p-ava-' . $req->id . $key . '.' . $item->getClientOriginalExtension();
                 $item->move('images/front-end/product', $temp);
                 $img .= $temp . ',';
             }
@@ -43,7 +46,7 @@ class ProductController extends Controller
         $product->bid = $req->brand;
         $product->name = $req->name;
         $product->description = $req->description;
-        $product->unit_price  = $req->unit_price;
+        $product->unit_price = $req->unit_price;
         $product->promotion_price = $req->promotion_price;
         $product->qty = $req->quantity;
         $product->status = $req->status;
@@ -51,10 +54,11 @@ class ProductController extends Controller
         $product->new = $req->new;
         $product->save();
 
-        return redirect('admin/product')->with('message','Add Product Success');
+        return redirect('admin/product')->with('message', 'Add Product Success');
     }
 
-    public function updateProduct($id){
+    public function updateProduct( $id )
+    {
         $catId = Product::find($id)->category->id;
         $brId = Product::find($id)->brand->id;
         $product = Product::where('id', $id)->first();
@@ -64,11 +68,11 @@ class ProductController extends Controller
         $brandAll = Brand::all();
         $images = explode(',', $product->images);
 
-        //var_dump($images);
-        return view('back-end.product.edit',compact('product','brandAll','categoryAll','brandById','categoryById', 'images'));
+        return view('back-end.product.edit', compact('product', 'brandAll', 'categoryAll', 'brandById', 'categoryById', 'images'));
     }
 
-    public function saveProduct($id,Request $request){
+    public function saveProduct( $id, Request $request )
+    {
         $this->validate($request,
             [
                 'name'=> 'required',
@@ -93,11 +97,11 @@ class ProductController extends Controller
             ]);
 
         $img = '';
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $filename = $request->file('image');
 
             foreach ($filename as $key => $item) {
-                $temp = 'p-ava-'. $request->id . $key.'.' . $item->getClientOriginalExtension();
+                $temp = 'p-ava-' . $request->id . $key . '.' . $item->getClientOriginalExtension();
                 $item->move('images/front-end/product', $temp);
                 $img .= $temp . ',';
             }
@@ -112,21 +116,37 @@ class ProductController extends Controller
                 'cid' => $request->category,
                 'bid' => $request->brand,
                 'description' => $request->description,
-                'unit_price'  => $request->unit_price,
+                'unit_price' => $request->unit_price,
                 'promotion_price' => $request->promotion_price,
                 'qty' => $request->quantity,
                 'status' => $request->status,
                 'new' => $request->new
             ]);
-        return redirect('admin/product')->with('message','Update Product Success');
+        return redirect('admin/product')->with('message', 'Update Product Success');
     }
 
-    public function deleteProduct($id){
-        Product::where('id',$id)->delete();
-        return redirect('admin/product')->with('message','Delete Product Success');
+    public function deleteProduct( $id )
+    {
+        $result = Product::where('id', $id)->delete();
+        if ($result) {
+            $images = Product::where('id', $id)->pluck('images')->toArray();
+            File::delete("images/front-end/product/test.jpg");
+            if (!empty($images)) {
+                $arr_img = explode(',', $images[0]);
+                if (count($arr_img) > 1) {
+                    foreach ($arr_img as $item) {
+                        File::delete("images/front-end/product/$item");
+                    }
+                } else {
+                    File::delete("images/front-end/product/$images[0]");
+                }
+            }
+        }
+        return redirect('admin/product')->with('message', 'Delete Product Success');
     }
 
-    public function filterProduct(Request $req){
+    public function filterProduct( Request $req )
+    {
         $data['key'] = $req->search;
         $data['field'] = $req->field_search;
         $data['sort'] = $req->sort;
