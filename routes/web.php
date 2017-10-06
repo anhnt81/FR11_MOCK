@@ -60,7 +60,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('filter', ['as' => 'filterProduct', 'uses' => 'Admin\ProductController@filterProduct']);
         Route::get('edit/{id}', ['as' => 'updateProduct', 'uses' => 'Admin\ProductController@updateProduct'])->where('id', '[0-9]+');
         Route::post('edit/{id}', ['as' => 'saveProduct', 'uses' => 'Admin\ProductController@saveProduct'])->where('id', '[0-9]+');
-        Route::get('del/{id}', ['as' => 'deleteProduct', 'uses' => 'Admin\ProductController@deleteProduct'])->where('id', '[0-9]+');
+        Route::post('del/{id}', ['as' => 'deleteProduct', 'uses' => 'Admin\ProductController@deleteProduct'])->where('id', '[0-9]+');
     });
 
     //category route
@@ -190,11 +190,34 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             'uses' => 'Admin\UserController@delete'
         ));
     });
+    ///SLideeeee Hien
+    Route::group(['prefix'=> 'slide'],function(){
+        Route::get('/','Admin\SettingController@listSlide');
+        Route::get('addSlide','Admin\SettingController@addSlide');
+        Route::get('insertSlide/{id}','Admin\SettingController@insertSlide');
+        Route::post('deleteSlide','Admin\SettingController@deleteSlide');
+        Route::get('ajaxSlide/{id}','Admin\SettingController@ajaxSlide')->name('ajaxSlide');
+        Route::post('swapSlide','Admin\SettingController@swapSlide');
+    });
+    //Brand Hien
+    Route::group(['prefix'=>'brand'],function(){
+        Route::get('/','Admin\BrandController@listBrand')->name('listBrand');
+        Route::get('addBrand','Admin\BrandController@addBrand')->name('addBrand');
+        Route::post('addBrand','Admin\BrandController@postBrand')->name('postBrand');
+        Route::get('editBrand/{id}','Admin\BrandController@editBrand')->name('editBrand');
+        Route::post('editBrand/{id}','Admin\BrandController@postEdit')->name('postEdit');
+        Route::get('deleteBrand/{id}','Admin\BrandController@deleteBrand');
+        Route::post('deleteBrand/{id}','Admin\BrandController@postDelete')->name('postDelete');
+    });
 });
 
 // Controllers Within The "App\Http\Controllers\Front-End"
-Route::get('/trang-chu', ['as' => 'homePage', 'uses' => 'Frontend\HomePageController@homePage']);
+Route::group(['prefix' => 'front-end'], function () {
+    Route::get('/trang-chu', ['as' => 'homePage', 'uses' => 'Frontend\HomePageController@homePage']);
 
-Route::get('/contact', ['as' => 'contact', 'uses' => 'Frontend\ContactController@getContact']);
+    Route::get('/contact', ['as' => 'contact', 'uses' => 'Frontend\ContactController@getContact']);
 
-Route::get('/gioi-thieu', ['as' => 'gioithieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
+    Route::get('/gioi-thieu', ['as' => 'gioithieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
+
+    Route::get('/', ['as' => 'gioithieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
+});

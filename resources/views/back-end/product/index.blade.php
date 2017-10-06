@@ -9,6 +9,9 @@
         <div class="panel-body">
             <!-- filter -->
             <div>
+                <button class="btn btn-primary" role='button' data-toggle='modal' data-target='#myModal'>
+                    <span class='glyphicon glyphicon-plus'></span> Thêm mới
+                </button>
                 <button class="btn btn-primary" role='button' data-toggle='modal' data-target='#filter-modal'>
                     <span class='glyphicon glyphicon-filter'></span> Lọc
                 </button>
@@ -19,7 +22,6 @@
             <!-- Modal create Product -->
                 <form onsubmit ="return validateForm()" enctype="multipart/form-data"  method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-default" style="margin-top:15px"><i  class="fa fa-plus"></i>Thêm Sản Phẩm</a>
                     <div class="modal fade" tabindex="-1" id="myModal" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -28,7 +30,7 @@
                                     <h4 class="modal-title">Add Product</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Image<input type="file" name="file[]" id="upload" multiple></p>
+                                    <p>Image<input type="file" name="image[]" id="upload" multiple></p>
                                     <p>Name<input type="text" name="name" id="name" class="form-control"></p>
                                     <p>Category
                                         <select class="form-control" selected="" id="category" name="category">
@@ -50,13 +52,21 @@
                                             @endif
                                         </select>
                                     </p>
-                                    {{--<p>Description<input type="text" name="description" id="description" class="form-control"></p>--}}
-                                    <p>Description<textarea class="form-control" name="description" id="description" rows="5" cols="20" maxlength="20"></textarea></p>
+                                    <p>Description<textarea class="form-control" name="description" id="description" rows="5" cols="20"></textarea></p>
 
                                     <p>Unit Price<input type="text" name="unit_price" id="unit_price" class="form-control"></p>
                                     <p>Promotion Price<input type="text" name="promotion_price" id="promotion_price" class="form-control"></p>
+                                    <p>Datetime Promotion<input type="date" class="form-control" name="datetime_promotion"/></p>
                                     <p>Quantity<input type="text" name="quantity" id="quantity" class="form-control"></p>
-                                    {{--Show message error --}}
+                                    <p>Status<select class="form-control" selected="" id="status" name="status">
+                                                <option value="1">Active</option>
+                                                <option value="0">Not Active</option>
+                                            </select></p>
+                                    <p>Action<select class="form-control" selected="" id="new" name="new">
+                                            <option value="1">New Product</option>
+                                            <option value="0">Old Product</option>
+                                        </select></p>
+
                                     <div id="error" style="display: none;"  class="alert alert-danger" role="alert"></div>
                                 </div>
                                 <div class="modal-footer">
@@ -73,6 +83,7 @@
         var category = $('select[name=category]').val();
         var brand = $('select[name=brand]').val();
         var image = $("#file").val();
+
         var quantity = $("#quantity").val().trim();
         var unit_price = $("#unit_price").val().trim();
         var promotion_price = $("#promotion_price").val().trim();
@@ -90,42 +101,70 @@
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
+                        <th>Order</th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Images</th>
-                        <th>Unit Price</th>
-                        <th>Promotion Price</th>
+                        <th>Original</th>
+                        <th>Saled</th>
+                        <th>Promotion End</th>
                         <th>Quantity</th>
+                        <th>Action</th>
+                        <th>Status</th>
                     </tr>
                     </thead>
                     <tbody>
                     @if(count($products) < 1)
+
                         <tr>
                             <td colspan="7">Chưa có dữ liệu</td>
                         </tr>
                     @else
+                        <?php
+                        $page = app('request')->input('page');
+                        $i = 0;
+                        if($page > 1){
+                            $i = ($page - 1)*5;
+                        }
+                        ?>
                         @foreach($products as $row)
                             <tr>
+                                <td align="center">{{++$i}}</td>
                                 <td width="100px;">{!! $row->name !!}</td>
                                 <td width="300px;">{!! $row->description !!}</td>
                                 <td>
                                     @foreach($images[$row->id] as $item)
-                                        <img style="max-height: 60px;" src="{{asset('images/front-end/product/'.$item)}}" />
+                                        <img style="max-height: 60px;max-width: 60px" src="{{asset('images/front-end/product/'.$item)}}" />
                                     @endforeach
                                 </td>
                                 <td>{!! $row->unit_price !!}</td>
                                 <td>{!! $row->promotion_price !!}</td>
+                                @if(empty($row->datetime_promotion))
+                                <td align="center">Not Sale</td>
+                                    @else
+                                <td align="center">{!! $row->datetime_promotion !!}</td>
+                                @endif
                                 <td align="center">{!! $row->qty !!}</td>
+                                @if($row->new == 0)
+                                    <td align="center">Old Product</td>
+                                @else
+                                    <td align="center">New Product</td>
+                                @endif
+                                @if($row->status == 0)
+                                    <td align="center">Not Active</td>
+                                @else
+                                    <td align="center">Active</td>
+                                @endif
                                 <td>
                                     <a href="{!! url('admin/product/edit/'.$row->id) !!}"
                                        class="btn btn-warning">
                                         <span class="glyphicon glyphicon-edit"></span>
-                                        Sửa
+                                        Edit
                                     </a>
                                     <button type='button' class="btn btn-danger btn-del"
-                                            frm-id='{{$row->id}}' link='{!! url('admin/product/del') !!}'>
+                                            frm-id='{{$row->id}}' link='{!! url('admin/product/del/'.$row->id) !!}'>
                                         <span class="glyphicon glyphicon-remove"></span>
-                                        Xóa
+                                        Delete
                                     </button>
                                 </td>
                             </tr>

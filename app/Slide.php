@@ -11,6 +11,6 @@ class Slide extends Model
 
     public function product()
     {
-        return $this->hasOne('App\Product', 'pid', 'id');
+        return $this->belongsTo('App\Product', 'pid', 'id');
     }
 }

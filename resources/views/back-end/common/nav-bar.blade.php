@@ -45,6 +45,12 @@
             </a>
         </li>
 
+        <li id='brand' class="dropdown">
+            <a href="{!! url('admin/slide') !!}">
+                <span class="glyphicon glyphicon-cd"></span> Quản Lý Slide
+            </a>
+        </li>
+
         <li id='comment' class="dropdown">
             <a href="{!! url('admin/comment') !!}">
                 <span class="glyphicon glyphicon-comment"></span> Quản lý bình luận
