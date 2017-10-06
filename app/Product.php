@@ -28,4 +28,9 @@ class Product extends Model
     {
         return $this->hasOne('App\Slide', 'pid', 'id');
     }
+
+    public function orderDetail()
+    {
+        return $this->hasOne('App\BillDetail', 'pid', 'id');
+    }
 }

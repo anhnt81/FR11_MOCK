@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Bills;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
@@ -15,7 +16,25 @@ class LoginController extends Controller
     public function home()
     {
         if(Auth::check()) {
-            return view('back-end.home');
+            $from = date('Y-m-d');
+            $to = strtotime(date("Y-m-d", strtotime($from)) . " +1 days");
+            $to = strftime("%Y-%m-%d", $to);
+
+            $fromWeek = strtotime(date("Y-m-d", strtotime($from)) . " -" . (date('w') - 1) . " days");
+            $fromWeek = strftime("%Y-%m-%d", $fromWeek);
+            $toWeek = strtotime(date("Y-m-d", strtotime($from)) . " +" . (7 - date('w')) . " days");
+            $toWeek = strftime("%Y-%m-%d", $toWeek);
+
+            $totalOrder = Bills::all()->count();
+            $dayOrder = Bills::where('created_at', '>=', $from)
+                ->where('created_at', '<=', $to)
+                ->count();
+            $weekOrder = Bills::where('created_at', '>=', $fromWeek)
+                ->where('created_at', '<=', $toWeek)
+                ->count();
+            $closeOrder = Bills::where('status', '=', '7')->count();
+
+            return view('back-end.home', compact('totalOrder', 'dayOrder', 'weekOrder','closeOrder'));
         }
         else{
             return redirect()->route('login');

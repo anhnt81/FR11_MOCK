@@ -8,14 +8,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Cake Shop Online - @yield('title')</title>
+    <title>Fresh Garden Online Shop - @yield('title')</title>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/adminStyle.css') }}">
 
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/admin.js') }}"></script>
 </head>
 
 <body>
@@ -39,4 +38,8 @@
 </section>
 
 <!-- The footer -->
-@include('back-end.common.footer')
+<footer>
+    <script src="{{ asset('js/admin.js') }}"></script>
+</footer>
+</body>
+</html>

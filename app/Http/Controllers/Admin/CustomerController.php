@@ -19,7 +19,7 @@ class CustomerController extends Controller
     public function index()
     {
         $list = $this->__cus->orderBy('updated_at', 'desc')->paginate(7);
-
+        
         return view('back-end.customer.index', compact('list'));
     }
 
