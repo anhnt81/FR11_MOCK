@@ -217,9 +217,18 @@ Route::group(['prefix' => 'front-end'], function () {
 
     Route::get('/contact', ['as' => 'contact', 'uses' => 'Frontend\ContactController@getContact']);
 
-    Route::get('/gioi-thieu', ['as' => 'gioithieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
+    Route::get('/gioi-thieu', ['as' => 'gioi-thieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
 
-    Route::get('dang-nhap', ['as' => 'dangnhap', 'uses' => 'Frontend\AuthController@getLogin']);
+    Route::get('dang-nhap', ['as' => 'dang-nhap', 'uses' => 'Frontend\AuthController@getLogin']);
 
     Route::post('dang-nhap', ['as' => 'postLogin', 'uses' => 'Frontend\AuthController@postLogin']);
+
+    Route::get('dang-ky', ['as' => 'dang-ky', 'uses' => 'Frontend\AuthController@getSignup']);
+    Route::post('dang-ky', ['as' => 'post-Signup', 'uses' => 'Frontend\AuthController@postSignup']);
+
+    Route::get('tai-khoan', ['as' => 'account', 'uses' => 'Frontend\AuthController@getAccount']);
+
+    Route::get('add-to-cart/{id}', ['as' => 'AddToCart', 'uses' => 'Frontend\ProductController@getAddToCart']);
+
+    Route::get('product-detail{id}', ['as' => 'DetailProduct', 'uses' => 'Frontend\ProductController@getProductDetail']);
 });

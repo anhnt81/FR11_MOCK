@@ -20,7 +20,7 @@
 
     <div class="container">
         <div id="content">
-            <form action="{{route('updateAccount',$account->id)}}" method="post" class="beta-form-checkout">
+            <form action="" method="post" class="beta-form-checkout">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <div class="row">
                     @if(count($errors)>0)
@@ -40,31 +40,31 @@
                         <div class="form-group">
                             <label class="control-label col-md-4 col-sm-3 col-xs-12">Email</label>
                             <div class="col-md-8 col-sm-6 col-xs-12">
-                                <input type="email" id="email" name="email"  class="form-control col-md-7 col-xs-12" value="{{$account->email}}">
+                                <input type="email" id="email" name="email"  class="form-control col-md-7 col-xs-12" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-4 col-sm-3 col-xs-12" >Full Name</label>
                             <div class="col-md-8 col-sm-6 col-xs-12">
-                                <input type="text" id="fullname" name="fullname"  class="form-control col-md-7 col-xs-12" value="{{$account->full_name}}">
+                                <input type="text" id="fullname" name="fullname"  class="form-control col-md-7 col-xs-12" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-4 col-sm-3 col-xs-12" >Address</label>
                             <div class="col-md-8 col-sm-6 col-xs-12">
-                                <input type="text" id="address" name="address"  class="form-control col-md-7 col-xs-12" value="{{$account->address}}">
+                                <input type="text" id="address" name="address"  class="form-control col-md-7 col-xs-12" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-4 col-sm-3 col-xs-12" >Phone</label>
                             <div class="col-md-8 col-sm-6 col-xs-12">
-                                <input type="text" id="phone" name="phone" class="form-control col-md-7 col-xs-12" value="{{$account->phone}}">
+                                <input type="text" id="phone" name="phone" class="form-control col-md-7 col-xs-12" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-4 col-sm-3 col-xs-12" >Password</label>
                             <div class="col-md-8 col-sm-6 col-xs-12">
-                                <input type="password" id="password" name="password" class="form-control col-md-7 col-xs-12" value="{{$account->password}}">
+                                <input type="password" id="password" name="password" class="form-control col-md-7 col-xs-12" value="">
                             </div>
                         </div>
                         <div class="col-md-6"></div>

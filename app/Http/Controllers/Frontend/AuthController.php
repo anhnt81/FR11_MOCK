@@ -12,6 +12,17 @@ class AuthController extends Controller
     }
 
     public function postLogin(){
-        
+
+    }
+
+    public function getSignup(){
+        return view('front-end.signup');
+    }
+    public function postSignup(){
+
+    }
+
+    public function getAccount(){
+        return view('front-end.account');
     }
 }

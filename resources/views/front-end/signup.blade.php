@@ -21,7 +21,7 @@
 
     <div class="container">
         <div id="content">
-            <form action="{{route('dang-ki')}}" method="post" class="beta-form-checkout">
+            <form action="{{route('dang-ky')}}" method="post" class="beta-form-checkout">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <div class="row">
                     @if(count($errors)>0)
