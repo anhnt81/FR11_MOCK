@@ -22,7 +22,7 @@
 
 <div class="container">
     <div id="content">
-        <form action="{{route('login')}}" method="post" class="beta-form-checkout">
+        <form action="{{route('postLogin')}}" method="post" class="beta-form-checkout">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
             <div class="row">
                 <div class="col-sm-3"></div>
@@ -47,8 +47,8 @@
                     </div>
                     <div class="col-md-6"></div>
                     <div class="form-group">
+                        <button type="reset" class="btn btn-warning">Reset</button>
                         <button type="submit" class="btn btn-primary">Login</button>
-                        <button type="submit" class="btn btn-warning">Reset</button>
                     </div>
                 </div>
                 <div class="col-sm-3"></div>

@@ -9,7 +9,5 @@ use App\Product;
 
 class ProductController extends Controller
 {
-    public function getNewProduct(){
-
-    }
+    //
 }

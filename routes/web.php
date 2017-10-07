@@ -219,5 +219,7 @@ Route::group(['prefix' => 'front-end'], function () {
 
     Route::get('/gioi-thieu', ['as' => 'gioithieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
 
-    Route::get('/', ['as' => 'gioithieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
+    Route::get('dang-nhap', ['as' => 'dangnhap', 'uses' => 'Frontend\AuthController@getLogin']);
+
+    Route::post('dang-nhap', ['as' => 'postLogin', 'uses' => 'Frontend\AuthController@postLogin']);
 });
