@@ -23,7 +23,7 @@
 
         <li id='product' class="dropdown">
             <a href="{!! url('admin/product') !!}">
-                <span class="glyphicon glyphicon-gift"></span> Quản lý Sản Phẩm</span>
+                <span class="glyphicon glyphicon-gift"></span> Quản lý Sản Phẩm
             </a>
         </li>
 
