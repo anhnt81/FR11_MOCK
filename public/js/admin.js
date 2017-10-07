@@ -66,7 +66,6 @@ function setCss()
         $('#nav-home').css('top', 0);
         $('#nav-home').css('padding', '20px');
         $('#nav-home').css('margin', '0 20px');
-        $('#content article').css('padding', '0 20px');
         $('#title-site').css('font-size', '1.5em');
     }
     else {
@@ -223,12 +222,15 @@ function eventsFilter(ctr)
     });
 }
 
+/*
+ * @return date : date of tomorow
+ */
 function getTomorowDate()
 {
-    var today = new Date();
-    var dd = today.getDate()+1;
-    var mm = today.getMonth()+1;
-    var yyyy = today.getFullYear();
+    var date = new Date();
+    var dd = date.getDate()+1;
+    var mm = date.getMonth()+1;
+    var yyyy = date.getFullYear();
 
     if(dd<10) {
         dd = '0'+dd
@@ -238,7 +240,35 @@ function getTomorowDate()
         mm = '0'+mm
     }
 
-    today = yyyy + '-' + mm + '-' + dd;
+    date = yyyy + '-' + mm + '-' + dd;
 
-    return today;
+    return date;
+}
+
+function setChart(colume, value)
+{
+    var lineChartData = {
+        labels: colume,
+        datasets: [
+            {
+                label: "7 days dataset",
+                fillColor: "rgba(48, 164, 255, 0.2)",
+                strokeColor: "rgba(48, 164, 255, 1)",
+                pointColor: "rgba(48, 164, 255, 1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(48, 164, 255, 1)",
+                data: value
+            }
+        ]
+
+    }
+
+    var chart = document.getElementById("week-chart").getContext("2d");
+    new Chart(chart).Line(lineChartData, {
+        responsive: true,
+        scaleLineColor: "rgba(0,0,0,.2)",
+        scaleGridLineColor: "rgba(0,0,0,.05)",
+        scaleFontColor: "#c5c7cc"
+    });
 }

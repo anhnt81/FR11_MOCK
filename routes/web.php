@@ -10,9 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', ['as' => 'fr-homePage', 'uses' => 'Frontend\HomePageController@homePage']);
 // Controllers Within The "App\Http\Controllers\Admin" Admin
 Route::get('admin/dang-nhap', ['as' => 'login', 'uses' => 'Admin\LoginController@getLogin']);
 Route::post('admin/dang-nhap', ['as' => 'postLogin', 'uses' => 'Admin\LoginController@postLogin']);
@@ -56,7 +54,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     /* AnhNT9 listView Product */
     Route::group(['prefix' => 'product'], function () {
         Route::get('/', ['as' => 'listProduct', 'uses' => 'Admin\ProductController@listProduct']);
-        Route::post('/', ['as' => 'addProduct', 'uses' => 'Admin\ProductController@createProduct']);
+        Route::post('/', array(
+            'as'   => 'ajaxPrd',
+            'uses' => 'Admin\ProductController@listProduct'
+        ));
+        Route::post('/add', ['as' => 'addProduct', 'uses' => 'Admin\ProductController@createProduct']);
         Route::get('filter', ['as' => 'filterProduct', 'uses' => 'Admin\ProductController@filterProduct']);
         Route::get('edit/{id}', ['as' => 'updateProduct', 'uses' => 'Admin\ProductController@updateProduct'])->where('id', '[0-9]+');
         Route::post('edit/{id}', ['as' => 'saveProduct', 'uses' => 'Admin\ProductController@saveProduct'])->where('id', '[0-9]+');
@@ -202,6 +204,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     //Brand Hien
     Route::group(['prefix'=>'brand'],function(){
         Route::get('/','Admin\BrandController@listBrand')->name('listBrand');
+        Route::post('/', array(
+            'as'   => 'ajaxBrand',
+            'uses' => 'Admin\BrandController@listBrand'
+        ));
         Route::get('addBrand','Admin\BrandController@addBrand')->name('addBrand');
         Route::post('addBrand','Admin\BrandController@postBrand')->name('postBrand');
         Route::get('editBrand/{id}','Admin\BrandController@editBrand')->name('editBrand');
@@ -209,6 +215,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('deleteBrand/{id}','Admin\BrandController@deleteBrand');
         Route::post('deleteBrand/{id}','Admin\BrandController@postDelete')->name('postDelete');
     });
+
+    Route::group(['prefix' => 'reports'], function () {
+        Route::get('/', ['uses' => 'Admin\ReportsController@index']);
+        Route::post('/', ['uses' => 'Admin\ReportsController@getByPeriod']);
+    });
+
+    Route::get('date', ['uses' => 'Admin\OrderController@getWeekOrder']);
 });
 
 // Controllers Within The "App\Http\Controllers\Front-End"

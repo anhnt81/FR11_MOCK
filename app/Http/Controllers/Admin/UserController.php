@@ -177,7 +177,7 @@ class UserController extends Controller
         return redirect()->route('listUser')->with('success', 'Sửa thành công!');
     }
 
-    public function delete(Request $r)
+    public function delete(\Illuminate\Http\Request $r)
     {
         $this->__user->find($r->id)
             ->delete();

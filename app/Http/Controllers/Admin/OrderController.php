@@ -36,7 +36,7 @@ class OrderController extends Controller
         $data['from'] = 0;
         $data['to'] =  999999999999;
         $data['fromDate'] = '1990-01-01';
-        $data['toDate'] = Date('Y-m-d', time() + 84600);
+        $data['toDate'] = Date('Y-m-d');
 
         if(Request::ajax()) {
             $data['per'] = $_POST['per'];
@@ -44,11 +44,12 @@ class OrderController extends Controller
             $data['sort'] = $_POST['sort'];
             $data['type'] = $_POST['type_sort'];
             $data['status'] = $_POST['status'];
-            $data['toDate'] = $_POST['toDate'] . ' 23:59:59';
+            $data['toDate'] = $_POST['toDate'];
             $data['from'] = $_POST['fromDate'];
             $data['from'] = (empty($_POST['from'])) ? $data['from'] : $_POST['from'];
             $data['to'] = ((empty($_POST['to'])) ? $data['to'] : $_POST['to']);
         }
+        $data['toDate'] .=  ' 23:59:59';
 
         $temp = empty($data['status']) ? '<>' : '=';
 
@@ -149,5 +150,22 @@ class OrderController extends Controller
         $order->save();
 
         return redirect()->route('listOrder');
+    }
+
+    public function getWeekOrder()
+    {
+        $orders = array();
+        $orders['date'][0] = date('Y-m-d');
+        for ($i = 1; $i < 7; $i++) {
+            $orders['date'][$i] = strtotime(date("Y-m-d", strtotime($orders['date'][$i-1])) . " -1 day");
+            $orders['date'][$i] = strftime("%Y-%m-%d",$orders['date'][$i]);
+        }
+
+        for ($i = 0; $i < 7; $i++) {
+            $orders['value'][$i] = $this->__order->whereBetween('created_at',
+                [$orders['date'][$i], $orders['date'][$i].' 23:59:59'])->count();
+        }
+
+        die(json_encode($orders));
     }
 }

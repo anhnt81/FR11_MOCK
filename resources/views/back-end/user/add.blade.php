@@ -17,7 +17,7 @@
             <h3 class="panel-title">Thêm người dùng</h3>
         </div>
         <div class="panel-body">
-            <form method="post" role="form">
+            <form method="post" role="form" id='addUserFrm'>
                 {{ csrf_field() }}
                 <div class="form-group">
                     @if($errors->has('email'))
@@ -86,4 +86,42 @@
             </form>
         </div>
     </div>
+
+    <!-- validate form -->
+    <script>
+        $(document).ready(function () {
+            $('#addUserFrm').submit(function () {
+                $('.err').remove();
+
+                var phone = $('#phone').val();
+                var email = $('#email').val();
+                var pass = $('#pass').val();
+                var repass = $('#repass').val();
+                var err = 0;
+
+                if(pass.length < 8 || pass.length > 16) {
+                    $('#pass').before("<div class='alert alert-danger err'>Mật khẩu phải chứa từ 8 - 16 ký tự</div>");
+                    err = 1;
+                }
+                if(!/(^01[0-9]{9}$)|(^0(9|8)[0-9]{8}$)/.test(phone)) {
+                    $('#phone').before("<div class='alert alert-danger err'>Số điện thoại không hợp lệ</div>");
+                    err = 1;
+                }
+                if(repass != pass) {
+                    $('#repass').before("<div class='alert alert-danger err'>Mật khẩu nhập lại không khớp</div>");
+                    err = 1;
+                }
+                if(!/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(email)) {
+                    $('#email').before("<div class='alert alert-danger err'>Email không hợp lệ</div>");
+                    err = 1;
+                }
+
+                if(err == 0) {
+                    return true;
+                }
+
+                return false;
+            });
+        });
+    </script>
 @endsection

@@ -57,7 +57,7 @@
             </a>
         </li>
 
-        <li id='comment' class="dropdown">
+        <li id='reports' class="dropdown">
             <a href="{!! url('admin/reports') !!}">
                 <span class="glyphicon glyphicon-glyphicon glyphicon-euro"></span> Thống kê
             </a>

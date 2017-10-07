@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Bills;
 use App\Http\Controllers\Controller;
+use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\MessageBag;
@@ -16,25 +17,10 @@ class LoginController extends Controller
     public function home()
     {
         if(Auth::check()) {
-            $from = date('Y-m-d');
-            $to = strtotime(date("Y-m-d", strtotime($from)) . " +1 days");
-            $to = strftime("%Y-%m-%d", $to);
+            $orders = $this->getOrder();
+            $prd = $this->getProduct();
 
-            $fromWeek = strtotime(date("Y-m-d", strtotime($from)) . " -" . (date('w') - 1) . " days");
-            $fromWeek = strftime("%Y-%m-%d", $fromWeek);
-            $toWeek = strtotime(date("Y-m-d", strtotime($from)) . " +" . (7 - date('w')) . " days");
-            $toWeek = strftime("%Y-%m-%d", $toWeek);
-
-            $totalOrder = Bills::all()->count();
-            $dayOrder = Bills::where('created_at', '>=', $from)
-                ->where('created_at', '<=', $to)
-                ->count();
-            $weekOrder = Bills::where('created_at', '>=', $fromWeek)
-                ->where('created_at', '<=', $toWeek)
-                ->count();
-            $closeOrder = Bills::where('status', '=', '7')->count();
-
-            return view('back-end.home', compact('totalOrder', 'dayOrder', 'weekOrder','closeOrder'));
+            return view('back-end.home', compact('orders', 'prd'));
         }
         else{
             return redirect()->route('login');
@@ -75,5 +61,36 @@ class LoginController extends Controller
     {
         Auth::logout();
         return redirect()->route('login');
+    }
+
+    public function getOrder()
+    {
+        $from = date('Y-m-d');
+        $to = strtotime(date("Y-m-d", strtotime($from)) . " +1 days");
+        $to = strftime("%Y-%m-%d", $to);
+
+        $fromWeek = strtotime(date("Y-m-d", strtotime($from)) . " -" . (date('w') - 1) . " days");
+        $fromWeek = strftime("%Y-%m-%d", $fromWeek);
+        $toWeek = strtotime(date("Y-m-d", strtotime($from)) . " +" . (7 - date('w')) . " days");
+        $toWeek = strftime("%Y-%m-%d", $toWeek);
+
+        $orders['total'] = Bills::all()->count();
+        $orders['day'] = Bills::where('created_at', '>=', $from)
+            ->where('created_at', '<=', $to)
+            ->count();
+        $orders['week'] = Bills::where('created_at', '>=', $fromWeek)
+            ->where('created_at', '<=', $toWeek)
+            ->count();
+        $orders['close'] = Bills::where('status', '=', '7')->count();
+        $orders['pending'] = Bills::where('status', '=', 1)->get()->toArray();
+
+        return $orders;
+    }
+
+    public function getProduct()
+    {
+        $prd = Product::where('qty', '<=', 2)->get()->toArray();
+
+        return $prd;
     }
 }

@@ -9,18 +9,37 @@
         <div class="panel-body">
             <!-- filter -->
             <div>
-                <button class="btn btn-primary" role='button' data-toggle='modal' data-target='#myModal'>
-                    <span class='glyphicon glyphicon-plus'></span> Thêm mới
-                </button>
-                <button class="btn btn-primary" role='button' data-toggle='modal' data-target='#filter-modal'>
-                    <span class='glyphicon glyphicon-filter'></span> Lọc
-                </button>
+                <div class='col-xs-12 col-md-6'>
+                    <button class="btn btn-primary" role='button' data-toggle='modal' data-target='#myModal'>
+                        <span class='glyphicon glyphicon-plus'></span> Thêm mới
+                    </button>
+                    <button class="btn btn-primary" role='button' data-toggle='modal' data-target='#filter-modal'>
+                        <span class='glyphicon glyphicon-filter'></span> Lọc
+                    </button>
+                </div>
+
+                <form role='form' class='form-horizontal col-xs-12 col-md-6'>
+                    <div class='form-group'>
+                        <label for='per' class='col-xs-5 col-md-3 col-md-offset-7' style='margin-top : 10px; text-align: right'>Hiển thị</label>
+                        <div class='col-xs-7 col-md-2'>
+                            <select name='per' class='form-control form-val' id='per'>
+                                <option value='5' @if($data['per'] == 5) selected @endif>5</option>
+                                <option value='7' @if($data['per'] == 7) selected @endif>7</option>
+                                <option value='10' @if($data['per'] == 10) selected @endif>10</option>
+                                <option value='20' @if($data['per'] == 20) selected @endif>20</option>
+                                <option value='50' @if($data['per'] == 50) selected @endif>50</option>
+                                <option value='100' @if($data['per'] == 100) selected @endif>100</option>
+                            </select>
+                        </div>
+                    </div>
+                    {{ csrf_field() }}
+                </form>
                 @if(Session::has('message'))
                     <div class='alert alert-success'>{{Session::get('message')}}</div>
                 @endif
             </div>
             <!-- Modal create Product -->
-                <form onsubmit ="return validateForm()" enctype="multipart/form-data"  method="post">
+                <form onsubmit ="return validateForm()" enctype="multipart/form-data"  method="post" action='/admin/product/add'>
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="modal fade" tabindex="-1" id="myModal" role="dialog">
                         <div class="modal-dialog" role="document">
@@ -97,7 +116,7 @@
     }
 </script>
 <!-- list  Product-->
-            <div class="table-responsive">
+            <div class="table-responsive" id='list-data'>
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
@@ -111,6 +130,7 @@
                         <th>Quantity</th>
                         <th>Action</th>
                         <th>Status</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -172,11 +192,18 @@
                     @endif
                     </tbody>
                 </table>
-            </div>
-            <!-- pagination -->
-            <hr>
-            <div style="text-align: center">
-                {!! $products->links() !!}
+
+                <!-- pagination -->
+                <hr>
+                <div style="text-align: center">
+                    @if($total > 0)
+                        <div style='float:left;'>
+                            Hiển thị : {{ $start }} <span class='glyphicon glyphicon-arrow-right'></span> {{ $end }}
+                            Trong {{ $total }} Sản phẩm.
+                        </div>
+                    @endif
+                    {!! $products->links() !!}
+                </div>
             </div>
         </div>
     </div>
@@ -192,15 +219,15 @@
                 </div>
 
                 <div class='modal-body'>
-                    <form method='get' action='{!! url('admin/list-product/filter') !!}' role='form' id="filter-product-form">
+                    <form role='form'>
                     {{--{{ csrf_field() }}--}}
                     <!-- search -->
                         <div class='form-group'>
                             <label for='search-cus'>Tìm kiếm</label>
                             <div id='search-cus'>
-                                <input type='search' name='search' class='form-control' style='width : 60%; float:left; margin-right: 10px'
+                                <input type='search' name='search' class='form-control form-val' style='width : 60%; float:left; margin-right: 10px'
                                        value='<?php if(isset($data['key'])) echo $data['key'] ?>' placeholder='Nhập từ khóa'>
-                                <select name='field_search' style='width : 35%' class='form-control'>
+                                <select name='field_search' style='width : 35%' class='form-control form-val'>
                                     <option value='name' @if(isset($data['field']) && $data['field'] == 'name') selected @endif>Name</option>
                                     <option value='unit_price' @if(isset($data['field']) && $data['field'] == 'unit_price') selected @endif>Unit Price</option>
                                     <option value='promotion_price' @if(isset($data['field']) && $data['field'] == 'promotion_price') selected @endif>Promotion Price</option>
@@ -217,23 +244,23 @@
                                     <label for='feild-sort'>Sắp xếp theo :</label>
                                     <div id='feild-sort' class='form-control-static'>
                                         <div class='col-xs-6 col-md-2'>
-                                            <input type='radio' name='sort' value='name'
+                                            <input type='radio' name='sort' value='name' class='form-val'
                                             <?php if(isset($data['sort']) && $data['sort'] == 'name') echo 'checked'?>> Name
                                         </div>
                                         <div class='col-xs-6 col-md-2'>
-                                            <input type='radio' name='sort' value='id'
+                                            <input type='radio' name='sort' value='id' class='form-val'
                                             <?php if(empty($data['sort']) || (isset($data['sort']) && $data['sort'] == 'id')) echo 'checked'?>> ID
                                         </div>
                                         <div class='col-xs-6 col-md-2'>
-                                            <input type='radio' name='sort' value='unit_price'
+                                            <input type='radio' name='sort' value='unit_price' class='form-val'
                                             <?php if(isset($data['sort']) && $data['sort'] == 'unit_price') echo 'checked'?>> Unit Price
                                         </div>
                                         <div class='col-xs-6 col-md-3'>
-                                            <input type='radio' name='sort' value='promotion_price'
+                                            <input type='radio' name='sort' value='promotion_price' class='form-val'
                                             <?php if(isset($data['sort']) && $data['sort'] == 'promotion_price') echo 'checked'?>> Promotion Price
                                         </div>
                                         <div class='col-xs-12 col-md-3'>
-                                            <input type='radio' name='sort' value='quantity'
+                                            <input type='radio' name='sort' value='quantity' class='form-val'
                                             <?php if(isset($data['sort']) && $data['sort'] == 'quantity') echo 'checked'?>> Quantity
                                         </div>
                                     </div>
@@ -243,12 +270,12 @@
                                     <label for='type-sort'>Kiểu sắp xếp :</label>
                                     <div id='type-sort' class='form-control-static'>
                                         <div class='col-xs-6 col-md-6'>
-                                            <input type='radio' name='type_sort' value='asc'
+                                            <input type='radio' name='type_sort' value='asc' class='form-val'
                                             <?php if(empty($data['type']) || isset($data['type']) && $data['type'] == 'asc') echo 'checked'?>>
                                             Tăng dần
                                         </div>
                                         <div class='col-xs-6 col-md-6'>
-                                            <input type='radio' name='type_sort' value='desc'
+                                            <input type='radio' name='type_sort' value='desc' class='form-val'
                                             <?php if(isset($data['type']) && $data['type'] == 'desc') echo 'checked'?>>
                                             Giảm dần
                                         </div>
@@ -260,29 +287,11 @@
                 </div>
 
                 <div class='modal-footer'>
-                    <button type="button" id='btn-filter-product' class='btn btn-success'>Tìm</button>
+                    <button type="button" id='btn-filter' class='btn btn-success'>Tìm</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
     </div>
     @include('back-end.common.remove-modal')
-    <script>
-        $(document).ready(function () {
-            $('#btn-filter-product').click(function () {
-                $('#filter-product-form').submit();
-            });
-
-            if($(location).attr('href').indexOf('filter') != -1) {
-                var a = $('.pagination a');
-                var page;
-
-                for (var i = 0; i < a.length; i++){
-                    page = $(a[i]).attr('href').split('?');
-                    page = page[page.length - 1];
-                    $(a[i]).attr('href', $(location).attr('href') + '&' + page);
-                }
-            }
-        })
-    </script>
 @endsection

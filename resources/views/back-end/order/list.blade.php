@@ -19,7 +19,7 @@
         @foreach($list as $row)
             <tr>
                 <td>{!! $row->id !!}</td>
-                <td>{!! $row->cid !!}</td>
+                <td>{!! $row->customer->name !!}</td>
                 <td>{!! $row->total !!}</td>
                 <td>{!! $row->note !!}</td>
                 <td>{!! $row->st !!}</td>
