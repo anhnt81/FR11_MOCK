@@ -9,9 +9,9 @@
             </div>
             <div class="pull-right auto-width-right">
                 <ul class="top-details menu-beta l-inline">
-                    <li><a href="#"><i class="fa fa-user"></i>Tài khoản</a></li>
-                    <li><a href="#">Đăng kí</a></li>
-                    <li><a href="#">Đăng nhập</a></li>
+                    <li><a href="{{route('account')}}"><i class="fa fa-user"></i>Tài khoản</a></li>
+                    <li><a href="{{route('dang-ky')}}">Đăng kí</a></li>
+                    <li><a href="{{route('dang-nhap')}}">Đăng nhập</a></li>
                 </ul>
             </div>
             <div class="clearfix"></div>
@@ -118,7 +118,7 @@
                             @endforeach
                         </ul>
                     </li>
-                    <li><a href="{{route('gioithieu')}}">Giới thiệu</a></li>
+                    <li><a href="{{route('gioi-thieu')}}">Giới thiệu</a></li>
                     <li><a href="{{route('contact')}}">Liên hệ</a></li>
                 </ul>
                 <div class="clearfix"></div>

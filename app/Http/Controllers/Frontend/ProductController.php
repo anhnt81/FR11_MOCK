@@ -9,7 +9,11 @@ use App\Product;
 
 class ProductController extends Controller
 {
-    public function getNewProduct(){
+    public function getAddToCart($id){
+        $product = Product::find($id);
+    }
 
+    public function getProductDetail($id){
+        $product = Product::find($id);
     }
 }
