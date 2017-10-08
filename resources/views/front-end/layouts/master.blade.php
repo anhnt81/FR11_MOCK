@@ -25,9 +25,7 @@
 </div> <!-- .container -->
 @include('front-end.layouts.footer')
 <!-- include js files -->
-<script src="front-end/assets/dest/js/jquery.js"></script>
 <script src="front-end/assets/dest/vendors/jqueryui/jquery-ui-1.10.4.custom.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="front-end/assets/dest/vendors/bxslider/jquery.bxslider.min.js"></script>
 <script src="front-end/assets/dest/vendors/colorbox/jquery.colorbox-min.js"></script>
 <script src="front-end/assets/dest/vendors/animo/Animo.js"></script>

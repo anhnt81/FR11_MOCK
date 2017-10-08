@@ -23,38 +23,6 @@
                     </a>
                 </div>
             @endforeach
-            {{--<div class="item active">--}}
-                {{--<img src="{{asset('images/front-end/slide/banner1.jpg')}}">--}}
-                {{--<div class="carousel-caption">--}}
-                    {{--<h3>Sản phẩm 1</h3>--}}
-                    {{--<p>Mô tả sản phẩm 1</p>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-            {{--<div class="item">--}}
-                {{--<img src="{{asset('images/front-end/slide/banner2.jpg')}}">--}}
-                {{--<div class="carousel-caption">--}}
-                    {{--<h3>Sản phẩm 2</h3>--}}
-                    {{--<p>Mô tả sản phẩm 2</p>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-            {{--<div class="item">--}}
-                {{--<img src="{{asset('images/front-end/slide/banner3.jpg')}}">--}}
-                {{--<div class="carousel-caption">--}}
-                    {{--<h3>Sản phẩm 3</h3>--}}
-                    {{--<p>Mô tả sản phẩm 3</p>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-            {{--<div class="item">--}}
-                {{--<img src="{{asset('images/front-end/slide/banner4.jpg')}}">--}}
-                {{--<div class="carousel-caption">--}}
-                    {{--<h3>Sản phẩm 4</h3>--}}
-                    {{--<p>Mô tả sản phẩm 4</p>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
         </div>
 
         <!-- Left and right controls -->
