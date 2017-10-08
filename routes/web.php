@@ -194,27 +194,27 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         ));
     });
     ///SLideeeee Hien
-    Route::group(['prefix'=> 'slide'],function(){
-        Route::get('/','Admin\SettingController@listSlide');
-        Route::get('addSlide','Admin\SettingController@addSlide');
-        Route::get('insertSlide/{id}','Admin\SettingController@insertSlide');
-        Route::post('deleteSlide','Admin\SettingController@deleteSlide');
-        Route::get('ajaxSlide/{id}','Admin\SettingController@ajaxSlide')->name('ajaxSlide');
-        Route::post('swapSlide','Admin\SettingController@swapSlide');
+    Route::group(['prefix' => 'slide'], function () {
+        Route::get('/', 'Admin\SettingController@listSlide');
+        Route::get('addSlide', 'Admin\SettingController@addSlide');
+        Route::get('insertSlide/{id}', 'Admin\SettingController@insertSlide');
+        Route::post('deleteSlide', 'Admin\SettingController@deleteSlide');
+        Route::get('ajaxSlide/{id}', 'Admin\SettingController@ajaxSlide')->name('ajaxSlide');
+        Route::post('swapSlide', 'Admin\SettingController@swapSlide');
     });
     //Brand Hien
-    Route::group(['prefix'=>'brand'],function(){
-        Route::get('/','Admin\BrandController@listBrand')->name('listBrand');
+    Route::group(['prefix' => 'brand'], function () {
+        Route::get('/', 'Admin\BrandController@listBrand')->name('listBrand');
         Route::post('/', array(
             'as'   => 'ajaxBrand',
             'uses' => 'Admin\BrandController@listBrand'
         ));
-        Route::get('addBrand','Admin\BrandController@addBrand')->name('addBrand');
-        Route::post('addBrand','Admin\BrandController@postBrand')->name('postBrand');
-        Route::get('editBrand/{id}','Admin\BrandController@editBrand')->name('editBrand');
-        Route::post('editBrand/{id}','Admin\BrandController@postEdit')->name('postEdit');
-        Route::get('deleteBrand/{id}','Admin\BrandController@deleteBrand');
-        Route::post('deleteBrand/{id}','Admin\BrandController@postDelete')->name('postDelete');
+        Route::get('addBrand', 'Admin\BrandController@addBrand')->name('addBrand');
+        Route::post('addBrand', 'Admin\BrandController@postBrand')->name('postBrand');
+        Route::get('editBrand/{id}', 'Admin\BrandController@editBrand')->name('editBrand');
+        Route::post('editBrand/{id}', 'Admin\BrandController@postEdit')->name('postEdit');
+        Route::get('deleteBrand/{id}', 'Admin\BrandController@deleteBrand');
+        Route::post('deleteBrand/{id}', 'Admin\BrandController@postDelete')->name('postDelete');
     });
 
     Route::group(['prefix' => 'reports'], function () {
@@ -227,26 +227,28 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
 // Controllers Within The "App\Http\Controllers\Front-End"
 
-    Route::get('/', ['as' => 'homePage', 'uses' => 'Frontend\HomePageController@homePage']);
+Route::get('/', ['as' => 'homePage', 'uses' => 'Frontend\HomePageController@homePage']);
 
-    Route::get('/contact', ['as' => 'contact', 'uses' => 'Frontend\ContactController@getContact']);
+Route::get('/contact', ['as' => 'contact', 'uses' => 'Frontend\ContactController@getContact']);
 
-    Route::get('/gioi-thieu', ['as' => 'gioi-thieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
+Route::get('/gioi-thieu', ['as' => 'gioi-thieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
 
-    Route::get('dang-nhap', ['as' => 'dang-nhap', 'uses' => 'Frontend\AuthController@getLogin']);
+Route::get('dang-nhap', ['as' => 'dang-nhap', 'uses' => 'Frontend\AuthController@getLogin']);
 
-    Route::post('dang-nhap', ['as' => 'postLogin', 'uses' => 'Frontend\AuthController@postLogin']);
+Route::post('dang-nhap', ['as' => 'postLogin', 'uses' => 'Frontend\AuthController@postLogin']);
 
-    Route::get('dang-ky', ['as' => 'dang-ky', 'uses' => 'Frontend\AuthController@getSignup']);
-    Route::post('dang-ky', ['as' => 'post-Signup', 'uses' => 'Frontend\AuthController@postSignup']);
+Route::get('dang-ky', ['as' => 'dang-ky', 'uses' => 'Frontend\AuthController@getSignup']);
+Route::post('dang-ky', ['as' => 'post-Signup', 'uses' => 'Frontend\AuthController@postSignup']);
 
-    Route::get('tai-khoan', ['as' => 'account', 'uses' => 'Frontend\AuthController@getAccount']);
+Route::get('tai-khoan', ['as' => 'account', 'uses' => 'Frontend\AuthController@getAccount']);
 
-    Route::get('add-to-cart/{id}', ['as' => 'AddToCart', 'uses' => 'Frontend\ProductController@getAddToCart']);
+Route::get('add-to-cart/{id}', ['as' => 'AddToCart', 'uses' => 'Frontend\ProductController@getAddToCart']);
 
-    Route::get('product-detail/{id}', ['as' => 'DetailProduct', 'uses' => 'Frontend\ProductController@getProductDetail']);
+Route::get('product-detail/{id}', ['as' => 'DetailProduct', 'uses' => 'Frontend\ProductController@getProductDetail']);
 
-    Route::get('xoa-gio-hang/{id}', ['as' => 'xoa-gio-hang', 'uses' => 'Frontend\ProductController@deleteCart']);
-    Route::get('dat-hang', ['as' => 'dat-hang', 'uses' => 'Frontend\ProductController@getBookCart']);
+Route::get('xoa-gio-hang/{id}', ['as' => 'xoa-gio-hang', 'uses' => 'Frontend\ProductController@deleteCart']);
+Route::get('dat-hang', ['as' => 'dat-hang', 'uses' => 'Frontend\ProductController@getBookCart']);
+
+Route::post('addcmt', ['uses' => 'Frontend\ProductController@addComment']);
 
 

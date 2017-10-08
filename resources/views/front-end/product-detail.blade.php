@@ -30,13 +30,15 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="single-item-body">
-                                <p class="single-item-title"><h3>{{$product->name}}</h3></p>
+                                <p class="single-item-title">
+                                <h3>{{$product->name}}</h3></p>
                                 <p class="single-item-price" style="font-size:16px">
                                     @if($product->promotion_price==0)
                                         <span class="flash-sale">{{number_format($product->unit_price)}} đồng</span>
                                     @else
                                         <span class="flash-del">{{number_format($product->unit_price)}} đồng</span>
-                                        <span class="flash-sale">{{number_format($product->promotion_price)}} đồng</span>
+                                        <span class="flash-sale">{{number_format($product->promotion_price)}}
+                                            đồng</span>
                                     @endif
                                 </p>
                             </div>
@@ -82,90 +84,85 @@
                                 <div class="col-sm-4">
                                     <div class="single-item" style="margin-top:20px">
                                         @if($sp->promotion_price!=0)
-                                            <div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
+                                            <div class="ribbon-wrapper">
+                                                <div class="ribbon sale">Sale</div>
+                                            </div>
                                         @endif
                                         <div class="single-item-header">
-                                            <a href="{{route('DetailProduct',$sp->id)}}"><img src="images/front-end/product/{{$sp->avatar}}" alt="" height="250px"></a>
+                                            <a href="{{route('DetailProduct',$sp->id)}}"><img
+                                                        src="images/front-end/product/{{$sp->avatar}}" alt=""
+                                                        height="250px"></a>
                                         </div>
                                         <div class="single-item-body">
                                             <p class="single-item-title">{{$sp->name}}</p>
                                             <p class="single-item-price" style="font-size:16px">
                                                 @if($sp->promotion_price==0)
-                                                    <span class="flash-sale">{{number_format($sp->unit_price)}} đồng</span>
+                                                    <span class="flash-sale">{{number_format($sp->unit_price)}}
+                                                        đồng</span>
                                                 @else
-                                                    <span class="flash-del">{{number_format($sp->unit_price)}} đồng</span>
-                                                    <span class="flash-sale">{{number_format($sp->promotion_price)}} đồng</span>
+                                                    <span class="flash-del">{{number_format($sp->unit_price)}}
+                                                        đồng</span>
+                                                    <span class="flash-sale">{{number_format($sp->promotion_price)}}
+                                                        đồng</span>
                                                 @endif
                                             </p>
                                         </div>
                                         <div class="single-item-caption">
-                                            <a class="add-to-cart pull-left" href="product.html"><i class="fa fa-shopping-cart"></i></a>
-                                            <a class="beta-btn primary" href="{{route('DetailProduct',$sp->id)}}">Details <i class="fa fa-chevron-right"></i></a>
+                                            <a class="add-to-cart pull-left" href="product.html"><i
+                                                        class="fa fa-shopping-cart"></i></a>
+                                            <a class="beta-btn primary" href="{{route('DetailProduct',$sp->id)}}">Details
+                                                <i class="fa fa-chevron-right"></i></a>
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-                        <div class="row">{{$sp_tuongtu->links()}}</div>
                     </div> <!-- .beta-products-list -->
+                    @include('front-end.comment')
                 </div>
                 <div class="col-sm-3 aside">
-                    <div class="widget">
-                        <h3 class="widget-title">Dự Báo Thời Tiết</h3>
-                        <div class="widget-body">
-                            <div class="beta-sales beta-lists">
-                                <div class="media beta-sales-item">
-                                    <a class="pull-left" href="product.html"><img src="source/image/nang.jpg" alt=""></a>
-                                    <div class="media-body">
-                                        Quận Thanh Xuân
-                                        <p class="beta-sales-price" style="font-size: 16px">25-34 độ</p>
-                                    </div>
-                                </div>
-                                <div class="media beta-sales-item">
-                                    <a class="pull-left" href="product.html"><img src="source/image/nang.jpg" alt=""></a>
-                                    <div class="media-body">
-                                        Quận Cầu Giấy
-                                        <p class="beta-sales-price" style="font-size: 16px">25-34 độ</p>
-                                    </div>
-                                </div>
-                                <div class="media beta-sales-item">
-                                    <a class="pull-left" href="product.html"><img src="source/image/mua.png" alt=""></a>
-                                    <div class="media-body">
-                                        Quận Long Biên
-                                        <p class="beta-sales-price" style="font-size: 16px">25-34 độ</p>
-                                    </div>
-                                </div>
-                                <div class="media beta-sales-item">
-                                    <a class="pull-left" href="product.html"><img src="source/image/nang.jpg" alt=""></a>
-                                    <div class="media-body">
-                                        Quận Đống Đa
-                                        <p class="beta-sales-price" style="font-size: 16px">25-34 độ</p>
-                                    </div>
-                                </div>
-                            </div>
+                    <!-- Products same category -->
+                    <div class='panel panel-info'>
+                        <div class='panel-heading'><b>Sản phẩm cùng chuyên mục</b></div>
+                        <div class='panel-body'>
+                            <ul class='list-group'>
+                                @foreach($prdSameCat as $item)
+                                    <li class="list-group-item" style="height: 150px;text-align: center">
+                                        <a href="{{ url('product-detail/'. $item->id) }}"
+                                           title="Nhấp vào để đến trang chi tiết">
+                                            <img src="{{asset('images/front-end/product/'.$item->avatar)}}"
+                                                 style="height: 100px; width: 100%">
+                                            {{$item->name}}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
-                    </div> <!-- best sellers widget -->
-                    <div class="widget">
-                        <h3 class="widget-title">Âm Nhạc Thư Giãn</h3>
-                        <div class="widget-body">
-                            <div class="beta-sales beta-lists">
-                                <div class="media beta-sales-item">
-                                    <div class="media-body">
-                                        <embed  src="https://www.youtube.com/embed/Llw9Q6akRo4" frameborder="0" allowfullscreen style="border:red 1px solid"  width=”420″ height=”315″></embed>
-                                    </div>
-                                    <div class="media-body">
-                                        <embed  src="https://www.youtube.com/embed/FN7ALfpGxiI" frameborder="0" allowfullscreen style="border:red 1px solid"  width=”420″ height=”315″></embed>
-                                    </div>
-                                    <div class="media-body">
-                                        <embed  src="https://www.youtube.com/embed/Vk8_0QaJr3I" frameborder="0" allowfullscreen style="border:red 1px solid"  width=”420″ height=”315″></embed>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+
+                    <!-- Products same brand -->
+                    <div class='panel panel-info'>
+                        <div class='panel-heading'><b>Sản phẩm cùng thương hiệu</b></div>
+                        <div class='panel-body'>
+                            <ul class='list-group'>
+                                @foreach($prdSameBr as $item)
+                                    <li class="list-group-item" style="height: 150px;text-align: center">
+                                        <a href="{{ url('product-detail/'. $item->id) }}"
+                                           title="Nhấp vào để đến trang chi tiết">
+                                            <img src="{{asset('images/front-end/product/'.$item->avatar)}}"
+                                                 style="height: 100px; width: 100%">
+                                            {{$item->name}}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
-                    </div> <!-- best sellers widget -->
+                    </div>
                 </div>
             </div>
         </div> <!-- #content -->
     </div> <!-- .container -->
+
+
 @endsection

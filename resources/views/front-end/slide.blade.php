@@ -14,7 +14,7 @@
             @foreach($slide as $key => $item)
                 <div class="item @if($key == 0) active @endif">
                     <a href='product-detail/{{$item->product->id}}'>
-                    <img src="{{asset('images/front-end/slide/banner'.($key+1).'.jpg')}}">
+                    <img src="{{asset('front-end/slide/banner'.($key+1).'.jpg')}}">
 
                     <div class="carousel-caption">
                         <h3>{{$item->product->name}}</h3>

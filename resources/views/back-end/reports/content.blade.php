@@ -44,7 +44,7 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Cat', 'Category Total Order'],
-                    @foreach ($data['catOrder'] as $key => $value)
+                @foreach ($data['catOrder'] as $key => $value)
                 ['{{$key}}', {{$value}}],
                 @endforeach
             ]);
@@ -66,7 +66,7 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Cat', 'Category Quantity Product'],
-                    @foreach ($data['catQty'] as $key => $value)
+                @foreach ($data['catQty'] as $key => $value)
                 ['{{$key}}', {{$value}}],
                 @endforeach
             ]);
@@ -88,7 +88,7 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Brand', 'Brand Total Order'],
-                    @foreach ($data['brOrder'] as $key => $value)
+                @foreach ($data['brOrder'] as $key => $value)
                 ['{{$key}}', {{$value}}],
                 @endforeach
             ]);
@@ -110,7 +110,7 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Brand', 'Brand Quantity Product'],
-                    @foreach ($data['brQty'] as $key => $value)
+                @foreach ($data['brQty'] as $key => $value)
                 ['{{$key}}', {{$value}}],
                 @endforeach
             ]);
@@ -131,7 +131,7 @@
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Theo đơn hàng', ''],
-                    @foreach ($data['prdOrder'] as $key => $value)
+                @foreach ($data['prdOrder'] as $key => $value)
                 ['{{$key}}', {{$value}}],
                 @endforeach
             ]);
@@ -153,7 +153,7 @@
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Theo số lượng bán ra', ''],
-                    @foreach ($data['prdQty'] as $key => $value)
+                @foreach ($data['prdQty'] as $key => $value)
                 ['{{$key}}', {{$value}}],
                 @endforeach
             ]);
