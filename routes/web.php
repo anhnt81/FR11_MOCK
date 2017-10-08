@@ -246,3 +246,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::get('product-detail/{id}', ['as' => 'DetailProduct', 'uses' => 'Frontend\ProductController@getProductDetail']);
 
+    Route::get('xoa-gio-hang/{id}', ['as' => 'xoa-gio-hang', 'uses' => 'Frontend\ProductController@deleteCart']);
+    Route::get('dat-hang', ['as' => 'dat-hang', 'uses' => 'Frontend\ProductController@getBookCart']);
+
+
