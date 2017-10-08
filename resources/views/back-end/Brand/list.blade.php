@@ -15,12 +15,6 @@
     <div class="panel-heading">
         <h3 class="panel-title">Danh sách Thương Hiệu</h3>
     </div>
-    @if(session('delete'))
-        <div class="alert alert-success fade in alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <b>{{session('delete')}}</b><br>           
-        </div>
-    @endif
 
     <div class="panel-body">
         <div>
@@ -52,6 +46,12 @@
         </div>
         <!-- list -->
         <div class="table-responsive" id='list-data'>
+            @if(session('delete'))
+                <div class="alert alert-success fade in alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <b>{{session('delete')}}</b><br>
+                </div>
+            @endif
             <table class="table table-hover table-striped">
 				<thead>
 					<tr>

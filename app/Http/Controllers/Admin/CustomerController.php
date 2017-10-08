@@ -51,21 +51,6 @@ class CustomerController extends Controller
         return view('back-end.customer.index', compact('list', 'start', 'end', 'total', 'data'));
     }
 
-//    public function filter(Request $r)
-//    {
-//        $data['key'] = $r->search;
-//        $data['field'] = $r->field_search;
-//        $data['sort'] = $r->sort;
-//        $data['type'] = $r->type_sort;
-//
-//        $list = $this->__cus->where($data['field'], 'LIKE', '%' . $data['key'] . '%')
-//            ->orderBy($data['sort'], $data['type'])
-//            ->paginate(5)
-//            ->withPath("?search={$data['key']}&field_search={$data['field']}&sort={$data['sort']}&type_sort={$data['type']}");
-//
-//        return view('back-end.customer.index', compact('list'))->with('data', $data);
-//    }
-
     public function update($id)
     {
         $cus = $this->__cus->where('id', $id)->first();
@@ -84,6 +69,6 @@ class CustomerController extends Controller
                 'gender'  => $r->gender
             ]);
 
-        return redirect()->route('listCus');
+        return redirect()->route('listCus')->with('success', 'Sửa thành công!');
     }
 }

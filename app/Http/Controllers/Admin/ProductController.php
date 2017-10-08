@@ -125,12 +125,21 @@ class ProductController extends Controller
                 'promotion_price.required' => 'Promotion is Price required',
             ]);
 
-        $img = '';
+        $prd = Product::find($id);
+
+        if($prd->images != ''){
+            $img = $prd->images . ',';
+            $c = count(explode(',', $prd->images));
+        }
+        else {
+            $img = '';
+            $c = 0;
+        }
         if ($request->hasFile('image')) {
             $filename = $request->file('image');
 
-            foreach ($filename as $key => $item) {
-                $temp = 'p-ava-' . $request->id . $key . '.' . $item->getClientOriginalExtension();
+            foreach ($filename as $item) {
+                $temp = 'p-ava-' . $request->id . $c++ . '.' . $item->getClientOriginalExtension();
                 $item->move('images/front-end/product', $temp);
                 $img .= $temp . ',';
             }
@@ -174,16 +183,23 @@ class ProductController extends Controller
         return redirect('admin/product')->with('message', 'Delete Product Success');
     }
 
-//    public function filterProduct( \Illuminate\Http\Request $req )
-//    {
-//        $data['key'] = $req->search;
-//        $data['field'] = $req->field_search;
-//        $data['sort'] = $req->sort;
-//        $data['type'] = $req->type_sort;
-//        $products = Product::where($data['field'], 'LIKE', '%' . $data['key'] . '%')
-//            ->orderBy($data['sort'], $data['type'])
-//            ->paginate(5)
-//            ->withPath("?search={$data['key']}&field_search={$data['field']}&sort={$data['sort']}&type_sort={$data['type']}");
-//        return view('back-end.product.index', compact('products'))->with('data', $data);
-//    }
+    public function deleteImg()
+    {
+        if(Request::ajax()) {
+            $pid = Request::get('pid');
+            $img = Request::get('image');
+
+            $prd = Product::find($pid);
+
+            $img = str_replace($img, '', $prd->images);
+            $img = trim($img, ',');
+
+            $prd->images = $img;
+
+            $prd->save();
+
+            return 'ok';
+        }
+        return false;
+    }
 }

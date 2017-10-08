@@ -58,6 +58,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             'as'   => 'ajaxPrd',
             'uses' => 'Admin\ProductController@listProduct'
         ));
+        Route::get('del-img', ['uses' => 'Admin\ProductController@deleteImg']);
         Route::post('/add', ['as' => 'addProduct', 'uses' => 'Admin\ProductController@createProduct']);
         Route::get('filter', ['as' => 'filterProduct', 'uses' => 'Admin\ProductController@filterProduct']);
         Route::get('edit/{id}', ['as' => 'updateProduct', 'uses' => 'Admin\ProductController@updateProduct'])->where('id', '[0-9]+');
