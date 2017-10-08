@@ -17,7 +17,7 @@
             <h3 class="panel-title">Sửa thông tin chuyên mục</h3>
         </div>
         <div class="panel-body">
-            <form method="post" role="form">
+            <form method="post" role="form" id='ediCatFrm'>
                 {{ csrf_field() }}
                 <div class="form-group">
                     @if($errors->has('name'))
@@ -58,4 +58,22 @@
             </form>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#ediCatFrm').submit(function () {
+                $('.err').remove();
+
+                var name = $('#name').val();
+
+                if(name.length <= 2) {
+                    $('#name').before("<div class='alert alert-danger err'>Tên chuyên mục phải lớn hơn 2 ký tự</div>");
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            });
+        });
+    </script>
 @endsection

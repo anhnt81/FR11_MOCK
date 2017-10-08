@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Brand;
-use Illuminate\Http\Request;
+use Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Support\Facades\DB;
@@ -15,18 +15,47 @@ class ProductController extends Controller
 {
     public function listProduct()
     {
-        $products = Product::paginate(5);
-        $brands = Brand::all();
-        $category = Category::all();
+        $data['per'] = 5;
+        $data['key'] = '';
+        $data['field'] = 'name';
+        $data['sort'] = 'id';
+        $data['type'] = 'desc';
 
+        if (Request::ajax()) {
+            $data['per'] = $_POST['per'];
+            $data['key'] = $_POST['search'];
+            $data['field'] = $_POST['field_search'];
+            $data['sort'] = $_POST['sort'];
+            $data['type'] = $_POST['type_sort'];
+        }
+
+        $products = Product::where($data['field'], 'LIKE', '%' . $data['key'] . '%')
+            ->orderBy($data['sort'], $data['type'])
+            ->paginate($data['per']);
+
+        $total = Product::where($data['field'], 'LIKE', '%' . $data['key'] . '%')
+            ->count();
+
+        $start = $products->perPage() * ($products->currentPage() - 1) + 1;
+        $end = $products->perPage() * ($products->currentPage() - 1) + $products->perPage();
+
+        if ($end > $total) {
+            $end = $total;
+        }
         foreach ($products as $item) {
             $images[$item->id] = explode(',', $item->images);
         }
+        $brands = Brand::all();
+        $category = Category::all();
 
-        return view('back-end.product.index', compact('products', 'brands', 'category', 'images'));
+        if (Request::ajax()) {
+            return view('back-end.product.list', compact('products', 'start', 'end', 'total', 'brands', 'category', 'images'));
+        }
+
+        return view('back-end.product.index', compact('products', 'brands', 'category', 'images', 'start', 'end', 'total', 'data'));
     }
 
-    public function createProduct( Request $req )
+    public function createProduct( \Illuminate\Http\Request $req )
     {
         $product = new Product();
         $img = '';
@@ -71,7 +100,7 @@ class ProductController extends Controller
         return view('back-end.product.edit', compact('product', 'brandAll', 'categoryAll', 'brandById', 'categoryById', 'images'));
     }
 
-    public function saveProduct( $id, Request $request )
+    public function saveProduct( $id, \Illuminate\Http\Request $request )
     {
         $this->validate($request,
             [
@@ -145,16 +174,16 @@ class ProductController extends Controller
         return redirect('admin/product')->with('message', 'Delete Product Success');
     }
 
-    public function filterProduct( Request $req )
-    {
-        $data['key'] = $req->search;
-        $data['field'] = $req->field_search;
-        $data['sort'] = $req->sort;
-        $data['type'] = $req->type_sort;
-        $products = Product::where($data['field'], 'LIKE', '%' . $data['key'] . '%')
-            ->orderBy($data['sort'], $data['type'])
-            ->paginate(5)
-            ->withPath("?search={$data['key']}&field_search={$data['field']}&sort={$data['sort']}&type_sort={$data['type']}");
-        return view('back-end.product.index', compact('products'))->with('data', $data);
-    }
+//    public function filterProduct( \Illuminate\Http\Request $req )
+//    {
+//        $data['key'] = $req->search;
+//        $data['field'] = $req->field_search;
+//        $data['sort'] = $req->sort;
+//        $data['type'] = $req->type_sort;
+//        $products = Product::where($data['field'], 'LIKE', '%' . $data['key'] . '%')
+//            ->orderBy($data['sort'], $data['type'])
+//            ->paginate(5)
+//            ->withPath("?search={$data['key']}&field_search={$data['field']}&sort={$data['sort']}&type_sort={$data['type']}");
+//        return view('back-end.product.index', compact('products'))->with('data', $data);
+//    }
 }

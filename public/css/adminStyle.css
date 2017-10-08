@@ -37,6 +37,11 @@ body {
     float    : none;
 }
 
+.ntf-home {
+    margin-left: 40px;
+    line-height :30px;
+}
+
 .glyphicon {
     margin-right : 10px;
 }
@@ -95,4 +100,8 @@ body {
 .pagination {
     margin : 0;
     float: right;
+}
+
+.chart-report {
+    min-height: 357px;
 }

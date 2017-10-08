@@ -50,4 +50,18 @@ class Helper
                 return $value;
         }
     }
+
+    public static function sumQtyOrder($a1, $a2, $k)
+    {
+        foreach ($a1 as $key => $item) {
+            $result[$key] = 0;
+            for ($i = 0; $i < count($a2); $i++) {
+                if ($a2[$i][$k] == $key) {
+                    $result[$key] += $a2[$i]['qty'];
+                }
+            }
+        }
+
+        return $result;
+    }
 }

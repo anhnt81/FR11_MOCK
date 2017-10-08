@@ -21,8 +21,8 @@
             @endif
             @if(!empty(session('error')))
                 <div class='alert alert-danger'>{{session('error')}}</div>
-        @endif
-        <!-- filter -->
+            @endif
+
             <div>
                 <div class='col-xs-12 col-md-6'>
                     <a class='btn btn-primary' role='button' href='{!! url('admin/user/them-moi') !!}'>
@@ -129,7 +129,7 @@
                 <form role='form'>
                     <div class='modal-header'>
                         <button type='button' class='close' data-dismiss='modal'>&times;</button>
-                        <h3>Lọc chuyên mục</h3>
+                        <h3>Lọc người dùng</h3>
                     </div>
 
                     <div class='modal-body'>

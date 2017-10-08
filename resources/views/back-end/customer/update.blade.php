@@ -17,7 +17,7 @@
             <h3 class="panel-title">Sửa thông tin khách hàng {!! $cus->name !!}</h3>
         </div>
         <div class="panel-body">
-            <form method="post" role="form">
+            <form method="post" role="form" id='editCusFrm'>
                 {{ csrf_field() }}
                 <div class="form-group">
                     @if($errors->has('name'))
@@ -86,4 +86,41 @@
             </form>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#editCusFrm').submit(function () {
+                $('.err').remove();
+
+                var name = $('#name').val();
+                var phone = $('#phone').val();
+                var address = $('#address').val();
+                var email = $('#email').val();
+                var err = 0;
+
+                if(name.length < 2) {
+                    $('#name').before("<div class='alert alert-danger err'>Tên khách phải lớn hơn 2 ký tự</div>");
+                    err = 1;
+                }
+                if(!/(^01[0-9]{9}$)|(^0(9|8)[0-9]{8}$)/.test(phone)) {
+                    $('#phone').before("<div class='alert alert-danger err'>Số điện thoại không hợp lệ</div>");
+                    err = 1;
+                }
+                if(address.length <= 5) {
+                    $('#address').before("<div class='alert alert-danger err'>Hãy ghi địa chỉ giao hàng cụ thể</div>");
+                    err = 1;
+                }
+                if(!/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(email)) {
+                    $('#email').before("<div class='alert alert-danger err'>E-mail không hợp lệ</div>");
+                    err = 1;
+                }
+
+                if(err == 0) {
+                    return true;
+                }
+
+                return false;
+            });
+        });
+    </script>
 @endsection
