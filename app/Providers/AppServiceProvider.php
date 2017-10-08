@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Category;
 use App\Brand;
+use App\Cart;
+use Session;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,14 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('front-end.layouts.header',function($view){
             $brand = Brand::all();
             $view->with('brand',$brand);
+        });
+
+        view()->composer(['front-end.layouts.header','front-end.dat-hang'],function($view){
+            if(Session('cart')){
+                $oldCart = Session::get('cart');
+                $cart = new Cart($oldCart);
+                $view->with(['cart'=>Session::get('cart'),'product_cart'=>$cart->items,'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
+            }
         });
     }
 

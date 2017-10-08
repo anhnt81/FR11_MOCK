@@ -192,7 +192,7 @@
                 </div>
 
                 <div class='modal-body'>
-                    <form method='get' action='{!! url('admin/list-product/filter') !!}' role='form' id="filter-product-form">
+                    <form method='get' action='{!! url('admin/product/filter') !!}' role='form' id="filter-product-form">
                     {{--{{ csrf_field() }}--}}
                     <!-- search -->
                         <div class='form-group'>

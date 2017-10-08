@@ -8,11 +8,11 @@
     <div class="inner-header">
         <div class="container">
             <div class="pull-left">
-                <h6 class="inner-title">Sản Phẩm {{$sanpham->name}}</h6>
+                <h6 class="inner-title">Sản Phẩm {{$product->name}}</h6>
             </div>
             <div class="pull-right">
                 <div class="beta-breadcrumb font-large">
-                    <a href="{{route('trang-chu')}}">Home</a> / <span>Thông Tin Chi Tiết Sản Phẩm</span>
+                    <a href="{{route('homePage')}}">Home</a> / <span>Thông Tin Chi Tiết Sản Phẩm</span>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -26,17 +26,17 @@
 
                     <div class="row">
                         <div class="col-sm-4">
-                            <img src="{{$sanpham->image}}" alt="">
+                            <img src="images/front-end/product/{{$product->avatar}}" alt="">
                         </div>
                         <div class="col-sm-8">
                             <div class="single-item-body">
-                                <p class="single-item-title"><h3>{{$sanpham->name}}</h3></p>
+                                <p class="single-item-title"><h3>{{$product->name}}</h3></p>
                                 <p class="single-item-price" style="font-size:16px">
-                                    @if($sanpham->promotion_price==0)
-                                        <span class="flash-sale">{{number_format($sanpham->unit_price)}} đồng</span>
+                                    @if($product->promotion_price==0)
+                                        <span class="flash-sale">{{number_format($product->unit_price)}} đồng</span>
                                     @else
-                                        <span class="flash-del">{{number_format($sanpham->unit_price)}} đồng</span>
-                                        <span class="flash-sale">{{number_format($sanpham->promotion_price)}} đồng</span>
+                                        <span class="flash-del">{{number_format($product->unit_price)}} đồng</span>
+                                        <span class="flash-sale">{{number_format($product->promotion_price)}} đồng</span>
                                     @endif
                                 </p>
                             </div>
@@ -45,7 +45,7 @@
                             <div class="space20">&nbsp;</div>
 
                             <div class="single-item-desc">
-                                <p>{{$sanpham->description}}</p>
+                                <p>{{$product->description}}</p>
                             </div>
                             <div class="space20">&nbsp;</div>
 
@@ -71,7 +71,7 @@
                             <li><a href="#tab-description"><h3>Mô Tả</h3></a></li>
                         </ul>
                         <div class="panel" id="tab-description">
-                            <p>{{$sanpham->description}}</p>
+                            <p>{{$product->description}}</p>
                         </div>
                     </div>
                     <div class="space50">&nbsp;</div>
@@ -85,7 +85,7 @@
                                             <div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
                                         @endif
                                         <div class="single-item-header">
-                                            <a href="{{route('sanpham',$sp->id)}}"><img src="{{$sp->image}}" alt="" height="250px"></a>
+                                            <a href="{{route('DetailProduct',$sp->id)}}"><img src="images/front-end/product/{{$sp->avatar}}" alt="" height="250px"></a>
                                         </div>
                                         <div class="single-item-body">
                                             <p class="single-item-title">{{$sp->name}}</p>
@@ -100,7 +100,7 @@
                                         </div>
                                         <div class="single-item-caption">
                                             <a class="add-to-cart pull-left" href="product.html"><i class="fa fa-shopping-cart"></i></a>
-                                            <a class="beta-btn primary" href="{{route('sanpham',$sp->id)}}">Details <i class="fa fa-chevron-right"></i></a>
+                                            <a class="beta-btn primary" href="{{route('DetailProduct',$sp->id)}}">Details <i class="fa fa-chevron-right"></i></a>
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>

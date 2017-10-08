@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-    public $item = null;
-    public $totalCart = 0;
+    public $items = null;
+    public $totalQty = 0;
     public $totalPrice = 0 ;
 
     public function __construct($oldCart){
@@ -25,6 +25,10 @@ class Cart extends Model
             $price_unit_or_promotion = $item->promotion_price;
         }
         $giohang = ['qty'=>0, 'price' => $price_unit_or_promotion, 'item' => $item];
+//        echo "<pre>";
+//        print_r($giohang);
+//        echo "</pre>";
+//        die();
         if($this->items){
             if(array_key_exists($id, $this->items)){
                 $giohang = $this->items[$id];
