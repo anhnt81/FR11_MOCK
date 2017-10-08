@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', ['as' => 'fr-homePage', 'uses' => 'Frontend\HomePageController@homePage']);
+//Route::get('/', ['as' => 'fr-homePage', 'uses' => 'Frontend\HomePageController@homePage']);
 // Controllers Within The "App\Http\Controllers\Admin" Admin
 Route::get('admin/dang-nhap', ['as' => 'login', 'uses' => 'Admin\LoginController@getLogin']);
 Route::post('admin/dang-nhap', ['as' => 'postLogin', 'uses' => 'Admin\LoginController@postLogin']);
@@ -226,8 +226,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 });
 
 // Controllers Within The "App\Http\Controllers\Front-End"
-Route::group(['prefix' => 'front-end'], function () {
-    Route::get('/trang-chu', ['as' => 'homePage', 'uses' => 'Frontend\HomePageController@homePage']);
+
+    Route::get('/', ['as' => 'homePage', 'uses' => 'Frontend\HomePageController@homePage']);
 
     Route::get('/contact', ['as' => 'contact', 'uses' => 'Frontend\ContactController@getContact']);
 
@@ -244,5 +244,5 @@ Route::group(['prefix' => 'front-end'], function () {
 
     Route::get('add-to-cart/{id}', ['as' => 'AddToCart', 'uses' => 'Frontend\ProductController@getAddToCart']);
 
-    Route::get('product-detail{id}', ['as' => 'DetailProduct', 'uses' => 'Frontend\ProductController@getProductDetail']);
-});
+    Route::get('product-detail/{id}', ['as' => 'DetailProduct', 'uses' => 'Frontend\ProductController@getProductDetail']);
+
