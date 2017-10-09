@@ -37,10 +37,10 @@
 <script src="front-end/assets/dest/vendors/animo/Animo.js"></script>
 <script src="front-end/assets/dest/vendors/dug/dug.js"></script>
 <script src="front-end/assets/dest/js/scripts.min.js"></script>
-<script src="front-end/assets/dest/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
-<script src="front-end/assets/dest/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-<script src="front-end/assets/dest/js/waypoints.min.js"></script>
-<script src="front-end/assets/dest/js/wow.min.js"></script>
+{{--<script src="front-end/assets/dest/rs-plugin/js/jquery.themepunch.tools.min.js"></script>--}}
+{{--<script src="front-end/assets/dest/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>--}}
+{{--<script src="front-end/assets/dest/js/waypoints.min.js"></script>--}}
+{{--<script src="front-end/assets/dest/js/wow.min.js"></script>--}}
 <!--customjs-->
 {{--<script src="front-end/assets/dest/js/custom2.js"></script>--}}
 <script>

@@ -53,8 +53,13 @@
                             @endif
                             @if(Session::has('cart'))
                                 <div class="cart-caption">
-                                    <div class="cart-total text-right">Tổng tiền: <span class="cart-total-value">{{Session('cart')->totalPrice}}</span></div>
-                                    <div class="clearfix"></div>
+                                    @foreach($product_cart as $product)
+                                        @php
+                                            $totalPrice += $product['price'];
+                                        @endphp
+                                    @endforeach
+                                        <div class="cart-total text-right">Tổng tiền: <span class="cart-total-value">{{number_format($totalPrice)}}</span></div>
+                                        <div class="clearfix"></div>
 
                                     <div class="center">
                                         <div class="space10">&nbsp;</div>

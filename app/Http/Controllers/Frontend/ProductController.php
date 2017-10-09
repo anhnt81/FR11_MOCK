@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Illuminate\Http\Request;
 use App\Cart;
 use App\Category;
 use App\Comment;
@@ -9,21 +10,20 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
 use Session;
-use Request;
 
 class ProductController extends Controller
 {
-    public function getAddToCart(\Illuminate\Http\Request $req,$id){
-        $product = Product::find($id);
-        $oldCart = Session('cart') ? Session::get('cart') : null;
-        $Cart = new Cart($oldCart);
-        $Cart->addCart($product,$id);
-        $req->session()->put('cart',$Cart);
-
+    public function getAddToCart(Request $req,$id){
+            $product = Product::find($id);
+            $oldCart = Session('cart') ? Session::get('cart') : null;
+            $Cart = new Cart($oldCart);
+            $Cart->addCart($product,$id);
+            $req->session()->put('cart',$Cart);
+            $data = $req->session()->get('cart');
         return redirect()->back();
     }
 
-    public function getProductDetail(\Illuminate\Http\Request $req,$id){
+    public function getProductDetail(Request $req,$id){
         $product = Product::find($id);
         $cmt = Comment::where('pid', $product->id)->get();
         $prdSameCat = Product::where('cid', $product->cid)
@@ -38,7 +38,18 @@ class ProductController extends Controller
         return view('front-end.product-detail',compact('product','sp_tuongtu', 'cmt', 'prdSameCat', 'prdSameBr', 'rate'));
     }
 
-    public function deleteCart(\Illuminate\Http\Request $req,$id){}
+    public function deleteCart($id){
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->removeItem($id);
+        if (count($cart->items) > 0) {
+            Session::put('cart',$cart);
+            return redirect()->back();
+        } else {
+            Session::forget('cart');
+            return redirect()->back();
+        }
+    }
 
     public function getBookCart(){
         return view('front-end.dat-hang');

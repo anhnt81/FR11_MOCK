@@ -74,7 +74,7 @@
                                                     <div class="media-body">
                                                         <p class="font-large"></p>
                                                         <span class="color-gray your-order-info">{{$cart['item']['name']}}</span>
-                                                        <span class="color-gray your-order-info">Số Lượng: {{$cart['qty']}}</span>
+                                                        <span class="color-gray your-order-info">Số Lượng: <input style="width: 40px;height: 25px;text-align: center" type="number" name="so_luong" value="{{$cart['qty']}}"></span>
                                                         <span class="color-gray your-order-info">Đơn Giá: {{$cart['price']}}</span>
                                                     </div>
                                                 </div>
@@ -82,11 +82,23 @@
                                             </div>
                                         @endforeach
                                     @endif
+                                        <a href="{{route('dat-hang')}}" class="beta-btn primary text-center">Lưu lại <i class="fa fa-chevron-right"></i></a>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="your-order-item">
+                                    @if(Session::has('cart'))
+                                    @foreach($product_cart as $product)
+                                        @php
+                                            $totalPrice += $product['price'];
+                                        @endphp
+                                    @endforeach
+                                    @else
+                                        @php
+                                            $totalPrice += 0;
+                                        @endphp
+                                    @endif
                                     <div class="pull-left"><p class="your-order-f18">Tổng tiền:</p></div>
-                                    <div class="pull-right"><h5 class="color-black">@if(Session::has('cart')) {{number_format($totalPrice)}}@else 0 @endif đồng</h5></div>
+                                    <div class="pull-right"><h5 class="color-black"> {{number_format($totalPrice)}} đồng</h5></div>
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
