@@ -53,6 +53,16 @@
 .rating > a:focus, .rating > a { text-decoration: none }
 .rating-big { font-size : 37px; }
 
+.filter-frm {
+    padding : 15px;
+    border : 1px gray solid;
+    border-radius: 5px;
+    display : block;
+}
+.filter-frm input[type='radio'] {
+    margin-left : 40px;
+}
+
 #footer {
     clear : both;
     margin-top: 30px;

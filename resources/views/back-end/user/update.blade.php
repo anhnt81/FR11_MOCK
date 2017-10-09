@@ -75,7 +75,7 @@
                            value="@if(old('phone')) {!!old('phone')!!} @else {!!$user->phone!!} @endif">
                 </div>
 
-                @if(Auth::User()->level < $user->id)
+                @if(Auth::guard('admin')->User()->level < $user->id)
                     <div class="form-group">
                         <label for="level">Loại thành viên</label>
                         <select name='level' id='level' class='form-control'>

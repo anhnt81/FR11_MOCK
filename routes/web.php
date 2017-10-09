@@ -240,7 +240,7 @@ Route::post('dang-nhap', ['as' => 'postLogin', 'uses' => 'Frontend\AuthControlle
 Route::get('dang-ky', ['as' => 'dang-ky', 'uses' => 'Frontend\AuthController@getSignup']);
 Route::post('dang-ky', ['as' => 'post-Signup', 'uses' => 'Frontend\AuthController@postSignup']);
 
-Route::get('tai-khoan', ['as' => 'account', 'uses' => 'Frontend\AuthController@getAccount']);
+Route::get('sua-thong-tin', ['as' => 'account', 'uses' => 'Frontend\AuthController@getAccount']);
 
 Route::get('add-to-cart/{id}', ['as' => 'AddToCart', 'uses' => 'Frontend\ProductController@getAddToCart']);
 
@@ -251,4 +251,14 @@ Route::get('dat-hang', ['as' => 'dat-hang', 'uses' => 'Frontend\ProductControlle
 
 Route::post('addcmt', ['uses' => 'Frontend\ProductController@addComment']);
 
+Route::get('cam-on', ['as' => 'success', 'uses' => 'Frontend\AuthController@success']);
 
+Route::get('dang-xuat', ['as' => 'logout', 'uses' => 'Frontend\AuthController@logout']);
+
+Route::get('san-pham-moi', ['as' => 'new-prd', 'uses' => 'Frontend\ProductController@new']);
+
+Route::get('san-pham-mua-nhieu', ['as' => 'best-prd', 'uses' => 'Frontend\ProductController@best']);
+
+Route::post('filter', ['uses' => 'Frontend\ProductController@ajax']);
+
+Route::get('chuyen-muc/{id}', ['as' => 'cat-page', 'uses' => 'Frontend\ProductController@category']);

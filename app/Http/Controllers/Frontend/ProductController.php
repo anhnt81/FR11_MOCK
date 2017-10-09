@@ -2,28 +2,29 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Illuminate\Http\Request;
+use App\Brand;
 use App\Cart;
+use App\Category;
 use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
 use Session;
+use Request;
 
 class ProductController extends Controller
 {
-    public function getAddToCart( Request $req, $id )
-    {
+    public function getAddToCart(\Illuminate\Http\Request $req,$id){
         $product = Product::find($id);
         $oldCart = Session('cart') ? Session::get('cart') : null;
         $Cart = new Cart($oldCart);
-        $Cart->addCart($product, $id);
-        $req->session()->put('cart', $Cart);
+        $Cart->addCart($product,$id);
+        $req->session()->put('cart',$Cart);
+
         return redirect()->back();
     }
 
-    public function getProductDetail( Request $req, $id )
-    {
+    public function getProductDetail(\Illuminate\Http\Request $req,$id){
         $product = Product::find($id);
         $cmt = Comment::where('pid', $product->id)->get();
         $prdSameCat = Product::where('cid', $product->cid)
@@ -32,10 +33,10 @@ class ProductController extends Controller
         $prdSameBr = Product::where('bid', $product->bid)
             ->orderBy('updated_at', 'desc')
             ->limit(5)->get();
-        $sp_tuongtu = Product::where('cid', $product->cid)->limit(3)->get();
+        $sp_tuongtu = Product::where('cid',$product->cid)->limit(3)->get();
         $rate = $this->getRate($product->id);
 
-        return view('front-end.product-detail', compact('product', 'sp_tuongtu', 'cmt', 'prdSameCat', 'prdSameBr', 'rate'));
+        return view('front-end.product-detail',compact('product','sp_tuongtu', 'cmt', 'prdSameCat', 'prdSameBr', 'rate'));
     }
 
     public function deleteCart( $id )
@@ -52,25 +53,47 @@ class ProductController extends Controller
         }
     }
 
-    public function getBookCart()
-    {
+    public function getBookCart(){
         return view('front-end.dat-hang');
     }
 
-    public function getRate( $pid )
+    public function category($id)
+    {
+        $cat = Category::find($id);
+        $catChild = $cat->childHas;
+        $prd = Product::where('cid', '=', $id)
+            ->paginate('8');
+        $listBr = Brand::all();
+
+        return view('front-end.cat-page', compact('prd', 'cat', 'listBr'));
+    }
+
+    public function ajax()
+    {
+        if(Request::ajax()) {
+            $data['brand'] = $_POST['brand'];
+            $data['sort'] = $_POST['sort'];
+            $data['type'] = $_POST['type_sort'];
+            $data['from'] = (empty($_POST['from'])) ? $data['from'] : $_POST['from'];
+            $data['to'] = ((empty($_POST['to'])) ? $data['to'] : $_POST['to']);
+        }
+    }
+
+    public function getRate($pid)
     {
         $rate['myrate'] = 0;
-        if (Auth::check()) {
+        if(Auth::check()) {
             $rate['myrate'] = Comment::where('pid', $pid)
                 ->where('uid', Auth::user()->id)->get();
-            if ($rate['myrate']->count() > 0) {
+            if($rate['myrate']->count() > 0){
                 $rate['myrate'] = $rate['myrate']->rate;
             }
         }
         $rate['avg'] = Comment::where('pid', $pid);
-        if ($rate['avg']->count() > 0) {
+        if($rate['avg']->count() > 0) {
             $rate['avg'] = $rate['avg']->avg('rate');
-        } else {
+        }
+        else {
             $rate['avg'] = 0;
         }
         $rate['avg'] = round($rate['avg'], 1);
@@ -91,7 +114,7 @@ class ProductController extends Controller
 
     public function addComment()
     {
-        if (Request::ajax()) {
+        if(Request::ajax()) {
             $cmt = new Comment();
 
             $cmt->uid = $_POST['uid'];

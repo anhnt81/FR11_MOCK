@@ -140,7 +140,8 @@ class UserController extends Controller
     {
         $user = $this->__user->where('id', $id)->first();
 
-        if(Auth::User()->level == 1 || Auth::User()->id == $id || Auth::User()->level < $user->level) {
+        if(Auth::guard('admin')->User()->level == 1 || Auth::guard('admin')->User()->id == $id
+            || Auth::guard('admin')->User()->level < $user->level) {
             $level = Helper::levelArr();
 
             return view('back-end.user.update', compact('user', 'level'));

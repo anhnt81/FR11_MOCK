@@ -24,8 +24,8 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|max:40',
-            'password' => 'required|min:8',
+            'email' => 'required',
+            'password' => 'required',
         ];
     }
     /**
@@ -38,8 +38,7 @@ class LoginRequest extends FormRequest
         return [
             'email.required' => 'Email là trường bắt buộc',
     		'email.email' => 'Email không đúng định dạng',
-    		'password.required' => 'Mật khẩu là trường bắt buộc',
-    		'password.min' => 'Mật khẩu phải chứa ít nhất 8 ký tự',
+    		'password.required' => 'Mật khẩu là trường bắt buộc'
         ];
     }
 }

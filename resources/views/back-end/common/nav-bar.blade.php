@@ -1,7 +1,7 @@
 <nav class='col-md-3 col-lg-2 collapse' id='nav-home'>
     <div style='text-align: center'>
-        <img src='{{asset('uploads/images/'. Auth::user()->avatar )}}' class="img-circle" style="max-width: 80px"><br>
-        <span>{{Auth::User()->name}}</span>
+        <img src='{{asset('uploads/images/'. Auth::guard('admin')->User()->avatar )}}' class="img-circle" style="max-width: 80px"><br>
+        <span>{{Auth::guard('admin')->User()->name}}</span>
     </div>
     <hr color="darkgray">
     <ul class="nav nav-pills nav-stacked" role="tablist" style='border: none'>
@@ -71,7 +71,7 @@
     </ul>
     <hr>
     <div style='text-align: center; line-height: 30px;'>
-        <a href='{!! url('admin/user/sua-thong-tin/'.Auth::User()->id) !!}'>Sửa thông tin cá nhân</a>
+        <a href='{!! url('admin/user/sua-thong-tin/'.Auth::guard('admin')->User()->id) !!}'>Sửa thông tin cá nhân</a>
         <br>
         <a href='{!! url('/') !!}'>Vào Website</a>
     </div>
