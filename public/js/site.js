@@ -49,7 +49,21 @@ $(document).ready(function () {
         });
     });
 
-    $('.add-to-cart').click(function () {
-        
+    $('.add-to-cart').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('href'),
+            success: function (responce) {
+                $('#cart-modal').html(responce);
+                $('.beta-select').click(function () {
+                    var drop = $(this).parent().find('.beta-dropdown');
+
+                    drop.slideToggle('slow');
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
     });
 })

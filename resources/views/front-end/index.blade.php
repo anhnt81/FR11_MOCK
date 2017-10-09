@@ -7,9 +7,6 @@
     <div class="container">
         <div class="space60">&nbsp;</div>
 
-        <!-- filter -->
-        @include('front-end.filter')
-
         <!-- content -->
         <div id="content" class="space-top-none">
             <div class="main-content">
@@ -32,7 +29,7 @@
                                                 <div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
                                             @endif
                                             <div class="single-item-header">
-                                                <a href=""><img src="images/front-end/product/{{$item->avatar}}" height="250px" alt=""></a>
+                                                <a href="{{route('DetailProduct',$item->id)}}"><img src="images/front-end/product/{{$item->avatar}}" height="250px" alt=""></a>
                                             </div>
                                             <div class="single-item-body">
                                                 <p class="single-item-title">{{$item->name}}</p>
@@ -74,7 +71,7 @@
                                                 <div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
                                             @endif
                                             <div class="single-item-header">
-                                                <a href=""><img src="images/front-end/product/{{$item->avatar}}" height="250px" alt=""></a>
+                                                <a href="{{route('DetailProduct',$item->id)}}"><img src="images/front-end/product/{{$item->avatar}}" height="250px" alt=""></a>
                                             </div>
                                             <div class="single-item-body">
                                                 <p class="single-item-title">{{$item->name}}</p>
@@ -88,8 +85,8 @@
                                                 </p>
                                             </div>
                                             <div class="single-item-caption">
-                                                <a class="add-to-cart pull-left" href=""><i class="fa fa-shopping-cart"></i></a>
-                                                <a class="beta-btn primary" href="">Chi Tiết <i class="fa fa-chevron-right"></i></a>
+                                                <a class="add-to-cart pull-left" href="" pid='{{$item->id}}'><i class="fa fa-shopping-cart"></i></a>
+                                                <a class="beta-btn primary" href="{{route('DetailProduct',$item->id)}}">Chi Tiết <i class="fa fa-chevron-right"></i></a>
                                                 <div class="clearfix"></div>
                                             </div>
                                         </div>

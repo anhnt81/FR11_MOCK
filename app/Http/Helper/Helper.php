@@ -51,6 +51,12 @@ class Helper
         }
     }
 
+    /*
+     * @param $a1
+     * @param $a2
+     * @param $k
+     * @return $result
+     */
     public static function sumQtyOrder($a1, $a2, $k)
     {
         foreach ($a1 as $key => $item) {
@@ -63,5 +69,21 @@ class Helper
         }
 
         return $result;
+    }
+
+    /*
+     * @param $objCat : Category object should get the ID list
+     * @param @listCat : All category object
+     * @return $list : list Id
+     */
+    public static function getid($objCat,$listCat)
+    {
+        $list[] = $objCat->id;
+        foreach ($listCat as $key => $value) {
+            if ($value->parentId == $objCat->id) {
+                $list[] = Self::getid($value,$listCat);
+            }
+        }
+        return $list;
     }
 }
