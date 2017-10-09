@@ -38,8 +38,8 @@ body {
 }
 
 .ntf-home {
-    margin-left: 40px;
-    line-height :30px;
+    margin-left : 40px;
+    line-height : 30px;
 }
 
 .glyphicon {
@@ -54,17 +54,19 @@ body {
     margin : 0 20px;
 }
 
-.sort-frm{
-    border : 1px #eee solid;
-    border-radius: 5px;
-    padding : 15px 15px 0 15px;
+.sort-frm {
+    border        : 1px #eee solid;
+    border-radius : 5px;
+    padding       : 15px 15px 0 15px;
 }
 
 .order-info { padding : 0; }
+
 .order-info .panel-body > div { margin-top : 15px; }
+
 .order-info .panel-body > div > span:nth-child(1) { font-weight : bold; }
 
-.table-responsive { clear: both }
+.table-responsive { clear : both }
 
 .right { float : right; }
 
@@ -73,35 +75,70 @@ body {
 .required { color : red; }
 
 .icon-home {
-    font-size :40px;
+    font-size  : 40px;
     margin-top : 30px;
-    color : #fff;
+    color      : #fff;
 }
+
 .param {
-    height : 100px;
-    text-align: center;
+    height     : 100px;
+    text-align : center;
 }
+
 .param > div {
-    height :inherit;
+    height : inherit;
 }
+
 .param > div:nth-child(2) {
     padding : 5px;
 }
+
 .param > div:nth-child(2) > div:nth-child(2) {
-    font-size :30px;
-    font-weight: bold;
+    font-size   : 30px;
+    font-weight : bold;
 }
 
 #week-chart {
-    width : inherit;
-    height: 300px;
+    width  : inherit;
+    height : 300px;
 }
 
 .pagination {
     margin : 0;
-    float: right;
+    float  : right;
 }
 
 .chart-report {
-    min-height: 357px;
+    min-height : 357px;
+}
+
+button.close {
+    color        : red;
+    font-size    : 48px;
+}
+.del-img-prd {
+    position  : relative;
+    float     : none;
+    /*color : red;*/
+    font-size : 48px;
+    top       : -35px;
+    left      : -17px;
+}
+
+#upImg input {
+    height     : 30px;
+    margin-top : 10px;
+}
+#upImg button.close {
+    margin-right : 30px;
+    font-size : 40px;
+}
+
+#add-img { margin-top : 20px }
+
+.input-add-img {
+    float : left;
+}
+.img-prd {
+    max-height : 100px;
 }

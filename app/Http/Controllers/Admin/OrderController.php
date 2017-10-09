@@ -149,7 +149,7 @@ class OrderController extends Controller
 
         $order->save();
 
-        return redirect()->route('listOrder');
+        return redirect()->route('listOrder')->with('success', 'Sửa thành công!');
     }
 
     public function getWeekOrder()

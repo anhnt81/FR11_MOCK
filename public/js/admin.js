@@ -172,7 +172,7 @@ function ajaxFilter(page, ctr)
         }
     }
 
-    console.log(dt);
+    //console.log(dt);
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

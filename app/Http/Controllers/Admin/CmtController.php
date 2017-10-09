@@ -88,6 +88,6 @@ class CmtController extends Controller
 
         $cmt->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Đã thay đổi!');
     }
 }

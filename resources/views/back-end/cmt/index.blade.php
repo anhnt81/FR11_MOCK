@@ -44,6 +44,9 @@
 
             <!-- list -->
             <div class="table-responsive" id='list-data'>
+                @if(!empty(session('success')))
+                    <div class='alert alert-success'>{{session('success')}}</div>
+                @endif
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>

@@ -16,13 +16,6 @@
             <h3 class="panel-title">Danh sách người dùng</h3>
         </div>
         <div class="panel-body">
-            @if(!empty(session('success')))
-                <div class='alert alert-success'>{{session('success')}}</div>
-            @endif
-            @if(!empty(session('error')))
-                <div class='alert alert-danger'>{{session('error')}}</div>
-            @endif
-
             <div>
                 <div class='col-xs-12 col-md-6'>
                     <a class='btn btn-primary' role='button' href='{!! url('admin/user/them-moi') !!}'>
@@ -53,6 +46,12 @@
 
             <!-- list -->
             <div class="table-responsive" id='list-data'>
+                @if(!empty(session('success')))
+                    <div class='alert alert-success'>{{session('success')}}</div>
+                @endif
+                @if(!empty(session('error')))
+                    <div class='alert alert-danger'>{{session('error')}}</div>
+                @endif
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>

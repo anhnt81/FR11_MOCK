@@ -34,9 +34,6 @@
                     </div>
                     {{ csrf_field() }}
                 </form>
-                @if(Session::has('message'))
-                    <div class='alert alert-success'>{{Session::get('message')}}</div>
-                @endif
             </div>
             <!-- Modal create Product -->
                 <form onsubmit ="return validateForm()" enctype="multipart/form-data"  method="post" action='/admin/product/add'>
@@ -117,6 +114,9 @@
 </script>
 <!-- list  Product-->
             <div class="table-responsive" id='list-data'>
+                @if(Session::has('message'))
+                    <div class='alert alert-success'>{{Session::get('message')}}</div>
+                @endif
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
