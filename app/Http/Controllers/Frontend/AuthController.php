@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Requests\admin\AddUserRequest;
+use App\Http\Requests\LoginRequest;
 use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Illuminate\Support\MessageBag;
 
 class AuthController extends Controller
 {
@@ -15,7 +16,7 @@ class AuthController extends Controller
         return view('front-end.login');
     }
 
-    public function postLogin(Request $request)
+    public function postLogin(LoginRequest $request)
     {
         $email = $request->email;
         $password = $request->password;
@@ -59,7 +60,9 @@ class AuthController extends Controller
 
         $user->save();
 
-        return redirect()->route('success')->with('success', 'Thêm thành công!');
+        Auth::attempt(['email' => $r->email, 'password' => $r->password]);
+
+        return redirect()->route('success');
     }
 
     public function logout()
@@ -71,7 +74,9 @@ class AuthController extends Controller
 
     public function getAccount()
     {
-        return view('front-end.account');
+        $user = User::find(Auth::user()->id);
+
+        return view('front-end.account', compact('user'));
     }
 
     public function success()

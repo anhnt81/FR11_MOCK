@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Category;
 use App\Product;
 use App\Brand;
+use Illuminate\Support\Facades\DB;
 use Session;
 
 class HomePageController extends Controller
@@ -21,11 +22,16 @@ class HomePageController extends Controller
         }
 
         //DropDownMenu
-        $newProduct = Product::where('new',1)->paginate(4);
-        $listProduct = Product::where('new',0)->paginate(8);
+        $newProduct = Product::where('new',1)->limit(4)->get();
+//        $bestProduct = Product::leftJoin('tb_order_detail as od', 'tb_product.id', '=', 'od.pid')
+//            ->select("tb_product.*", DB::raw('count(od.pid) as o_qty'))
+//            ->groupBy('tb_product.id')
+//            ->orderBy('o_qty', 'desc')
+//            ->get();
+        $bestProduct = Product::all();
         $listBr = Brand::all();
         $slide = Slide::all();
 
-        return view('front-end.index',compact('newProduct','listProduct', 'slide', 'old', 'listBr'));
+        return view('front-end.index',compact('newProduct','bestProduct', 'slide', 'old', 'listBr'));
     }
 }

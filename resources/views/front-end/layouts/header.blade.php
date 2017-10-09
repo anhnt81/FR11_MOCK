@@ -10,7 +10,6 @@
             <div class="pull-right auto-width-right">
                 <ul class="top-details menu-beta l-inline">
                     @if(Auth::check())
-                        {{--<li><a href="{{route('account')}}"><i class="fa fa-user"></i>Tài khoản</a></li>--}}
                         <li>
                             <a>
                                 <img src="{{asset('uploads/images/'.Auth::user()->avatar)}}"
@@ -20,7 +19,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('account')}}">
+                            <a href="{{url('sua-thong-tin')}}">
                                 <span class="glyphicon glyphicon-user"></span> Thông tin cá nhân
                             </a>
                         </li>
@@ -67,9 +66,10 @@
                                            href="{{route('xoa-gio-hang',$product['item']['id'])}}"><i
                                                     class="fa fa-times"></i></a>
                                         <div class="media">
-                                            <a class="pull-left" href=""><img height="50px" width="50px"
-                                                                              src="images/front-end/product/{{$product['item']['avatar']}}"
-                                                                              alt=""></a>
+                                            <a class="pull-left" href="">
+                                                <img height="50px" width="50px"
+                                                      src="images/front-end/product/{{$product['item']['avatar']}}">
+                                            </a>
                                             <div class="media-body">
                                                 <span class="cart-item-title">{{$product['item']['name']}}</span>
                                                 <span class="cart-item-amount">{{$product['qty']}}
@@ -107,20 +107,14 @@
             <nav class="main-menu">
                 <ul class="l-inline ov">
                     <li><a href="{{route('homePage')}}">Trang Chủ</a></li>
-                    <li><a href="">Nhãn Hiệu</a>
-                        <ul class="sub-menu">
-                            @foreach($brand as $br)
-                                <li><a href="">{{$br->name}}</a></li>
-                            @endforeach
-                        </ul>
-                    </li>
+
                     <li><a href="#">Loại Sản Phẩm</a>
                         <ul class="sub-menu">
                             @foreach($category as $cat)
-                                <li><a href="product_type.html">{{$cat->name}}</a>
+                                <li><a href="{{url('chuyen-muc/'.$cat->id)}}">{{$cat->name}}</a>
                                     <ul class="sub-menu">
                                         @foreach($cat->childHas as $submenu)
-                                            <li><a href="">{{$submenu->name}}</a></li>
+                                            <li><a href="{{url('chuyen-muc/'.$submenu->id)}}">{{$submenu->name}}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>

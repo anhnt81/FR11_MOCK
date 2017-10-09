@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-
 <div class="inner-header">
     <div class="container">
         <div class="pull-left">
@@ -21,41 +20,73 @@
 </div>
 
 <div class="container">
-    <div id="content">
-        <form action="{{route('postLogin')}}" method="post" class="beta-form-checkout">
-            <input type="hidden" name="_token" value="{{csrf_token()}}">
-            <div class="row">
-                <div class="col-sm-3"></div>
-                @if(Session::has('flag'))
-                    <div class="alert alert-{{Session::get('flag')}}">{{Session::get('message')}}</div>
-                    <div class="col-sm-3"></div>
-                @endif
-                <div class="col-sm-6">
-                    <h4>Đăng nhập</h4>
-                    <div class="space20">&nbsp;</div>
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" >Email</label>
-                        <div class="col-md-8 col-sm-6 col-xs-12">
-                            <input type="email" id="email" name="email"  class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-4 col-sm-3 col-xs-12" >Password</label>
-                        <div class="col-md-8 col-sm-6 col-xs-12">
-                            <input type="password" id="password" name="password"  class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                    <div class="col-md-6"></div>
-                    <div class="form-group">
-                        <button type="reset" class="btn btn-warning">Reset</button>
-                        <button type="submit" class="btn btn-primary">Login</button>
-                    </div>
-                </div>
-                <div class="col-sm-3"></div>
-            </div>
-        </form>
-    </div> <!-- #content -->
-</div> <!-- .container -->
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" method="POST">
+                        {{ csrf_field() }}
+                        @if($errors->has('errorlogin'))
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                    &times;
+                                </button>
+                                {{$errors->first('errorlogin')}}
+                            </div>
+                        @endif
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label for="email" class="col-md-4 control-label">Tài Khoản E-Mail</label>
 
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control" name="email"
+                                       value="{{ old('email') }}">
+
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                            <label for="password" class="col-md-4 control-label">Mật khẩu</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control" name="password"
+                                       value="{{ old('password') }}">
+
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <div class="checkbox">
+                                    <input type="checkbox" name="remember" style='display: block'> Nhớ đăng nhập
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-btn fa-sign-in"></i> Đăng Nhập
+                                </button>
+
+                                <a class="btn btn-link" href="{{ url('quen-mat-khau') }}">Quên Mật Khẩu?</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 

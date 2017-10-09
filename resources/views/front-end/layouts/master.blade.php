@@ -41,25 +41,9 @@
 <script src="front-end/assets/dest/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 <script src="front-end/assets/dest/js/waypoints.min.js"></script>
 <script src="front-end/assets/dest/js/wow.min.js"></script>
+<script src="{{ asset('js/site.js') }}"></script>
 <!--customjs-->
 {{--<script src="front-end/assets/dest/js/custom2.js"></script>--}}
-<script>
-    $(document).ready(function($) {
-        $(window).scroll(function(){
-            if($(this).scrollTop()>150){
-                $("#up_to_top").show();
-                $(".header-bottom").addClass('fixNav')
-            }else{
-                $(".header-bottom").removeClass('fixNav')
-                $("#up_to_top").hide();
-            }}
-        );
-        $("#up_to_top").click(function(){
-            $("html,body").animate({
-                scrollTop:0
-            },777);
-        });
-    })
-</script>
+
 </body>
 </html>

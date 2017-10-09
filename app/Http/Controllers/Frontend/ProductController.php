@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Brand;
 use App\Cart;
 use App\Category;
 use App\Comment;
@@ -42,6 +43,28 @@ class ProductController extends Controller
 
     public function getBookCart(){
         return view('front-end.dat-hang');
+    }
+
+    public function category($id)
+    {
+        $cat = Category::find($id);
+        $catChild = $cat->childHas;
+        $prd = Product::where('cid', '=', $id)
+            ->paginate('8');
+        $listBr = Brand::all();
+
+        return view('front-end.cat-page', compact('prd', 'cat', 'listBr'));
+    }
+
+    public function ajax()
+    {
+        if(Request::ajax()) {
+            $data['brand'] = $_POST['brand'];
+            $data['sort'] = $_POST['sort'];
+            $data['type'] = $_POST['type_sort'];
+            $data['from'] = (empty($_POST['from'])) ? $data['from'] : $_POST['from'];
+            $data['to'] = ((empty($_POST['to'])) ? $data['to'] : $_POST['to']);
+        }
     }
 
     public function getRate($pid)

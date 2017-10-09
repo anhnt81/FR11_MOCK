@@ -157,18 +157,15 @@ function ajaxFilter(page, ctr)
     var input = $(".form-val");
 
     var data = new FormData();
-    var dt = {};
 
     for (var i = 0; i < input.length; i++) {
         if ($(input[i]).attr("type") == 'radio' || $(input[i]).attr("type") == 'checkbox') {
             if ($(input[i]).is(':checked')) {
                 data.append($(input[i]).attr("name"), $(input[i]).val());
-                dt[$(input[i]).attr("name")] = $(input[i]).val();
             }
         }
         else {
             data.append($(input[i]).attr("name"), $(input[i]).val());
-            dt[$(input[i]).attr("name")] = $(input[i]).val();
         }
     }
 

@@ -19,6 +19,12 @@
                         <div class="beta-products-list">
                             <h4>Sản Phẩm Mới</h4>
                             <div class="row">
+                                <div style='text-align: right'>
+                                    <a href='{{route('new-prd')}}'>
+                                        Xem tất cả
+                                        <span class='glyphicon glyphicon-chevron-right'></span>
+                                    </a>
+                                </div>
                                 @foreach($newProduct as $item)
                                     <div class="col-sm-3" style="margin-top:50px">
                                         <div class="single-item">
@@ -48,17 +54,20 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <div style="text-align: center">
-                                {!! $newProduct->links() !!}
-                            </div>
                         </div> <!-- .beta-products-list -->
 
                         <div class="space50">&nbsp;</div>
 
                         <div class="beta-products-list">
-                            <h4>Sản Phẩm Mới</h4>
+                            <h4>Sản Phẩm Được Quan Tâm</h4>
+                            <div style='text-align: right'>
+                                <a href='{{route('best-prd')}}'>
+                                    Xem tất cả
+                                    <span class='glyphicon glyphicon-chevron-right'></span>
+                                </a>
+                            </div>
                             <div class="row">
-                                @foreach($listProduct as $item)
+                                @foreach($bestProduct as $item)
                                     <div class="col-sm-3" style="margin-top:50px">
                                         <div class="single-item">
                                             @if($item->promotion_price!=0)
@@ -87,9 +96,6 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <div style="text-align: center">
-                                {!! $listProduct->links() !!}
-                            </div>
                         </div> <!-- .beta-products-list -->
                     </div>
                 </div> <!-- end section with sidebar and main content -->
@@ -106,7 +112,7 @@
                     <h3>Xin chào,</h3>
                 </div>
 
-                <div class='modal-body alert-warning'>
+                <div class='modal-body alert-success'>
                     Cảm ơn bạn đã ghé thăm cửa hàng của chúng tôi. Sản phẩm của chúng tôi luôn đảm bảo về chất lượng,
                     nhiều mẫu mã cho bạn thỏa sức lựa chọn với giá cả phải chăng !!!
                 </div>
@@ -117,11 +123,11 @@
         </div>
     </div>
 
-    @if(!$old)
-        <script>
-            $(document).ready(function () {
-                $('#hello-modal').modal('show');
-            })
-        </script>
-    @endif
+    <script>
+        $(document).ready(function () {
+            @if(!$old)
+            $('#hello-modal').modal('show');
+            @endif
+        })
+    </script>
 @endsection

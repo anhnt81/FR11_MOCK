@@ -4,78 +4,76 @@
     Thông tin cá nhân
 @endsection
 @section('content')
-    <div class="inner-header">
-        <div class="container">
-            <div class="pull-left">
-                <h6 class="inner-title">Thông Tin Cá Nhân</h6>
+    <div class='col-xs-12 col-md-8 col-md-offset-2'>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Thông tin cá nhân</h3>
             </div>
-            <div class="pull-right">
-                <div class="beta-breadcrumb">
-                    <a href="index.html">Home</a> / <span>Thông Tin Cá Nhân</span>
-                </div>
+            <div class="panel-body">
+                <form method="post" role="form"  enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        @if($errors->has('email'))
+                            <div class='alert alert-danger'>{{ $errors->first('email') }}</div>
+                        @endif
+                        <label for="email">E-mail</label>
+                        <input id="email" name="email" class="form-control" type="email"
+                               value="@if(old('email')) {!!old('email')!!} @else {{$user->email}} @endif">
+                    </div>
+
+                    <div class="form-group">
+                        @if($errors->has('name'))
+                            <div class='alert alert-danger'>{{ $errors->first('name') }}</div>
+                        @endif
+                        <label for="name">Tên</label>
+                        <input id="name" name="name" class="form-control" type="text"
+                               value="@if(old('name')) {!!old('name')!!} @else {{$user->name}} @endif">
+                    </div>
+
+                    <div class="form-group">
+                        @if($errors->has('pass'))
+                            <div class='alert alert-danger'>{{ $errors->first('pass') }}</div>
+                        @endif
+                        <label for="pass">Mật khẩu Mới</label>
+                        <input id="pass" name="pass" class="form-control" type="password"
+                               value="{!!old('pass')!!}">
+                    </div>
+
+                    <div class="form-group">
+                        @if($errors->has('repass'))
+                            <div class='alert alert-danger'>{{ $errors->first('repass') }}</div>
+                        @endif
+                        <label for="repass">Nhập lại Mật khẩu </label>
+                        <input id="repass" name="repass" class="form-control" type="password"
+                               value="{!!old('phone')!!}">
+                    </div>
+
+                    <div class='form-group'>
+                        <label for='avatar'>Ảnh đại diện</label>
+                        @if($errors->has('avatar'))
+                            <div class='alert alert-danger'>{{ $errors->first('avatar') }}</div>
+                        @endif
+                        <input type='file' name='avatar' onchange='previewImage(this, "pv-ava-user")' id='avatar'>
+                        <img id='pv-ava-user' src='{{asset('uploads/images/'.$user->avatar)}}'
+                             style='max-height: 97px;'>
+                    </div>
+
+                    <div class="form-group">
+                        @if($errors->has('phone'))
+                            <div class='alert alert-danger'>{{ $errors->first('phone') }}</div>
+                        @endif
+                        <label for="phone">Số điện thoại</label>
+                        <input id="phone" name="phone" class="form-control" type="text"
+                               value="@if(old('phone')) {!!old('phone')!!} @else {!!$user->phone!!} @endif">
+                    </div>
+
+                    <div class="form-group">
+                        <input type='hidden' name='id' value='{!! $user->id !!}'>
+                        <button type='submit' class="btn btn-primary">Lưu</button>
+                        <a href="{!! url('/') !!}" class="btn btn-default">Quay Lại</a>
+                    </div>
+                </form>
             </div>
-            <div class="clearfix"></div>
         </div>
     </div>
-
-    <div class="container">
-        <div id="content">
-            <form action="" method="post" class="beta-form-checkout">
-                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                <div class="row">
-                    @if(count($errors)>0)
-                        <div class="alert alert-danger">
-                            @foreach($errors->all() as $err)
-                                {{$err}}
-                            @endforeach
-                        </div>
-                    @endif
-                    @if(Session::has('message'))
-                        <div class="alert alert-success">{{Session::get('message')}}</div>
-                    @endif
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-6">
-                        <h4>Cập Nhật</h4>
-                        <div class="space20">&nbsp;</div>
-                        <div class="form-group">
-                            <label class="control-label col-md-4 col-sm-3 col-xs-12">Email</label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                                <input type="email" id="email" name="email"  class="form-control col-md-7 col-xs-12" value="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-4 col-sm-3 col-xs-12" >Full Name</label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                                <input type="text" id="fullname" name="fullname"  class="form-control col-md-7 col-xs-12" value="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-4 col-sm-3 col-xs-12" >Address</label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                                <input type="text" id="address" name="address"  class="form-control col-md-7 col-xs-12" value="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-4 col-sm-3 col-xs-12" >Phone</label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                                <input type="text" id="phone" name="phone" class="form-control col-md-7 col-xs-12" value="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-4 col-sm-3 col-xs-12" >Password</label>
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                                <input type="password" id="password" name="password" class="form-control col-md-7 col-xs-12" value="">
-                            </div>
-                        </div>
-                        <div class="col-md-6"></div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Update</button>
-                            <button type="reset" class="btn btn-warning">Reset</button>
-                        </div>
-                    </div>
-                    <div class="col-sm-3"></div>
-                </div>
-            </form>
-        </div> <!-- #content -->
-    </div> <!-- .container -->
 @endsection

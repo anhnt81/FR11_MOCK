@@ -41,6 +41,7 @@ class AddUserRequest extends FormRequest
         return [
             'email.required'  => 'Email không được bỏ trống',
             'email.email'     => 'Email không đúng định dạng',
+            'email.unique'    => 'Email đã tồn tại',
             'pass.required'   => 'Mật khẩu không được bỏ trống',
             'pass.min'        => 'Mật khẩu phải chứa ít nhất 8 ký tự',
             'pass.max'        => 'Mật khẩu chỉ được phép tối đa 16 ký tự',

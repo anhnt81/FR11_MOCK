@@ -23,12 +23,19 @@
                        placeholder='000000000 VNĐ' style='width:45%; float: right'>
             </div>
         </div>
+        <hr>
+        <div class='form-group'>
+            <label>Sắp xếp</label>
+            <div>
+                <input type='radio' name='sort' value='price' class='form-val'> Giá
+                <input type='radio' name='sort' value='name' class='form-val'> Tên
+                <input type='radio' name='sort' value='updated_at' class='form-val'> Ngày cập nhật
+            </div>
+            <hr>
+            <div>
+                <input type='radio' name='type' value='asc' class='form-val'> Tăng dần
+                <input type='radio' name='type' value='desc' class='form-val'> Giảm dần
+            </div>
+        </div>
     </form>
 </div>
-<script>
-    $(document).ready(function () {
-        $('#btn-filter-prd').click(function () {
-            $('#filter').slideToggle('slow');
-        });
-    })
-</script>

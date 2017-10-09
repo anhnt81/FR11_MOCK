@@ -30,7 +30,7 @@
                 <td>{!! $row->slevel !!}</td>
                 <td>@if($row->status == 1) Hoạt động @else Khóa @endif</td>
                 <td>
-                    @if(Auth::User()->level < $row->level || Auth::User()->id == $row->id)
+                    @if(Auth::guard('admin')->User()->level < $row->level || Auth::guard('admin')->User()->id == $row->id)
                         <a href="{!! url('admin/user/sua-thong-tin/'.$row->id) !!}"
                            class="btn btn-warning">
                             <span class="glyphicon glyphicon-edit"></span>
