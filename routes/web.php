@@ -251,4 +251,5 @@ Route::get('dat-hang', ['as' => 'dat-hang', 'uses' => 'Frontend\ProductControlle
 
 Route::post('addcmt', ['uses' => 'Frontend\ProductController@addComment']);
 
-
+Route::get('cam-on', ['as' => 'success', 'uses' => 'Frontend\AuthController@success']);
+Route::get('dang-xuat', ['as' => 'logout', 'uses' => 'Frontend\AuthController@logout']);

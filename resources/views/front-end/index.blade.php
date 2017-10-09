@@ -5,9 +5,15 @@
 @section('content')
     @include('front-end.slide')
     <div class="container">
+        <div class="space60">&nbsp;</div>
+
+        <!-- filter -->
+        @include('front-end.filter')
+
+        <!-- content -->
         <div id="content" class="space-top-none">
             <div class="main-content">
-                <div class="space60">&nbsp;</div>
+
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="beta-products-list">

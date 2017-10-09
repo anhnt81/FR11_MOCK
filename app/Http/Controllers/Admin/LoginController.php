@@ -16,7 +16,7 @@ class LoginController extends Controller
 {
     public function home()
     {
-        if(Auth::check()) {
+        if(Auth::guard('admin')->check()) {
             $orders = $this->getOrder();
             $prd = $this->getProduct();
 
@@ -34,19 +34,19 @@ class LoginController extends Controller
         $email = $request->email;
         $password = $request->password;
 
-        if( Auth::attempt(['email' => $email, 'password' => $password], $request->remember)) {
-            if(Auth::User()->level <= 2){
-                if(Auth::User()->status == 1){
+        if( Auth::guard('admin')->attempt(['email' => $email, 'password' => $password], $request->remember)) {
+            if(Auth::guard('admin')->User()->level <= 2){
+                if(Auth::guard('admin')->User()->status == 1){
                     return redirect()->route('home');
                 }
                 else{
-                    Auth::logout();
+                    Auth::guard('admin')->logout();
                     $errors = new MessageBag(['errorlogin' => 'Tài khoản này đang bị khóa']);
                     return redirect()->back()->withInput()->withErrors($errors);
                 }
             }
             else{
-                Auth::logout();
+                Auth::guard('admin')->logout();
                 $errors = new MessageBag(['errorlogin' => 'Tài khoản này không đủ quyền quản trị']);
                 return redirect()->back()->withInput()->withErrors($errors);
             }
@@ -59,7 +59,7 @@ class LoginController extends Controller
 
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('admin')->logout();
         return redirect()->route('login');
     }
 

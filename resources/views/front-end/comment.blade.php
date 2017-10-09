@@ -72,11 +72,11 @@
             });
         });
         $('#click-rate').click(function () {
-            {{--@if(Auth::check())--}}
+            @if(Auth::check())
             $('#rate-frm').slideToggle();
-            {{--@else--}}
-            {{--$('#call-login-modal').modal('show');--}}
-            {{--@endif--}}
+            @else
+            $('#call-login-modal').modal('show');
+            @endif
         });
         $("#myrate").starrr({
             change: function(e, value){
