@@ -54,7 +54,7 @@
                             <div class="single-item-options">
                                 <label style='float:none;'>Số lượng ( Còn {{$product->qty}} sản phẩm )</label>
                                 <div style='float:none;;margin-top: 10px'>
-                                <input type='number' class="wc-select" id='qty-prd-card' name="qty" value='1'
+                                <input type='number' class='wc-select input-number' name="qty" value='1'
                                        maxval='{{$product->qty}}' style='width:50px; border-radius: 5px'>
                                 <a class="add-to-cart" href="{{route('AddToCart',$product->id)}}"><i class="fa fa-shopping-cart"></i></a>
                                 </div>
@@ -162,27 +162,27 @@
 
     <script>
         $(document).ready(function () {
-            $('#qty-prd-card').keypress(function (e) {
-                var keyCode = (e.which) ? e.which : window.event.keyCode;
-
-                if(keyCode < 48 || keyCode > 57) {
-                    if(keyCode == 48 || keyCode == 8) {
-                        return ;
-                    }
-                    return false;
-                }
-            });
-
-            $('#qty-prd-card').change(function () {
-                var value = parseInt($(this).val());
-                var max = parseInt($(this).attr('maxval'));
-                if(value > max) {
-                    $(this).val(max);
-                }
-                else if (value < 1) {
-                    $(this).val(1);
-                }
-            });
+//            $('.qty-prd-card').keypress(function (e) {
+//                var keyCode = (e.which) ? e.which : window.event.keyCode;
+//
+//                if(keyCode < 48 || keyCode > 57) {
+//                    if(keyCode == 48 || keyCode == 8) {
+//                        return ;
+//                    }
+//                    return false;
+//                }
+//            });
+//
+//            $('#qty-prd-card').change(function () {
+//                var value = parseInt($(this).val());
+//                var max = parseInt($(this).attr('maxval'));
+//                if(value > max) {
+//                    $(this).val(max);
+//                }
+//                else if (value < 1) {
+//                    $(this).val(1);
+//                }
+//            });
         })
     </script>
 @endsection

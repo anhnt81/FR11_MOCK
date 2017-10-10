@@ -1,11 +1,13 @@
 @extends('front-end.layouts.master')
 @section('title')
-    {{$cat->name}}
+    <h4>Danh Sách Sản Phẩm</h4>
 @endsection
 @section('content')
     <div class="beta-products-list">
-        <h4>Sản phẩm mới</h4>
-        @include('front-end.filter')
-        @include('front-end.list-prd')
+        <div class="container">
+            <h4 style="margin-top: 20px;">Danh Sách Sản phẩm</h4>
+            @include('front-end.filter')
+            @include('front-end.list-prd')
+        </div>
     </div>
 @endsection

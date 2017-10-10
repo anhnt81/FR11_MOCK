@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use App\User;
 use App\Http\Controllers\Controller;
 use Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 
 class AuthController extends Controller
@@ -65,9 +66,10 @@ class AuthController extends Controller
         return redirect()->route('success');
     }
 
-    public function logout()
+    public function logout(Request $r)
     {
         Auth::logout();
+        $r->session()->forget('cart');
 
         return redirect()->route('homePage');
     }

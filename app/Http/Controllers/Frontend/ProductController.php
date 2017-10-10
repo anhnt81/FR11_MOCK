@@ -8,18 +8,22 @@ use App\Category;
 use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Http\Helper\Helper;
+use App\Http\Requests\admin\UpdateCustomerRequest;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Session;
 use Request;
+use function Sodium\compare;
 
 class ProductController extends Controller
 {
     public function getAddToCart(\Illuminate\Http\Request $req, $id){
+        $qty = $req->qty;
         $product = Product::find($id);
         $oldCart = Session('cart') ? Session::get('cart') : null;
         $Cart = new Cart($oldCart);
-        $Cart->addCart($product,$id);
+        $Cart->addCart($product,$id, $qty);
         $req->session()->put('cart',$Cart);
 
         return view('front-end.cart');
@@ -40,6 +44,18 @@ class ProductController extends Controller
         return view('front-end.product-detail',compact('product','sp_tuongtu', 'cmt', 'prdSameCat', 'prdSameBr', 'rate'));
     }
 
+    public function changeCart(\Illuminate\Http\Request $req, $id)
+    {
+        $qty = $req->qty;
+        $product = Product::find($id);
+        $oldCart = Session('cart') ? Session::get('cart') : null;
+        $Cart = new Cart($oldCart);
+        $Cart->addCart($product,$id, $qty);
+        $req->session()->put('cart',$Cart);
+
+        return view('front-end.cart');
+    }
+
     public function deleteCart( $id )
     {
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
@@ -54,8 +70,36 @@ class ProductController extends Controller
         }
     }
 
+    public function deleteAllCart(\Illuminate\Http\Request $r)
+    {
+        $r->session()->forget('cart');
+        return redirect()->back();
+    }
+
     public function getBookCart(){
         return view('front-end.dat-hang');
+    }
+
+    public function postOrder(UpdateCustomerRequest $r)
+    {
+        $cart = Session::get('cart');
+
+        DB::insert("INSERT INTO tb_customer (name, uid, address, phone, email, gender, created_at, updated_at)".
+            "VALUES ('{$r->name}', '{$r->uid}', '{$r->address}', '{$r->phone}', '{$r->email}', '{$r->gender}', now(), now)");
+        $cid = DB::select('SELECT max(id) as idmax from tb_customer')[0]->idmax;
+
+        DB::insert("INSERT INTO tb_order (cid, total, note, status, created_at, updated_at)".
+            "VALUES ('{$cid}', '{$cart->totalPrice}', '{$r->note}', 1, now(), now)");
+        $oid = DB::select('SELECT max(id) as idmax from tb_order')[0]->idmax;
+
+        foreach ($cart['items'] as $key => $item) {
+            DB::insert("INSERT INTO tb_order_detail (oid, pid, total, qty, created_at, updated_at) 
+                  VALUES ('$oid', '{$key}', '{$item['price']}', '{$item['qty']}'), now(), now");
+        }
+
+        $r->session()->forget('cart');
+
+        return redirect()->route('success');
     }
 
     public function category($id)
@@ -65,12 +109,12 @@ class ProductController extends Controller
 
         $listId = Helper::getid($cat, $listCat);
 
-        $list = Product::whereIn('cid', $listId)
+        $listProduct = Product::whereIn('cid', $listId)
             ->orderBy('updated_at', 'desc')
             ->paginate(12);
         $listBr = Brand::all();
 
-        return view('front-end.cat-page', compact('list', 'cat', 'listBr'));
+        return view('front-end.cat-page', compact('listProduct', 'cat', 'listBr'));
     }
 
     public function filter()
@@ -152,5 +196,12 @@ class ProductController extends Controller
 
             return view('front-end.cmd-detail', compact('rate', 'cmt'));
         }
+    }
+
+    public function getListProduct(){
+        $listProduct = Product::orderBy('updated_at')->paginate(8)
+            ;
+        $listBr = Brand::all();
+        return view('front-end.new-product',compact('listProduct','listBr'));
     }
 }

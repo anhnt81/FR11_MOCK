@@ -38,10 +38,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             'as'   => 'ajaxCus',
             'uses' => 'Admin\CustomerController@index'
         ));
-//        Route::get('filter', array(
-//            'as'   => 'filterCus',
-//            'uses' => 'Admin\CustomerController@filter'
-//        ));
+
         Route::get('sua-thong-tin/{id}', array(
             'as'   => 'upCus',
             'uses' => 'Admin\CustomerController@update'
@@ -78,11 +75,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             'uses' => 'Admin\CategoryController@index'
         ));
 
-//        Route::get('filter', array(
-//            'as'   => 'filterCat',
-//            'uses' => 'Admin\CategoryController@filter'
-//        ));
-
         Route::get('them-moi', array(
             'as'   => 'addCat',
             'uses' => 'Admin\CategoryController@add'
@@ -117,11 +109,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             'as'   => 'ajaxOrder',
             'uses' => 'Admin\OrderController@index'
         ));
-
-//        Route::get('filter', array(
-//            'as'   => 'filterOrder',
-//            'uses' => 'Admin\OrderController@filter'
-//        ));
 
         Route::get('chi-tiet/{id}', array(
             'as'   => 'orderDetail',
@@ -164,11 +151,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             'as'   => 'ajaxUser',
             'uses' => 'Admin\UserController@index'
         ));
-
-//        Route::get('filter', array(
-//            'as'   => 'filterUser',
-//            'uses' => 'Admin\UserController@filter'
-//        ));
 
         Route::get('them-moi', array(
             'as'   => 'addUser',
@@ -246,9 +228,14 @@ Route::get('add-to-cart/{id}', ['as' => 'AddToCart', 'uses' => 'Frontend\Product
 
 Route::get('product-detail/{id}', ['as' => 'DetailProduct', 'uses' => 'Frontend\ProductController@getProductDetail']);
 
-Route::get('xoa-gio-hang/{id}', ['as' => 'xoa-gio-hang', 'uses' => 'Frontend\ProductController@deleteCart']);
+Route::get('xoa-gio-hang/{id}', ['as' => 'removeSigleCart', 'uses' => 'Frontend\ProductController@deleteCart']);
+
+Route::get('xoa-ca-gio-hang', ['as' => 'removeAllCart', 'uses' => 'Frontend\ProductController@deleteAllCart']);
+
+Route::get('sua-gio-hang', ['as' => 'changeCart', 'uses' => 'Frontend\ProductController@changeCart']);
 
 Route::get('dat-hang', ['as' => 'dat-hang', 'uses' => 'Frontend\ProductController@getBookCart']);
+Route::post('dat-hang', ['as' => 'postOrder', 'uses' => 'Frontend\ProductController@postOrder']);
 
 Route::post('addcmt', ['uses' => 'Frontend\ProductController@addComment']);
 
@@ -256,8 +243,12 @@ Route::get('cam-on', ['as' => 'success', 'uses' => 'Frontend\AuthController@succ
 
 Route::get('dang-xuat', ['as' => 'logout', 'uses' => 'Frontend\AuthController@logout']);
 
-Route::get('san-pham', ['as' => 'list-prd', 'uses' => 'Frontend\ProductController@list']);
+Route::get('san-pham', ['as' => 'list-prd', 'uses' => 'Frontend\ProductController@getListProduct']);
 
 Route::post('loc-san-pham', ['uses' => 'Frontend\ProductController@filter']);
 
 Route::get('chuyen-muc/{id}', ['as' => 'cat-page', 'uses' => 'Frontend\ProductController@category']);
+
+Route::get('test', function () {
+    return view('front-end.success');
+});

@@ -38,6 +38,7 @@
         </div>
     </div>
 </div>
+@include('front-end.befor-add-prd')
 @include('front-end.layouts.footer')
 <!-- include js files -->
 <script src="front-end/assets/dest/vendors/jqueryui/jquery-ui-1.10.4.custom.min.js"></script>
