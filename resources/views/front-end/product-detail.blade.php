@@ -55,7 +55,7 @@
                                 <label>Số lượng ( Còn {{$product->qty}} sản phẩm )</label>
                                 <div>
                                 <input type='text' class="wc-select" name="color" style='width:50px'>
-                                <a class="add-to-cart" href="{{route('AddToCart',$item->id)}}"><i class="fa fa-shopping-cart"></i></a>
+                                <a class="add-to-cart" href="{{route('AddToCart',$product->id)}}"><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>

@@ -9,9 +9,23 @@ use App\Product;
 use App\Brand;
 use Illuminate\Support\Facades\DB;
 use Session;
+use Illuminate\Support\Facades\File;
+
 
 class HomePageController extends Controller
 {
+    private $__paginate;
+    public function __construct()
+    {
+        if(File::exists('file.txt'))
+        {
+            $this->__paginate = File::get('file.txt');
+        }
+        else
+        {
+            $this->__paginate = 10;
+        }
+    }
     public function homePage(){
         if(isset($_COOKIE['old'])) {
             $old = true;

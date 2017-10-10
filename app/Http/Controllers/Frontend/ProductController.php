@@ -13,9 +13,23 @@ use Illuminate\Support\Facades\Auth;
 use Session;
 use Request;
 use function Sodium\compare;
+use Illuminate\Support\Facades\File;
+
 
 class ProductController extends Controller
 {
+    private $__paginate;
+    public function __construct()
+    {
+        if(File::exists('file.txt'))
+        {
+            $this->__paginate = File::get('file.txt');
+        }
+        else
+        {
+            $this->__paginate = 10;
+        }
+    }
     public function getAddToCart(\Illuminate\Http\Request $req, $id){
         $product = Product::find($id);
         $oldCart = Session('cart') ? Session::get('cart') : null;
@@ -150,14 +164,14 @@ class ProductController extends Controller
     }
 
     public function getListProduct(){
-        $listProduct = Product::paginate(8);
+        $listProduct = Product::paginate($this->__paginate);
         $listBr = Brand::all();
         return view('front-end.new-product',compact('listProduct','listBr'));
     }
 
     public function getSearch(\Illuminate\Http\Request $r){
         $tukhoa = $r->s;
-        $data = Product::where('name','like',"%$tukhoa%")->paginate(12);
+        $data = Product::where('name','like',"%$tukhoa%")->paginate($this->__paginate);
         return view('front-end.search',['product'=>$data]);
     }
 }

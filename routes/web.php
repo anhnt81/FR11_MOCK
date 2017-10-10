@@ -15,6 +15,7 @@
 Route::get('admin/dang-nhap', ['as' => 'login', 'uses' => 'Admin\LoginController@getLogin']);
 Route::post('admin/dang-nhap', ['as' => 'postLogin', 'uses' => 'Admin\LoginController@postLogin']);
 
+
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     //return view home admin
     Route::get('/', ['as' => 'home', 'uses' => 'Admin\LoginController@home']);
@@ -23,9 +24,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     //handle logout
     Route::get('dang-xuat', ['as' => 'logout', 'uses' => 'Admin\LoginController@logout']);
     //Todo new Route
+    Route::get('setting',['as'=>'setting','uses'=>'Admin\SettingController@setting']);
+    Route::post('setting',['as'=>'setting','uses'=>'Admin\SettingController@postSetting']);
     //Hien: Brand
     Route::group(['prefix' => '/brand'], function () {
         Route::get('/', ['as' => 'listBrand', 'uses' => 'Admin\BrandController@listBrand']);
+
+    
     });
 
     //customer route
@@ -255,11 +260,9 @@ Route::get('cam-on', ['as' => 'success', 'uses' => 'Frontend\AuthController@succ
 
 Route::get('dang-xuat', ['as' => 'logout', 'uses' => 'Frontend\AuthController@logout']);
 
-Route::get('san-pham-moi', ['as' => 'new-prd', 'uses' => 'Frontend\ProductController@getListProduct']);
+Route::get('san-pham', ['as' => 'list-prd', 'uses' => 'Frontend\ProductController@list']);
 
-Route::get('san-pham-mua-nhieu', ['as' => 'best-prd', 'uses' => 'Frontend\ProductController@best']);
-
-Route::post('filter', ['uses' => 'Frontend\ProductController@ajax']);
+Route::post('loc-san-pham', ['uses' => 'Frontend\ProductController@filter']);
 
 Route::get('chuyen-muc/{id}', ['as' => 'cat-page', 'uses' => 'Frontend\ProductController@category']);
 
