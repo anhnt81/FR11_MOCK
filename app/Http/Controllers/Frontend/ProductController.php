@@ -7,24 +7,26 @@ use App\Cart;
 use App\Category;
 use App\Comment;
 use App\Http\Controllers\Controller;
+use App\Http\Helper\Helper;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Request;
+use function Sodium\compare;
 
 class ProductController extends Controller
 {
-    public function getAddToCart(\Illuminate\Http\Request $req,$id){
+    public function getAddToCart(\Illuminate\Http\Request $req, $id){
         $product = Product::find($id);
         $oldCart = Session('cart') ? Session::get('cart') : null;
         $Cart = new Cart($oldCart);
         $Cart->addCart($product,$id);
         $req->session()->put('cart',$Cart);
 
-        return redirect()->back();
+        return view('front-end.cart');
     }
 
-    public function getProductDetail(\Illuminate\Http\Request $req,$id){
+    public function getProductDetail($id){
         $product = Product::find($id);
         $cmt = Comment::where('pid', $product->id)->get();
         $prdSameCat = Product::where('cid', $product->cid)
@@ -60,8 +62,11 @@ class ProductController extends Controller
     public function category($id)
     {
         $cat = Category::find($id);
-        $catChild = $cat->childHas;
-        $prd = Product::where('cid', '=', $id)
+        $listCat = Category::all();
+
+        $listId = Helper::getid($cat, $listCat);
+
+        $prd = Product::whereIn('cid', $listId)
             ->paginate('8');
         $listBr = Brand::all();
 
@@ -82,11 +87,13 @@ class ProductController extends Controller
     public function getRate($pid)
     {
         $rate['myrate'] = 0;
+        $rate['mycmt'] = '';
         if(Auth::check()) {
             $rate['myrate'] = Comment::where('pid', $pid)
                 ->where('uid', Auth::user()->id)->get();
             if($rate['myrate']->count() > 0){
-                $rate['myrate'] = $rate['myrate']->rate;
+                $rate['mycmt'] = $rate['myrate'][0]->content;
+                $rate['myrate'] = $rate['myrate'][0]->rate;
             }
         }
         $rate['avg'] = Comment::where('pid', $pid);
@@ -115,20 +122,37 @@ class ProductController extends Controller
     public function addComment()
     {
         if(Request::ajax()) {
-            $cmt = new Comment();
+            $temp = Comment::where('pid', '=', $_POST['pid'])
+                ->where('uid', '=', $_POST['uid'])
+                ->get();
 
-            $cmt->uid = $_POST['uid'];
-            $cmt->pid = $_POST['pid'];
-            $cmt->rate = $_POST['rate'];
-            $cmt->content = $_POST['content'];
-            $cmt->status = 1;
+            if($temp->count() > 0) {
+                $thisComment = Comment::find($temp[0]->id);
+            }
+            else {
+                $thisComment = new Comment();
+            }
 
-            $cmt->save();
+            $thisComment->uid = $_POST['uid'];
+            $thisComment->pid = $_POST['pid'];
+            $thisComment->rate = $_POST['rate'];
+            $thisComment->content = $_POST['content'];
+            $thisComment->status = 1;
+
+            $thisComment->save();
 
             $rate = $this->getRate($_POST['pid']);
 
-            return view('front-end.cmd-detail', compact('rate'));
+            $cmt = Comment::where('pid', $_POST['pid'])->get();
+
+            return view('front-end.cmd-detail', compact('rate', 'cmt'));
         }
+    }
+
+    public function getListProduct(){
+        $listProduct = Product::paginate(8);
+        $listBr = Brand::all();
+        return view('front-end.new-product',compact('listProduct','listBr'));
     }
 
     public function getSearch(\Illuminate\Http\Request $r){

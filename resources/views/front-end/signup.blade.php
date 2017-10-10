@@ -8,7 +8,6 @@
     <div class="inner-header">
         <div class="container">
             <div class="pull-left">
-
             </div>
             <div class="pull-right">
                 <div class="beta-breadcrumb">

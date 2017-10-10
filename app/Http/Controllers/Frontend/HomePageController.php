@@ -23,15 +23,17 @@ class HomePageController extends Controller
 
         //DropDownMenu
         $newProduct = Product::where('new',1)->limit(4)->get();
+        $totalNew = count(Product::where('new',1)->get());
 //        $bestProduct = Product::leftJoin('tb_order_detail as od', 'tb_product.id', '=', 'od.pid')
 //            ->select("tb_product.*", DB::raw('count(od.pid) as o_qty'))
 //            ->groupBy('tb_product.id')
 //            ->orderBy('o_qty', 'desc')
 //            ->get();
         $bestProduct = Product::all();
+        $totalBest = count($bestProduct);
         $listBr = Brand::all();
         $slide = Slide::all();
 
-        return view('front-end.index',compact('newProduct','bestProduct', 'slide', 'old', 'listBr'));
+        return view('front-end.index',compact('newProduct','bestProduct', 'slide', 'old', 'listBr','totalNew','totalBest'));
     }
 }

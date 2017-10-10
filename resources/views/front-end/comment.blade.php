@@ -1,5 +1,5 @@
 {{--<div class='container'>--}}
-    <div style='margin-top: 50px'>
+<div style='margin-top: 50px'>
     <button class='btn btn-primary' id='click-rate'>Ẩn\Hiện khung đánh giá</button>
     <div id='rate-frm' class='panel panel-default'>
         <div class='panel-heading'>
@@ -15,7 +15,7 @@
 
                 <div class='form-group'>
                     <label for='cmt-content'>Nhận xét của bạn :</label>
-                    <textarea name='content' rows='5' id='cmt-content' class='form-control'></textarea>
+                    <textarea name='content' rows='5' id='cmt-content' class='form-control'>{{$rate['mycmt']}}</textarea>
                 </div>
                 <div class='form-group' style='text-align: right'>
                     <input type='hidden' name='rate' id='inp-rate'>
@@ -26,8 +26,10 @@
             </form>
         </div>
     </div>
-    @include('front-end.cmd-detail')
+    <div id='list-cmt'>
+        @include('front-end.cmd-detail')
     </div>
+</div>
 {{--</div>--}}
 <div id='call-login-modal' class='modal fade' role='dialog'>
     <div class='modal-dialog'>
@@ -58,13 +60,14 @@
                 url: 'addcmt',
                 type: 'post',
                 data: {
-                    pid : $('#inp-pid').val(),
-                    uid : $('#inp-uid').val(),
-                    rate : $('#inp-rate').val(),
-                    content : $('#cmt-content').val()
+                    pid: $('#inp-pid').val(),
+                    uid: $('#inp-uid').val(),
+                    rate: $('#inp-rate').val(),
+                    content: $('#cmt-content').val()
                 },
                 success: function (responce) {
-                    console.log(data);
+                    $('#rate-frm').slideUp('fast');
+                    $('#list-cmt').html(responce);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -79,7 +82,8 @@
             @endif
         });
         $("#myrate").starrr({
-            change: function(e, value){
+            rating : $('#myrate').attr('rate'),
+            change: function (e, value) {
                 $('#inp-rate').val(value);
                 console.log($(this).attr('rate'));
             }
@@ -87,11 +91,11 @@
 
         var rateCmt = $('.rate-cmt');
         var rate;
-        for(var i = 0; i < rateCmt.length; i++) {
+        for (var i = 0; i < rateCmt.length; i++) {
             rate = $(rateCmt[i]).attr('rate');
             $(rateCmt[i]).starrr({
                 rating: rate,
-                readOnly:true
+                readOnly: true
             });
         }
 

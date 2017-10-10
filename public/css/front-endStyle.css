@@ -24,6 +24,9 @@
     margin : auto;
     height: 400px;
 }
+#cart-modal .beta-dropdown{
+    max-width: 500px;
+}
 #up_to_top {
     margin-bottom: 30px;
     margin-left: 92%;

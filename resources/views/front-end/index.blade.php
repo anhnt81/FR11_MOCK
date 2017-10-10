@@ -7,9 +7,6 @@
     <div class="container">
         <div class="space60">&nbsp;</div>
 
-        <!-- filter -->
-        @include('front-end.filter')
-
         <!-- content -->
         <div id="content" class="space-top-none">
             <div class="main-content">
@@ -18,9 +15,13 @@
                     <div class="col-sm-12">
                         <div class="beta-products-list">
                             <h4>Sản Phẩm Mới</h4>
+                            <div class="beta-products-details">
+                                <p class="pull-left">Có {{$totalNew}} sản phẩm</p>
+                                <div class="clearfix"></div>
+                            </div>
                             <div class="row">
                                 <div style='text-align: right'>
-                                    <a href='{{route('new-prd')}}'>
+                                    <a href='{{route('list-prd')}}'>
                                         Xem tất cả
                                         <span class='glyphicon glyphicon-chevron-right'></span>
                                     </a>
@@ -32,7 +33,7 @@
                                                 <div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
                                             @endif
                                             <div class="single-item-header">
-                                                <a href=""><img src="images/front-end/product/{{$item->avatar}}" height="250px" alt=""></a>
+                                                <a href="{{route('DetailProduct',$item->id)}}"><img src="images/front-end/product/{{$item->avatar}}" height="250px" alt=""></a>
                                             </div>
                                             <div class="single-item-body">
                                                 <p class="single-item-title">{{$item->name}}</p>
@@ -60,8 +61,12 @@
 
                         <div class="beta-products-list">
                             <h4>Sản Phẩm Được Quan Tâm</h4>
+                            <div class="beta-products-details">
+                                <p class="pull-left">Có {{$totalBest}} sản phẩm</p>
+                                <div class="clearfix"></div>
+                            </div>
                             <div style='text-align: right'>
-                                <a href='{{route('best-prd')}}'>
+                                <a href='{{route('list-prd')}}'>
                                     Xem tất cả
                                     <span class='glyphicon glyphicon-chevron-right'></span>
                                 </a>
@@ -74,7 +79,7 @@
                                                 <div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
                                             @endif
                                             <div class="single-item-header">
-                                                <a href=""><img src="images/front-end/product/{{$item->avatar}}"  height="250px" alt=""></a>
+                                                <a href="{{route('DetailProduct',$item->id)}}"><img src="images/front-end/product/{{$item->avatar}}" height="250px" alt=""></a>
                                             </div>
                                             <div class="single-item-body">
                                                 <p class="single-item-title">{{$item->name}}</p>

@@ -4,7 +4,7 @@
             <div class="pull-left auto-width-left">
                 <ul class="top-menu menu-beta l-inline">
                     <li><a href=""><i class="fa fa-home"></i> Tầng 18, Tóa nhà Handico, Mễ Trì, Hà Nội</a></li>
-                    <li><a href=""><i class="fa fa-phone"></i> 0165 273 5984</a></li>
+                    <li><a href=""><i class="fa fa-phone"></i>0988886789</a></li>
                 </ul>
             </div>
             <div class="pull-right auto-width-right">
@@ -40,7 +40,7 @@
     <div class="header-body">
         <div class="container beta-relative">
             <div class="pull-left">
-                <a href="index.html" id="logo"><img src="front-end/assets/dest/images/logo-cake.jpg" width="600px" height="80px" alt=""></a>
+                <a href="" id="logo"><img src="front-end/assets/dest/images/logo-cake.jpg" width="600px" height="80px" alt=""></a>
             </div>
             <div class="pull-right beta-components space-left ov">
                 <div class="space10">&nbsp;</div>
@@ -52,51 +52,8 @@
                 </div>
 
                 <div class="beta-comp">
-                    <div class="cart">
-                        <div class="beta-select"><i class="fa fa-shopping-cart"></i> Giỏ Hàng
-                            (@if(Session::has('cart')){{Session('cart')->totalQty}}) @else Trống) @endif<i
-                                    class="fa fa-chevron-down"></i>
-                        </div>
-                        <div class="beta-dropdown cart-body">
-                            <!-- ktra có giỏ hàng hay không -->
-                            @if(Session::has('cart'))
-                                @foreach($product_cart as $product)
-                                    <div class="cart-item">
-                                        <a class="cart-item-delete"
-                                           href="{{route('xoa-gio-hang',$product['item']['id'])}}"><i
-                                                    class="fa fa-times"></i></a>
-                                        <div class="media">
-                                            <a class="pull-left" href="">
-                                                <img height="50px" width="50px"
-                                                      src="images/front-end/product/{{$product['item']['avatar']}}">
-                                            </a>
-                                            <div class="media-body">
-                                                <span class="cart-item-title">{{$product['item']['name']}}</span>
-                                                <span class="cart-item-amount">{{$product['qty']}}
-                                                    *<span>@if($product['item']['promotion_price']==0){{number_format($product['item']['unit_price'])}} @else {{number_format($product['item']['promotion_price'])}}@endif</span></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endif
-                            @if(Session::has('cart'))
-                                <div class="cart-caption">
-                                    @foreach($product_cart as $product)
-                                        @php
-                                            $totalPrice += $product['price'];
-                                        @endphp
-                                    @endforeach
-                                        <div class="cart-total text-right">Tổng tiền: <span class="cart-total-value">{{number_format($totalPrice)}}</span></div>
-                                        <div class="clearfix"></div>
-
-                                    <div class="center">
-                                        <div class="space10">&nbsp;</div>
-                                        <a href="{{route('dat-hang')}}" class="beta-btn primary text-center">Đặt hàng <i
-                                                    class="fa fa-chevron-right"></i></a>
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
+                    <div class="cart"  id='cart-modal'>
+                        @include('front-end.cart')
                     </div> <!-- .cart -->
                 </div>
             </div>
