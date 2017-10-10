@@ -29,7 +29,7 @@ class HomePageController extends Controller
             ->orderBy('o_qty', 'desc')
             ->limit(8)->get();
         $listBr = Brand::all();
-        $slide = Slide::all();
+        $slide = Slide::orderBy('ordinal')->get();
 
         return view('front-end.index',compact('newProduct','bestProduct', 'slide', 'old', 'listBr'));
     }

@@ -247,6 +247,7 @@ Route::get('add-to-cart/{id}', ['as' => 'AddToCart', 'uses' => 'Frontend\Product
 Route::get('product-detail/{id}', ['as' => 'DetailProduct', 'uses' => 'Frontend\ProductController@getProductDetail']);
 
 Route::get('xoa-gio-hang/{id}', ['as' => 'xoa-gio-hang', 'uses' => 'Frontend\ProductController@deleteCart']);
+
 Route::get('dat-hang', ['as' => 'dat-hang', 'uses' => 'Frontend\ProductController@getBookCart']);
 
 Route::post('addcmt', ['uses' => 'Frontend\ProductController@addComment']);
@@ -257,6 +258,6 @@ Route::get('dang-xuat', ['as' => 'logout', 'uses' => 'Frontend\AuthController@lo
 
 Route::get('san-pham', ['as' => 'list-prd', 'uses' => 'Frontend\ProductController@list']);
 
-Route::post('filter', ['uses' => 'Frontend\ProductController@ajax']);
+Route::post('loc-san-pham', ['uses' => 'Frontend\ProductController@filter']);
 
 Route::get('chuyen-muc/{id}', ['as' => 'cat-page', 'uses' => 'Frontend\ProductController@category']);

@@ -1,5 +1,5 @@
 <div class="row">
-    @foreach($prd as $item)
+    @foreach($list as $item)
         <div class="col-xs-6 col-sm-3" style="margin-top:50px">
             <div class="single-item">
                 @if($item->promotion_price!=0)
@@ -29,5 +29,5 @@
     @endforeach
 </div>
 <div style="text-align: center">
-    {!! $prd->links() !!}
+    {!! $list->links() !!}
 </div>

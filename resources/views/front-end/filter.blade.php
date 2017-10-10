@@ -9,7 +9,7 @@
                 <input type='radio' name='brand' value='0' class='form-val'
                        @if(empty($filter['brand']) || $filter['brand'] == 0) checked @endif> Tất cả
                 @foreach($listBr as $item)
-                    <input type='radio' name='brand' value='{{$item->id}}'
+                    <input type='radio' name='brand' value='{{$item->id}}' class='form-val'
                            @if(isset($filter['brand']) && $filter['brand'] == $item->id) checked @endif> {{$item->name}}
                 @endforeach
             </div>
@@ -19,10 +19,10 @@
             <label>Giá</label>
             <div class='form-control-static'>
                 <input class='form-control form-val' type='number' name='from'
-                       placeholder='000000000 VNĐ' style='width:45%;float: left;'>
+                       value='00000000000000' style='width:45%;float: left;'>
                 <div style='width:10%;text-align: center;float:left;'> - </div>
                 <input class='form-control form-val' type='number' name='to'
-                       placeholder='000000000 VNĐ' style='width:45%; float: right'>
+                       value='99999999999999' style='width:45%; float: right'>
             </div>
         </div>
         <hr>
@@ -41,7 +41,7 @@
                 <input type='radio' name='type' value='asc' class='form-val'
                        @if(isset($filter['type']) && $filter['type'] =='asc') checked @endif> Tăng dần
                 <input type='radio' name='type' value='desc' class='form-val'
-                       @if(empty($filter['type']) || $filter['type'] =='updated_at') checked @endif> Giảm dần
+                       @if(empty($filter['type']) || $filter['type'] =='desc') checked @endif> Giảm dần
             </div>
         </div>
     </form>

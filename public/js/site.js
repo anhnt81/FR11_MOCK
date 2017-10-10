@@ -24,8 +24,14 @@ $(document).ready(function () {
         var data = new FormData();
 
         for (var i = 0; i < input.length; i++) {
-            data.append($(input[i]).attr("name"), $(input[i]).val());
-            console.log($(input[i]).attr("name") + '-' + $(input[i]).val());
+            if ($(input[i]).attr("type") == 'radio' || $(input[i]).attr("type") == 'checkbox') {
+                if ($(input[i]).is(':checked')) {
+                    data.append($(input[i]).attr("name"), $(input[i]).val());
+                }
+            }
+            else {
+                data.append($(input[i]).attr("name"), $(input[i]).val());
+            }
         }
 
         $.ajaxSetup({
@@ -34,14 +40,14 @@ $(document).ready(function () {
             }
         });
         $.ajax({
-            url: 'filter',
+            url: 'loc-san-pham',
             type: 'post',
             contentType: false,
             processData: false,
             cache: false,
             data: data,
             success: function (responce) {
-                console(responce);
+                $('#list-product').html(responce);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
