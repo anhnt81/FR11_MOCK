@@ -29,6 +29,15 @@
 <div id="up_to_top" class="navbar-fixed-bottom">
     <span class="glyphicon glyphicon-circle-arrow-up"></span>
 </div>
+<div id='add-cart-success' class='modal fade' role='dialog'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='alert alert-success'>
+                <button type='button' class='close' data-dismiss='modal'>&times;</button>Thêm thành công!
+            </div>
+        </div>
+    </div>
+</div>
 @include('front-end.layouts.footer')
 <!-- include js files -->
 <script src="front-end/assets/dest/vendors/jqueryui/jquery-ui-1.10.4.custom.min.js"></script>

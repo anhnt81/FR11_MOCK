@@ -54,6 +54,7 @@ $(document).ready(function () {
         $.ajax({
             url: $(this).attr('href'),
             success: function (responce) {
+                $('#add-cart-success').modal('show');
                 $('#cart-modal').html(responce);
                 $('.beta-select').click(function () {
                     var drop = $(this).parent().find('.beta-dropdown');

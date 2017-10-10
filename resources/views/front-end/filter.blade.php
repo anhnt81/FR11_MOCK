@@ -6,9 +6,11 @@
         <div class='form-group'>
             <label>Thương hiệu</label>
             <div>
-                <input type='radio' name='brand' value='0' class='form-val'> Tất cả
+                <input type='radio' name='brand' value='0' class='form-val'
+                       @if(empty($filter['brand']) || $filter['brand'] == 0) checked @endif> Tất cả
                 @foreach($listBr as $item)
-                    <input type='radio' name='brand' value='{{$item->id}}'> {{$item->name}}
+                    <input type='radio' name='brand' value='{{$item->id}}'
+                           @if(isset($filter['brand']) && $filter['brand'] == $item->id) checked @endif> {{$item->name}}
                 @endforeach
             </div>
         </div>
@@ -27,14 +29,19 @@
         <div class='form-group'>
             <label>Sắp xếp</label>
             <div>
-                <input type='radio' name='sort' value='price' class='form-val'> Giá
-                <input type='radio' name='sort' value='name' class='form-val'> Tên
-                <input type='radio' name='sort' value='updated_at' class='form-val'> Ngày cập nhật
+                <input type='radio' name='sort' value='price' class='form-val'
+                    @if(isset($filter['sort']) && $filter['sort'] =='price') checked @endif> Giá
+                <input type='radio' name='sort' value='name' class='form-val'
+                       @if(isset($filter['sort']) && $filter['sort'] =='name') checked @endif> Tên
+                <input type='radio' name='sort' value='updated_at' class='form-val'
+                       @if(empty($filter['sort']) || $filter['sort'] =='updated_at') checked @endif> Ngày cập nhật
             </div>
             <hr>
             <div>
-                <input type='radio' name='type' value='asc' class='form-val'> Tăng dần
-                <input type='radio' name='type' value='desc' class='form-val'> Giảm dần
+                <input type='radio' name='type' value='asc' class='form-val'
+                       @if(isset($filter['type']) && $filter['type'] =='asc') checked @endif> Tăng dần
+                <input type='radio' name='type' value='desc' class='form-val'
+                       @if(empty($filter['type']) || $filter['type'] =='updated_at') checked @endif> Giảm dần
             </div>
         </div>
     </form>

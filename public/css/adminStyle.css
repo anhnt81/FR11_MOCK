@@ -130,7 +130,7 @@ button.close {
     margin-top : 10px;
 }
 #upImg button.close {
-    margin-right : 30px;
+    /*margin-right : 30px;*/
     font-size : 40px;
 }
 

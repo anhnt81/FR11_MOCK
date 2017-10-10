@@ -15,7 +15,7 @@
         <div class='col-xs-12 col-md-3' id='upImg'>
             <div class='form-group'>
                 @if ($errors->has('image[]'))
-                    <span class="help-block" style="margin-left: 400px">
+                    <span class="help-block">
                     <strong style="color: red">{{ $errors->first('image[]') }}</strong>
                 </span>
                 @endif
@@ -27,7 +27,7 @@
         <div class='col-xs-12 col-md-9'>
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
-                <div style='text-align: center'>
+                <div style='padding : 0 20px'>
                     @foreach($images as $item)
                         <div style='float:left;'>
                             <img src="{{ asset('images/front-end/product/'.$item) }}" class='img-prd'>

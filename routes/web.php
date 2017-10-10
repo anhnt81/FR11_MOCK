@@ -255,9 +255,7 @@ Route::get('cam-on', ['as' => 'success', 'uses' => 'Frontend\AuthController@succ
 
 Route::get('dang-xuat', ['as' => 'logout', 'uses' => 'Frontend\AuthController@logout']);
 
-Route::get('san-pham-moi', ['as' => 'new-prd', 'uses' => 'Frontend\ProductController@new']);
-
-Route::get('san-pham-mua-nhieu', ['as' => 'best-prd', 'uses' => 'Frontend\ProductController@best']);
+Route::get('san-pham', ['as' => 'list-prd', 'uses' => 'Frontend\ProductController@list']);
 
 Route::post('filter', ['uses' => 'Frontend\ProductController@ajax']);
 

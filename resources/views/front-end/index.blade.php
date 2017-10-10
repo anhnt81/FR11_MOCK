@@ -17,7 +17,7 @@
                             <h4>Sản Phẩm Mới</h4>
                             <div class="row">
                                 <div style='text-align: right'>
-                                    <a href='{{route('new-prd')}}'>
+                                    <a href='{{route('list-prd')}}'>
                                         Xem tất cả
                                         <span class='glyphicon glyphicon-chevron-right'></span>
                                     </a>
@@ -58,7 +58,7 @@
                         <div class="beta-products-list">
                             <h4>Sản Phẩm Được Quan Tâm</h4>
                             <div style='text-align: right'>
-                                <a href='{{route('best-prd')}}'>
+                                <a href='{{route('list-prd')}}'>
                                     Xem tất cả
                                     <span class='glyphicon glyphicon-chevron-right'></span>
                                 </a>
@@ -85,7 +85,7 @@
                                                 </p>
                                             </div>
                                             <div class="single-item-caption">
-                                                <a class="add-to-cart pull-left" href="" pid='{{$item->id}}'><i class="fa fa-shopping-cart"></i></a>
+                                                <a class="add-to-cart pull-left" href="{{route('AddToCart',$item->id)}}"><i class="fa fa-shopping-cart"></i></a>
                                                 <a class="beta-btn primary" href="{{route('DetailProduct',$item->id)}}">Chi Tiết <i class="fa fa-chevron-right"></i></a>
                                                 <div class="clearfix"></div>
                                             </div>

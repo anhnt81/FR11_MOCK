@@ -40,9 +40,18 @@ class ProductController extends Controller
         return view('front-end.product-detail',compact('product','sp_tuongtu', 'cmt', 'prdSameCat', 'prdSameBr', 'rate'));
     }
 
-    public function deleteCart(\Illuminate\Http\Request $req,$id)
+    public function deleteCart( $id )
     {
-
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->removeItem($id);
+        if (count($cart->items) > 0) {
+            Session::put('cart', $cart);
+            return redirect()->back();
+        } else {
+            Session::forget('cart');
+            return redirect()->back();
+        }
     }
 
     public function getBookCart(){

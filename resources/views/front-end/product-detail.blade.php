@@ -51,17 +51,12 @@
                             </div>
                             <div class="space20">&nbsp;</div>
 
-                            <p>Số Lượng:</p>
                             <div class="single-item-options">
-                                <select class="wc-select" name="color">
-                                    <option>Số Lượng</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                                <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i></a>
+                                <label>Số lượng ( Còn {{$product->qty}} sản phẩm )</label>
+                                <div>
+                                <input type='text' class="wc-select" name="color" style='width:50px'>
+                                <a class="add-to-cart" href="{{route('AddToCart',$item->id)}}"><i class="fa fa-shopping-cart"></i></a>
+                                </div>
                                 <div class="clearfix"></div>
                             </div>
                         </div>

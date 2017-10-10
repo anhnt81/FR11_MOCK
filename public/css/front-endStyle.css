@@ -70,3 +70,9 @@
     clear : both;
     margin-top: 30px;
 }
+.cart-body{
+    width: 250px;
+}
+.your-order-info{
+    line-height: 30px;
+}
