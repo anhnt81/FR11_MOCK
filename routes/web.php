@@ -262,3 +262,5 @@ Route::get('san-pham-mua-nhieu', ['as' => 'best-prd', 'uses' => 'Frontend\Produc
 Route::post('filter', ['uses' => 'Frontend\ProductController@ajax']);
 
 Route::get('chuyen-muc/{id}', ['as' => 'cat-page', 'uses' => 'Frontend\ProductController@category']);
+
+Route::get('search',['as'=>'search','uses'=>'Frontend\ProductController@getSearch']);

@@ -130,4 +130,10 @@ class ProductController extends Controller
             return view('front-end.cmd-detail', compact('rate'));
         }
     }
+
+    public function getSearch(\Illuminate\Http\Request $r){
+        $tukhoa = $r->s;
+        $data = Product::where('name','like',"%$tukhoa%")->paginate(12);
+        return view('front-end.search',['product'=>$data]);
+    }
 }

@@ -74,7 +74,7 @@
                                                 <div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
                                             @endif
                                             <div class="single-item-header">
-                                                <a href=""><img src="images/front-end/product/{{$item->avatar}}" height="250px" alt=""></a>
+                                                <a href=""><img src="images/front-end/product/{{$item->avatar}}"  height="250px" alt=""></a>
                                             </div>
                                             <div class="single-item-body">
                                                 <p class="single-item-title">{{$item->name}}</p>
