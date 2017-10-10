@@ -37,8 +37,8 @@ class ProductController extends Controller
             ->limit(5)->get();
         $sp_tuongtu = Product::where('cid',$product->cid)->limit(3)->get();
         $rate = $this->getRate($product->id);
-
-        return view('front-end.product-detail',compact('product','sp_tuongtu', 'cmt', 'prdSameCat', 'prdSameBr', 'rate'));
+        $images = explode(',', $product->images);
+        return view('front-end.product-detail',compact('product','sp_tuongtu', 'cmt', 'prdSameCat', 'prdSameBr', 'rate','images'));
     }
 
     public function deleteCart( $id )

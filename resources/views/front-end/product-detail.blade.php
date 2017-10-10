@@ -48,6 +48,7 @@
 
                             <div class="single-item-desc">
                                 <p>{{$product->description}}</p>
+
                             </div>
                             <div class="space20">&nbsp;</div>
 
@@ -68,6 +69,11 @@
                             <li><a href="#tab-description"><h3>Mô Tả</h3></a></li>
                         </ul>
                         <div class="panel" id="tab-description">
+                            @foreach($images as $item)
+                                    <a style="padding: 10px;" href="{{asset('images/front-end/product/'.$item)}}" class="open-image" class="col-sm-4">
+                                        <img style="height: 80px" src="{{asset('images/front-end/product/'.$item)}}" class="img-fluid">
+                                    </a>
+                            @endforeach
                             <p>{{$product->description}}</p>
                         </div>
                     </div>
@@ -161,3 +167,13 @@
 
 
 @endsection
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //Programmatically call
+        $('.open-image').click(function (e) {
+            e.preventDefault();
+            $(this).ekkoLightbox();
+        });
+    });
+</script>

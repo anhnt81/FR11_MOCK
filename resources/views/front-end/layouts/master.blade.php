@@ -12,6 +12,7 @@
     <link rel="stylesheet" href='{{asset('css/starrr.css')}}'>
     <link rel="stylesheet" href="front-end/assets/dest/css/font-awesome.min.css">
     <link rel="stylesheet" href="front-end/assets/dest/vendors/colorbox/example3/colorbox.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.min.css" rel="stylesheet">
     <link rel="stylesheet" href="front-end/assets/dest/rs-plugin/css/settings.css">
     <link rel="stylesheet" href="front-end/assets/dest/rs-plugin/css/responsive.css">
     <link rel="stylesheet" title="style" href="front-end/assets/dest/css/style.css">
@@ -50,6 +51,7 @@
 <script src="front-end/assets/dest/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 <script src="front-end/assets/dest/js/waypoints.min.js"></script>
 <script src="front-end/assets/dest/js/wow.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.min.js"></script>
 <script src="{{ asset('js/site.js') }}"></script>
 <!--customjs-->
 {{--<script src="front-end/assets/dest/js/custom2.js"></script>--}}
