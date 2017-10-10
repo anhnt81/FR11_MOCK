@@ -13,9 +13,23 @@ use Illuminate\Support\Facades\Auth;
 use Session;
 use Request;
 use function Sodium\compare;
+use Illuminate\Support\Facades\File;
+
 
 class ProductController extends Controller
 {
+    private $__paginate;
+    public function __construct()
+    {
+        if(File::exists('file.txt'))
+        {
+            $this->__paginate = File::get('file.txt');
+        }
+        else
+        {
+            $this->__paginate = 10;
+        }
+    }
     public function getAddToCart(\Illuminate\Http\Request $req, $id){
         $product = Product::find($id);
         $oldCart = Session('cart') ? Session::get('cart') : null;
@@ -66,21 +80,27 @@ class ProductController extends Controller
 
         $listId = Helper::getid($cat, $listCat);
 
-        $prd = Product::whereIn('cid', $listId)
-            ->paginate('8');
+        $list = Product::whereIn('cid', $listId)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(12);
         $listBr = Brand::all();
 
-        return view('front-end.cat-page', compact('prd', 'cat', 'listBr'));
+        return view('front-end.cat-page', compact('list', 'cat', 'listBr'));
     }
 
-    public function ajax()
+    public function filter()
     {
         if(Request::ajax()) {
-            $data['brand'] = $_POST['brand'];
-            $data['sort'] = $_POST['sort'];
-            $data['type'] = $_POST['type_sort'];
-            $data['from'] = (empty($_POST['from'])) ? $data['from'] : $_POST['from'];
-            $data['to'] = ((empty($_POST['to'])) ? $data['to'] : $_POST['to']);
+            $ope = '=';
+            if(empty($_POST['brand'])) {
+                $ope = '<>';
+            }
+           $list = Product::where('bid', $ope, $_POST['brand'])
+                ->whereBetween('unit_price', [$_POST['from'], $_POST['to']])
+                ->orderBy($_POST['sort'], $_POST['type'])
+                ->paginate(12);
+
+            return view('front-end.list-prd', compact('list'));
         }
     }
 
@@ -150,8 +170,14 @@ class ProductController extends Controller
     }
 
     public function getListProduct(){
-        $listProduct = Product::paginate(8);
+        $listProduct = Product::paginate($this->__paginate);
         $listBr = Brand::all();
         return view('front-end.new-product',compact('listProduct','listBr'));
+    }
+
+    public function getSearch(\Illuminate\Http\Request $r){
+        $tukhoa = $r->s;
+        $data = Product::where('name','like',"%$tukhoa%")->paginate($this->__paginate);
+        return view('front-end.search',['product'=>$data]);
     }
 }

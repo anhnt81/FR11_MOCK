@@ -25,7 +25,7 @@
                                                 <div class="ribbon-wrapper"><div class="ribbon sale">Sale</div></div>
                                             @endif
                                             <div class="single-item-header">
-                                                <a href="{{route('sanpham',$new->id)}}"><img src="{{$new->image}}" height="250px" alt=""></a>
+                                                <a href=""><img src="images/front-end/product/{{$new->avatar}}" height="250px" alt=""></a>
                                             </div>
                                             <div class="single-item-body">
                                                 <p class="single-item-title" style="font-size:13px;font-weight:bold">{{$new->name}}</p>
@@ -39,14 +39,15 @@
                                                 </p>
                                             </div>
                                             <div class="single-item-caption">
-                                                <a class="add-to-cart pull-left" href="{{route('them-gio-hang',$new->id)}}"><i class="fa fa-shopping-cart"></i></a>
-                                                <a class="beta-btn primary" href="{{route('sanpham',$new->id)}}">Chi Tiết <i class="fa fa-chevron-right"></i></a>
+                                                <a class="add-to-cart pull-left" href="{{route('AddToCart',$new->id)}}"><i class="fa fa-shopping-cart"></i></a>
+                                                <a class="beta-btn primary" href="{{route('DetailProduct',$new->id)}}">Chi Tiết <i class="fa fa-chevron-right"></i></a>
                                                 <div class="clearfix"></div>
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
+                            <div style="text-align: center;">{{ $product->links() }}</div>
                         </div> <!-- .beta-products-list -->
                     </div>
                 </div> <!-- end section with sidebar and main content -->

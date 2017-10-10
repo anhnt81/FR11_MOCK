@@ -23,6 +23,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     //handle logout
     Route::get('dang-xuat', ['as' => 'logout', 'uses' => 'Admin\LoginController@logout']);
     //Todo new Route
+    Route::get('setting',['as'=>'setting','uses'=>'Admin\SettingController@setting']);
+    Route::post('setting',['as'=>'setting','uses'=>'Admin\SettingController@postSetting']);
     //Hien: Brand
     Route::group(['prefix' => '/brand'], function () {
         Route::get('/', ['as' => 'listBrand', 'uses' => 'Admin\BrandController@listBrand']);
@@ -249,6 +251,7 @@ Route::get('add-to-cart/{id}', ['as' => 'AddToCart', 'uses' => 'Frontend\Product
 Route::get('product-detail/{id}', ['as' => 'DetailProduct', 'uses' => 'Frontend\ProductController@getProductDetail']);
 
 Route::get('xoa-gio-hang/{id}', ['as' => 'xoa-gio-hang', 'uses' => 'Frontend\ProductController@deleteCart']);
+
 Route::get('dat-hang', ['as' => 'dat-hang', 'uses' => 'Frontend\ProductController@getBookCart']);
 
 Route::post('addcmt', ['uses' => 'Frontend\ProductController@addComment']);
@@ -259,6 +262,8 @@ Route::get('dang-xuat', ['as' => 'logout', 'uses' => 'Frontend\AuthController@lo
 
 Route::get('san-pham', ['as' => 'list-prd', 'uses' => 'Frontend\ProductController@list']);
 
-Route::post('filter', ['uses' => 'Frontend\ProductController@ajax']);
+Route::post('loc-san-pham', ['uses' => 'Frontend\ProductController@filter']);
 
 Route::get('chuyen-muc/{id}', ['as' => 'cat-page', 'uses' => 'Frontend\ProductController@category']);
+
+Route::get('search',['as'=>'search','uses'=>'Frontend\ProductController@getSearch']);
