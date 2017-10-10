@@ -249,6 +249,7 @@ Route::get('add-to-cart/{id}', ['as' => 'AddToCart', 'uses' => 'Frontend\Product
 Route::get('product-detail/{id}', ['as' => 'DetailProduct', 'uses' => 'Frontend\ProductController@getProductDetail']);
 
 Route::get('xoa-gio-hang/{id}', ['as' => 'xoa-gio-hang', 'uses' => 'Frontend\ProductController@deleteCart']);
+
 Route::get('dat-hang', ['as' => 'dat-hang', 'uses' => 'Frontend\ProductController@getBookCart']);
 
 Route::post('addcmt', ['uses' => 'Frontend\ProductController@addComment']);

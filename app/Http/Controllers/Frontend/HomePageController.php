@@ -46,7 +46,7 @@ class HomePageController extends Controller
         $bestProduct = Product::all();
         $totalBest = count($bestProduct);
         $listBr = Brand::all();
-        $slide = Slide::all();
+        $slide = Slide::orderBy('ordinal')->get();
 
         return view('front-end.index',compact('newProduct','bestProduct', 'slide', 'old', 'listBr','totalNew','totalBest'));
     }
