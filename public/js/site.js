@@ -57,6 +57,11 @@ $(document).ready(function () {
 
     $('.add-to-cart').click(function (e) {
         e.preventDefault();
+
+        var qty = $('#qty-prd-card').val();
+        if(!qty) {
+            qty = 1;
+        }
         $.ajax({
             url: $(this).attr('href'),
             success: function (responce) {

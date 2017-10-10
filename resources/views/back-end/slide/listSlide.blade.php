@@ -7,7 +7,6 @@
 @section('breadcrumb')
     <li><a href="{!! url('admin') !!}">Trang chủ</a></li>
     <li>Danh sách slide</li>
-    <li><a href="{!! url('admin/slide/addSlide') !!}">Thêm Slide</a></li>
 @endsection
 
 @section('content')
@@ -36,7 +35,11 @@
                 </div>
             @endforeach
         @endif
+
         <div class="panel-body">
+            <div>
+                <a href="{!! url('admin/slide/addSlide') !!}" class='btn btn-primary'>Thêm Slide</a>
+            </div>
             <!-- list -->
             <div class="table-responsive">
                 <table class="table table-hover table-striped">
