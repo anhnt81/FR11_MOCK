@@ -12,6 +12,7 @@ use App\Product;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Request;
+use function Sodium\compare;
 
 class ProductController extends Controller
 {
@@ -146,5 +147,11 @@ class ProductController extends Controller
 
             return view('front-end.cmd-detail', compact('rate', 'cmt'));
         }
+    }
+
+    public function getListProduct(){
+        $listProduct = Product::paginate(8);
+        $listBr = Brand::all();
+        return view('front-end.new-product',compact('listProduct','listBr'));
     }
 }
