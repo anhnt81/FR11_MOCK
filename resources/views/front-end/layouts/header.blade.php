@@ -4,7 +4,7 @@
             <div class="pull-left auto-width-left">
                 <ul class="top-menu menu-beta l-inline">
                     <li><a href=""><i class="fa fa-home"></i> Tầng 18, Tóa nhà Handico, Mễ Trì, Hà Nội</a></li>
-                    <li><a href=""><i class="fa fa-phone"></i> 0165 273 5984</a></li>
+                    <li><a href=""><i class="fa fa-phone"></i>0988886789</a></li>
                 </ul>
             </div>
             <div class="pull-right auto-width-right">
@@ -40,7 +40,7 @@
     <div class="header-body">
         <div class="container beta-relative">
             <div class="pull-left">
-                <a href="index.html" id="logo"><img src="front-end/assets/dest/images/logo-cake.jpg" width="600px" height="80px" alt=""></a>
+                <a href="" id="logo"><img src="front-end/assets/dest/images/logo-cake.jpg" width="600px" height="80px" alt=""></a>
             </div>
             <div class="pull-right beta-components space-left ov">
                 <div class="space10">&nbsp;</div>

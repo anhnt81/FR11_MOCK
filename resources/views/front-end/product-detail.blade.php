@@ -53,15 +53,8 @@
 
                             <p>Số Lượng:</p>
                             <div class="single-item-options">
-                                <select class="wc-select" name="color">
-                                    <option>Số Lượng</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                                <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i></a>
+                                <input type="number" name="so_luong"/>
+                                <a class="add-to-cart" href="{{route('AddToCart',$product->id)}}"><i class="fa fa-shopping-cart"></i></a>
                                 <div class="clearfix"></div>
                             </div>
                         </div>

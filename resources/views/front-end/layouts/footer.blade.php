@@ -29,8 +29,8 @@
                         <div>
                             <div class="contact-info">
                                 <i class="fa fa-map-marker"></i>
-                                <p>30 South Park Avenue San Francisco, CA 94108 Phone: +78 123 456 78</p>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit asnatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione.</p>
+                                <p>SmartOSC - A Smart Open Solution Company</p>
+                                <p>Tầng 18, Tóa nhà Handico, Mễ Trì, Hà Nội,  Phone: +84 988886789</p>
                             </div>
                         </div>
                     </div>
@@ -38,11 +38,8 @@
             </div>
             <div class="col-sm-3">
                 <div class="widget">
-                    <h4 class="widget-title">Newsletter Subscribe</h4>
-                    <form action="#" method="post">
-                        <input type="email" name="your_email">
-                        <button class="pull-right" type="submit">Subscribe <i class="fa fa-chevron-right"></i></button>
-                    </form>
+                    <h4 class="widget-title">Lê Đức Thịnh</h4>
+                    <a href="#"><img style="width: 150px;height: 150px;"  src="front-end\assets\dest\images\thinhld.jpg" alt="" /></a>
                 </div>
             </div>
         </div> <!-- .row -->
@@ -51,12 +48,6 @@
 <div class="copyright">
     <div class="container">
         <p class="pull-left">Privacy policy. (&copy;) 2014</p>
-        <p class="pull-right pay-options">
-            <a href="#"><img src="source/assets/dest/images/pay/master.jpg" alt="" /></a>
-            <a href="#"><img src="source/assets/dest/images/pay/pay.jpg" alt="" /></a>
-            <a href="#"><img src="source/assets/dest/images/pay/visa.jpg" alt="" /></a>
-            <a href="#"><img src="source/assets/dest/images/pay/paypal.jpg" alt="" /></a>
-        </p>
         <div class="clearfix"></div>
     </div> <!-- .container -->
 </div> <!-- .copyright -->
