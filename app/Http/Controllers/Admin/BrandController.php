@@ -120,7 +120,7 @@ class BrandController extends Controller
 
     	return view('back-end.Brand.delete',['d'=>$de]);
     }
-    public function postDelete(Request $r,$id){
+    public function postDelete(\Illuminate\Http\Request $r,$id){
     	
     	if(isset($r->agree))
     	{

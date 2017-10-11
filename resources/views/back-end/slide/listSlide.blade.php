@@ -64,7 +64,7 @@
                             <tr>
                                 <td>{!! $row->id !!}</td>
                                 <td>{!! $row->product->name !!}</td>
-                                <td><img src="{{ asset('images/front-end/product/'.$row->product->images) }}" class="img-thumbnail img-ava"></td>
+                                <td><img src="{{ asset('images/front-end/product/'.explode(',', $row->product->images)[0]) }}" class="img-thumbnail img-ava"></td>
                                 <td style="max-width:200px;">{!! $row->product->description !!}</td>
                                 <td>
                                     <input type="text" name="ordinal" value="{!! $row->ordinal !!}" size="1" style="text-align: center;padding:5px;border-radius:5px;border: 1px solid #ccc;" disabled=""></td>

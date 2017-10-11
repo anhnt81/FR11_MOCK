@@ -73,7 +73,7 @@
             $("#theloai").change(function(){
                 var id = $(this).val();
                 // alert(id);
-                $.get("http://localhost:8000/admin/slide/ajaxSlide/"+id,function(data){
+                $.get("ajaxSlide/"+id,function(data){
                     // alert(data);
                     $("#product1").html(data);
                 });

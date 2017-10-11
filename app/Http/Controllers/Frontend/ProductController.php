@@ -98,18 +98,18 @@ class ProductController extends Controller
         $cart = Session::get('cart');
 
         DB::insert("INSERT INTO tb_customer (name, uid, address, phone, email, gender, created_at, updated_at)".
-            "VALUES ('{$r->name}', '{$r->uid}', '{$r->address}', '{$r->phone}', '{$r->email}', '{$r->gender}', now(), now)");
+            "VALUES ('{$r->name}', '{$r->uid}', '{$r->address}', '{$r->phone}', '{$r->email}', '{$r->gender}', now(), now())");
         $cid = DB::select('SELECT max(id) as idmax from tb_customer')[0]->idmax;
 
         DB::insert("INSERT INTO tb_order (cid, total, note, status, created_at, updated_at)".
-            "VALUES ('{$cid}', '{$cart->totalPrice}', '{$r->note}', 1, now(), now)");
+            "VALUES ('{$cid}', '{$cart->totalPrice}', '{$r->note}', 1, now(), now())");
         $oid = DB::select('SELECT max(id) as idmax from tb_order')[0]->idmax;
 
         foreach ($cart['items'] as $key => $item) {
-            DB::insert("INSERT INTO tb_order_detail (oid, pid, total, qty, created_at, updated_at) 
-                  VALUES ('$oid', '{$key}', '{$item['price']}', '{$item['qty']}'), now(), now");
+            DB::insert("INSERT INTO tb_order_detail (oid, pid, total, qty, created_at, updated_at) ".
+                  "VALUES ('$oid', '{$key}', '{$item['price']}', '{$item['qty']}', now(), now())");
 
-            $prd = DB::select('select * from tb_product where id=3');
+            $prd = DB::select('select * from tb_product where id=' . $key);
 
             DB::update("update tb_product set qty=" . ($prd[0]->qty - $item['price']) ."  where id=" . $key);
         }
