@@ -252,12 +252,4 @@ Route::post('loc-san-pham', ['uses' => 'Frontend\ProductController@filter']);
 Route::get('chuyen-muc/{id}', ['as' => 'cat-page', 'uses' => 'Frontend\ProductController@category']);
 
 Route::get('search',['as'=>'search','uses'=>'Frontend\ProductController@getSearch']);
-Route::get('test', function () {
-    $listId = array();
-    $allCat = \App\Category::all();
-    for ($i = 0; $i < count($allCat); $i++) {
-        $listId = \App\Http\Helper\Helper::getid($allCat[$i], $allCat);
-        $allCat[$i]->totalPrd = \App\Product::whereIn('cid', $listId)->count();
-    }
-    \App\Http\Helper\Helper::multiMenu($allCat);
-});
+

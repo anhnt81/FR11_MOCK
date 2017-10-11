@@ -54,8 +54,8 @@ class ProductController extends Controller
             ->limit(5)->get();
         $sp_tuongtu = Product::where('cid',$product->cid)->limit(3)->get();
         $rate = $this->getRate($product->id);
-
-        return view('front-end.product-detail',compact('product','sp_tuongtu', 'cmt', 'prdSameCat', 'prdSameBr', 'rate'));
+        $images = explode(',', $product->images);
+        return view('front-end.product-detail',compact('product','sp_tuongtu', 'cmt', 'prdSameCat', 'prdSameBr', 'rate','images'));
     }
 
     public function changeCart(\Illuminate\Http\Request $req, $id, $qty)
@@ -108,6 +108,10 @@ class ProductController extends Controller
         foreach ($cart['items'] as $key => $item) {
             DB::insert("INSERT INTO tb_order_detail (oid, pid, total, qty, created_at, updated_at) 
                   VALUES ('$oid', '{$key}', '{$item['price']}', '{$item['qty']}'), now(), now");
+
+            $prd = DB::select('select * from tb_product where id=3');
+
+            DB::update("update tb_product set qty=" . ($prd[0]->qty - $item['price']) ."  where id=" . $key);
         }
 
         $r->session()->forget('cart');
@@ -212,8 +216,7 @@ class ProductController extends Controller
     }
 
     public function getListProduct(){
-        $listProduct = Product::orderBy('updated_at')->paginate($this->__paginate)
-            ;
+        $listProduct = Product::orderBy('updated_at')->paginate($this->__paginate);
         $listBr = Brand::all();
         return view('front-end.new-product',compact('listProduct','listBr'));
     }
