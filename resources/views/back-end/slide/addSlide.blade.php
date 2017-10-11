@@ -53,7 +53,7 @@
                             <tr>
                                 <td>{!! $row->id !!}</td>
                                 <td>{!! $row->name !!}</td>
-                                <td><img src="{!! asset('images/front-end/product/'.$row->images) !!}" class="img-thumbnail" style="max-height: 150px;" ></td>
+                                <td><img src="{{ asset('images/front-end/product/'.explode(',', $row->images)[0]) }}" class="img-thumbnail" style="max-height: 150px;" ></td>
                                 <td>{!! $row->description !!}</td>
                                 <td><a href="{{ asset('admin/slide/insertSlide/'.$row->id) }}" class="btn btn-primary">Thêm</a></td>
                             </tr>

@@ -47,7 +47,7 @@
                             <div class="space20">&nbsp;</div>
 
                             <div class="single-item-desc">
-                                <p>{{$product->description}}</p>
+                                {!! $product->description !!}
                             </div>
                             <div class="space20">&nbsp;</div>
 
@@ -74,7 +74,7 @@
                                         <img style="height: 80px" src="{{asset('images/front-end/product/'.$item)}}" class="img-fluid">
                                     </a>
                             @endforeach
-                            <p>{{$product->description}}</p>
+                            <p>{{($product->description)}}</p>
                         </div>
                     </div>
                     <div class="space50">&nbsp;</div>

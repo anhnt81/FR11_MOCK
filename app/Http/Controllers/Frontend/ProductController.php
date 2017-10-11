@@ -141,12 +141,12 @@ class ProductController extends Controller
             if(empty($_POST['brand'])) {
                 $ope = '<>';
             }
-           $list = Product::where('bid', $ope, $_POST['brand'])
+           $listProduct = Product::where('bid', $ope, $_POST['brand'])
                 ->whereBetween('unit_price', [$_POST['from'], $_POST['to']])
                 ->orderBy($_POST['sort'], $_POST['type'])
-                ->paginate(12);
+                ->paginate($this->__paginate);
 
-            return view('front-end.list-prd', compact('list'));
+            return view('front-end.list-prd', compact('listProduct'));
         }
     }
 
