@@ -25,7 +25,7 @@ class UpdateCustomerRequest extends FormRequest
     {
         return [
             'name'    => 'required',
-            'phone'   => 'required',
+            'phone'   => 'required|regex:/^[0-9]+$/|min:10|max:11',
             'address' => 'required',
             'email'   => 'required',
             'gender'  => 'required'
@@ -44,6 +44,7 @@ class UpdateCustomerRequest extends FormRequest
             'phone.required'   => 'Số điện thoại không được bỏ trống',
             'address.required' => 'Địa chỉ không được bỏ trống',
             'email.required'   => 'E-mail không được bỏ trống',
+            'email.email'      => 'E-mail không đúng định dạng',
             'gender.required'  => 'Hãy chọn một giới tính'
         ];
     }

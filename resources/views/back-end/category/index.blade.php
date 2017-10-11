@@ -28,8 +28,8 @@
 
                 <form role='form' class='form-horizontal col-xs-12 col-md-6'>
                     <div class='form-group'>
-                        <label for='per' class='col-xs-5 col-md-3 col-md-offset-7' style='margin-top : 10px; text-align: right'>Hiển thị</label>
-                        <div class='col-xs-7 col-md-2'>
+                        <label for='per' class='col-xs-5 col-md-3 col-md-offset-6' style='margin-top : 10px; text-align: right'>Hiển thị</label>
+                        <div class='col-xs-7 col-md-3'>
                             <select name='per' class='form-control form-val' id='per'>
                                 <option value='5' @if($data['per'] == 5) selected @endif>5</option>
                                 <option value='7' @if($data['per'] == 7) selected @endif>7</option>

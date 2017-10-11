@@ -55,22 +55,30 @@ $(document).ready(function () {
         });
     });
 
-    $('.add-to-cart').click(function (e) {
-        e.preventDefault();
-        $.ajax({
-            url: $(this).attr('href'),
-            success: function (responce) {
-                $('#add-cart-success').modal('show');
-                $('#cart-modal').html(responce);
-                $('.beta-select').click(function () {
-                    var drop = $(this).parent().find('.beta-dropdown');
+    inputNumber();
+});
 
-                    drop.slideToggle('slow');
-                });
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+function inputNumber()
+{
+    $('.input-number').keypress(function (e) {
+        var keyCode = (e.which) ? e.which : window.event.keyCode;
+
+        if(keyCode < 48 || keyCode > 57) {
+            if(keyCode == 48 || keyCode == 8) {
+                return ;
             }
-        });
+            return false;
+        }
     });
-})
+
+    $('.input-number').change(function () {
+        var value = parseInt($(this).val());
+        var max = parseInt($(this).attr('maxval'));
+        if(value > max) {
+            $(this).val(max);
+        }
+        else if (value < 1) {
+            $(this).val(1);
+        }
+    });
+}

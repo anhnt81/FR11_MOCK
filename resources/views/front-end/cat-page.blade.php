@@ -6,7 +6,7 @@
     <div class='container'>
         <div class="beta-products-list">
             <h4>Danh sách sản phẩm thuộc : {{$cat->name}}</h4>
-            @if($list->count() > 0)
+            @if($listProduct->count() > 0)
                 @include('front-end.filter')
                 <div id='list-product'>
                     @include('front-end.list-prd')
