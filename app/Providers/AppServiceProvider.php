@@ -29,9 +29,9 @@ class AppServiceProvider extends ServiceProvider
                 $listId = Helper::getid($allCat[$i], $allCat);
                 $allCat[$i]->totalPrd = Product::whereIn('cid', $listId)->count();
             }
-            $category = Category::with('childHas')->where('parentId',null)->get();
+            //$category = Category::with('childHas')->where('parentId',null)->get();
 
-            $view->with('category',$category)->with('allCat', $allCat);
+            $view->with('allCat',$allCat);
         });
 
         view()->composer(['front-end.layouts.header','front-end.dat-hang', 'front-end.cart'],function($view){

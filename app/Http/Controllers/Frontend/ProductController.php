@@ -15,9 +15,23 @@ use Illuminate\Support\Facades\DB;
 use Session;
 use Request;
 use function Sodium\compare;
+use Illuminate\Support\Facades\File;
+
 
 class ProductController extends Controller
 {
+    private $__paginate;
+    public function __construct()
+    {
+        if(File::exists('file.txt'))
+        {
+            $this->__paginate = File::get('file.txt');
+        }
+        else
+        {
+            $this->__paginate = 10;
+        }
+    }
     public function getAddToCart(\Illuminate\Http\Request $req, $id){
         $qty = $req->qty;
         $product = Product::find($id);
@@ -44,16 +58,15 @@ class ProductController extends Controller
         return view('front-end.product-detail',compact('product','sp_tuongtu', 'cmt', 'prdSameCat', 'prdSameBr', 'rate'));
     }
 
-    public function changeCart(\Illuminate\Http\Request $req, $id)
+    public function changeCart(\Illuminate\Http\Request $req, $id, $qty)
     {
-        $qty = $req->qty;
         $product = Product::find($id);
         $oldCart = Session('cart') ? Session::get('cart') : null;
         $Cart = new Cart($oldCart);
-        $Cart->addCart($product,$id, $qty);
+        $Cart->updateCart($id, $qty);
         $req->session()->put('cart',$Cart);
 
-        return view('front-end.cart');
+        return 'ok';
     }
 
     public function deleteCart( $id )
@@ -111,7 +124,7 @@ class ProductController extends Controller
 
         $listProduct = Product::whereIn('cid', $listId)
             ->orderBy('updated_at', 'desc')
-            ->paginate(12);
+            ->paginate($this->__paginate);
         $listBr = Brand::all();
 
         return view('front-end.cat-page', compact('listProduct', 'cat', 'listBr'));
@@ -199,9 +212,15 @@ class ProductController extends Controller
     }
 
     public function getListProduct(){
-        $listProduct = Product::orderBy('updated_at')->paginate(8)
+        $listProduct = Product::orderBy('updated_at')->paginate($this->__paginate)
             ;
         $listBr = Brand::all();
         return view('front-end.new-product',compact('listProduct','listBr'));
+    }
+
+    public function getSearch(\Illuminate\Http\Request $r){
+        $tukhoa = $r->s;
+        $data = Product::where('name','like',"%$tukhoa%")->paginate($this->__paginate);
+        return view('front-end.search',['product'=>$data]);
     }
 }

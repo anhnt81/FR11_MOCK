@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Slide;
@@ -92,5 +93,33 @@ class SettingController extends Controller
     	Slide::where('ordinal',$r->swap)->update(['ordinal'=>$r->stt]);
     	Slide::where('id',$tg->id)->update(['ordinal'=>$r->swap]);
     	return redirect()->back()->with('swap','Đổi Thành Công.');
+    }
+    public function setting()
+    {
+        if(File::exists('file.txt')){
+            $pa = File::get('file.txt');
+            // echo $pa;
+        }
+        else{
+            $pa = "Chưa Thiết Lập";
+        }
+        return view('back-end.config',['pa'=>$pa]);
+    }
+    public function postSetting(Request $r)
+    {
+        $this->validate($r,['paginate'=>'required|numeric'],
+            [
+                'paginate.required' => 'Bạn chưa nhập dữ liệu',
+                'paginate.numeric' => 'Dữ liệu phải là số'
+            ]);
+        File::put('file.txt',$r->paginate);
+        if(File::exists('file.txt')){
+            $pa = File::get('file.txt');
+            //echo $pa;
+        }
+        else{
+            $pa = "Chưa Thiết Lập";
+        }
+        return redirect()->back()->with('success_paginate','Thiết lập thành công')->with('pa',$pa);
     }
 }

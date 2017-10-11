@@ -69,7 +69,10 @@
                                         </select>
                                     </p>
                                     <p>Description<textarea class="form-control" name="description" id="description" rows="5" cols="20"></textarea></p>
-
+                                    <script>
+                                        var editor2 = CKEDITOR.replace("description");
+                                        CKFinder.setupCKEditor(editor2);
+                                    </script>
                                     <p>Unit Price<input type="text" name="unit_price" id="unit_price" class="form-control"></p>
                                     <p>Promotion Price<input type="text" name="promotion_price" id="promotion_price" class="form-control"></p>
                                     <p>Datetime Promotion<input type="date" class="form-control" name="datetime_promotion"/></p>

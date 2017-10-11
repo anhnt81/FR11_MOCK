@@ -45,7 +45,7 @@
             <div class="pull-right beta-components space-left ov">
                 <div class="space10">&nbsp;</div>
                 <div class="beta-comp">
-                    <form role="search" method="get" id="searchform" action="/">
+                    <form role="search" method="get" id="searchform" action="{{ route('search')}}">
                         <input type="text" value="" name="s" id="s" placeholder="Nhập từ khóa..."/>
                         <button class="fa fa-search" type="submit" id="searchsubmit"></button>
                     </form>
@@ -70,17 +70,20 @@
                     <li><a href="{{route('homePage')}}">Trang Chủ</a></li>
 
                     <li><a href="#">Loại Sản Phẩm</a>
-                        <ul class="sub-menu">
-                            @foreach($category as $cat)
-                                <li><a href="{{url('chuyen-muc/'.$cat->id)}}">{{$cat->name}}</a>
-                                    <ul class="sub-menu">
-                                        @foreach($cat->childHas as $submenu)
-                                            <li><a href="{{url('chuyen-muc/'.$submenu->id)}}">{{$submenu->name}}</a></li>
-                                        @endforeach
-                                    </ul>
-                                </li>
-                            @endforeach
-                        </ul>
+                        @php
+                        \App\Http\Helper\Helper::multiMenu($allCat);
+                        @endphp
+                        {{--<ul class="sub-menu">--}}
+                            {{--@foreach($category as $cat)--}}
+                                {{--<li><a href="{{url('chuyen-muc/'.$cat->id)}}">{{$cat->name}}</a>--}}
+                                    {{--<ul class="sub-menu">--}}
+                                        {{--@foreach($cat->childHas as $submenu)--}}
+                                            {{--<li><a href="{{url('chuyen-muc/'.$submenu->id)}}">{{$submenu->name}}</a></li>--}}
+                                        {{--@endforeach--}}
+                                    {{--</ul>--}}
+                                {{--</li>--}}
+                            {{--@endforeach--}}
+                        {{--</ul>--}}
                     </li>
                     <li><a href="{{route('gioi-thieu')}}">Giới thiệu</a></li>
                     <li><a href="{{route('contact')}}">Liên hệ</a></li>

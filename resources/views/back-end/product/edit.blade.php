@@ -91,6 +91,10 @@
                 <div class="col-sm-7 col-md-8">
                 <textarea class="form-control" name="description" id="description" rows="5"
                           cols="20">{{$product->description}}</textarea>
+                    <script>
+                        var editor2 = CKEDITOR.replace("description");
+                        CKFinder.setupCKEditor(editor2);
+                    </script>
                 </div>
                 @if ($errors->has('description'))
                     <span class="help-block">
