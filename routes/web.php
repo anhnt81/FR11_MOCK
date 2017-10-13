@@ -40,10 +40,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             'as'   => 'ajaxCus',
             'uses' => 'Admin\CustomerController@index'
         ));
-//        Route::get('filter', array(
-//            'as'   => 'filterCus',
-//            'uses' => 'Admin\CustomerController@filter'
-//        ));
+
         Route::get('sua-thong-tin/{id}', array(
             'as'   => 'upCus',
             'uses' => 'Admin\CustomerController@update'
@@ -80,11 +77,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             'uses' => 'Admin\CategoryController@index'
         ));
 
-//        Route::get('filter', array(
-//            'as'   => 'filterCat',
-//            'uses' => 'Admin\CategoryController@filter'
-//        ));
-
         Route::get('them-moi', array(
             'as'   => 'addCat',
             'uses' => 'Admin\CategoryController@add'
@@ -119,11 +111,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             'as'   => 'ajaxOrder',
             'uses' => 'Admin\OrderController@index'
         ));
-
-//        Route::get('filter', array(
-//            'as'   => 'filterOrder',
-//            'uses' => 'Admin\OrderController@filter'
-//        ));
 
         Route::get('chi-tiet/{id}', array(
             'as'   => 'orderDetail',
@@ -166,11 +153,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             'as'   => 'ajaxUser',
             'uses' => 'Admin\UserController@index'
         ));
-
-//        Route::get('filter', array(
-//            'as'   => 'filterUser',
-//            'uses' => 'Admin\UserController@filter'
-//        ));
 
         Route::get('them-moi', array(
             'as'   => 'addUser',
