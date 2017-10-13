@@ -20,7 +20,7 @@
 
     <div class="container">
         <div id="content">
-            <form action="{{route('dat-hang')}}" method="post" class="beta-form-checkout">
+            <form id='checkout-frm' action="{{route('dat-hang')}}" method="post" class="beta-form-checkout">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <div class="row">
                     @if(Session::has('thongbao')){{Session::get('thongbao')}}
@@ -28,36 +28,37 @@
                     <div class="col-sm-6">
                         <div class="space20">&nbsp;</div>
 
-                        <div class="form-block">
+                        <div class="form-group">
                             <label for="name">Họ tên*</label>
-                            <input type="text" id="name" placeholder="Họ tên" name="name" required>
+                            <input class='form-control' type="text" id="name" placeholder="Họ tên" name="name" required>
                         </div>
-                        <div class="form-block">
+                        <div class="form-group">
                             <label>Giới tính </label>
-                            <input id="gender" type="radio" class="input-radio" name="gender" value="nam" checked="checked" style="width: 10%"><span style="margin-right: 10%">Nam</span>
-                            <input id="gender" type="radio" class="input-radio" name="gender" value="nữ" style="width: 10%"><span>Nữ</span>
+                            <input id="gender" type="radio" class="input-radio" name="gender" value="1" checked="checked" style="width: 10%"><span style="margin-right: 10%">Nam</span>
+                            <input id="gender" type="radio" class="input-radio" name="gender" value="2" style="width: 10%"><span style="margin-right: 10%">Nữ</span>
+                            <input id="gender" type="radio" class="input-radio" name="gender" value="3" style="width: 10%"><span>Khác</span>
 
                         </div>
 
-                        <div class="form-block">
+                        <div class="form-group">
                             <label for="email">Email*</label>
-                            <input type="email" id="email" required placeholder="expample@gmail.com" name="email">
+                            <input class='form-control' type="email" id="email" required placeholder="expample@gmail.com" name="email">
                         </div>
 
-                        <div class="form-block">
+                        <div class="form-group">
                             <label for="adress">Địa chỉ*</label>
-                            <input type="text" id="adress" placeholder="Street Address" name="address" required>
+                            <input class='form-control' type="text" id="address" placeholder="Street Address" name="address" required>
                         </div>
 
 
-                        <div class="form-block">
+                        <div class="form-group">
                             <label for="phone">Điện thoại*</label>
-                            <input type="text" id="phone" name="phone" required>
+                            <input class='form-control' type="text" id="phone" name="phone" required>
                         </div>
 
-                        <div class="form-block">
+                        <div class="form-group">
                             <label for="notes">Ghi chú</label>
-                            <textarea id="notes" name="notes"></textarea>
+                            <textarea class='form-control' id="notes" name="note"></textarea>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -70,33 +71,25 @@
                                             <div>
                                                 <!--  one item	 -->
                                                 <div class="media">
-                                                    <img width="25%" src="{{$cart['item']['image']}}" alt="" class="pull-left">
+                                                    <img width="25%" src="{{asset('images/front-end/product/'.explode(',', $cart['item']['images'])[0])}}" class="pull-left">
                                                     <div class="media-body">
                                                         <p class="font-large"></p>
                                                         <span class="color-gray your-order-info">{{$cart['item']['name']}}</span>
-                                                        <span class="color-gray your-order-info">Số Lượng: <input style="width: 40px;height: 25px;text-align: center" type="number" name="so_luong" value="{{$cart['qty']}}"></span>
-                                                        <span class="color-gray your-order-info">Đơn Giá: {{$cart['price']}}</span>
+                                                        <span class="color-gray your-order-info">Số Lượng:
+                                                            <input class='input-number checkout-qty' maxval='{{$cart['total_qty']}}'
+                                                                   style="width: 40px;height: 25px;text-align: center" type="number" name="qty" value="{{$cart['qty']}}">
+                                                        </span>
+                                                        <span class="color-gray your-order-info">Đơn Giá: {{$cart['aprice']}}</span>
                                                     </div>
                                                 </div>
                                                 <!-- end one item -->
                                             </div>
                                         @endforeach
                                     @endif
-                                        <a href="{{route('dat-hang')}}" class="beta-btn primary text-center">Lưu lại <i class="fa fa-chevron-right"></i></a>
+                                        <button id='save-cart' class="beta-btn primary text-center">Lưu lại <i class="fa fa-chevron-right"></i></button>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="your-order-item">
-                                    @if(Session::has('cart'))
-                                    @foreach($product_cart as $product)
-                                        @php
-                                            $totalPrice += $product['price'];
-                                        @endphp
-                                    @endforeach
-                                    @else
-                                        @php
-                                            $totalPrice += 0;
-                                        @endphp
-                                    @endif
                                     <div class="pull-left"><p class="your-order-f18">Tổng tiền:</p></div>
                                     <div class="pull-right"><h5 class="color-black"> {{number_format($totalPrice)}} đồng</h5></div>
                                     <div class="clearfix"></div>
@@ -127,7 +120,14 @@
                                 </ul>
                             </div>
 
-                            <div class="text-center"><button type="submit" class="beta-btn primary" href="#">Đặt hàng <i class="fa fa-chevron-right"></i></button></div>
+                            <div class="text-center">
+                                @if(Auth::check())
+                                    <input name='uid' type='hidden' value='{{Auth::User()->id}}'>
+                                    <button type="submit" class="beta-btn primary" href="{{}}">
+                                        Đặt hàng <i class="fa fa-chevron-right"></i>
+                                    </button>
+                                @endif
+                            </div>
                         </div> <!-- .your-order -->
                     </div>
                 </div>
@@ -136,5 +136,61 @@
     </div> <!-- .container -->
 
     <!--customjs-->
+    <script>
+        $(document).ready(function () {
+            $('#save-cart').click(function () {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: 'loc-san-pham',
+                    type: 'post',
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    data: data,
+                    success: function (responce) {
+                        $('#list-product').html(responce);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    }
+                });
+            });
+            $('#checkout-frm').submit(function () {
+                $('.err').remove();
 
+                var name = $('#name').val();
+                var phone = $('#phone').val();
+                var address = $('#address').val();
+                var email = $('#email').val();
+                var err = 0;
+
+                if(name.length < 2) {
+                    $('#name').before("<div class='alert alert-danger err'>Tên khách phải lớn hơn 2 ký tự</div>");
+                    err = 1;
+                }
+                if(!/(^01[0-9]{9}$)|(^0(9|8)[0-9]{8}$)/.test(phone)) {
+                    $('#phone').before("<div class='alert alert-danger err'>Số điện thoại không hợp lệ</div>");
+                    err = 1;
+                }
+                if(address.length <= 5) {
+                    $('#address').before("<div class='alert alert-danger err'>Hãy ghi địa chỉ giao hàng cụ thể</div>");
+                    err = 1;
+                }
+                if(!/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(email)) {
+                    $('#email').before("<div class='alert alert-danger err'>E-mail không hợp lệ</div>");
+                    err = 1;
+                }
+
+                if(err == 0) {
+                    return true;
+                }
+
+                return false;
+            });
+        });
+    </script>
 @endsection

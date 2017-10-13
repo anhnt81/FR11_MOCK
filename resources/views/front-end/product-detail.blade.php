@@ -48,14 +48,14 @@
 
                             <div class="single-item-desc">
                                 <p>{{$product->description}}</p>
-
                             </div>
                             <div class="space20">&nbsp;</div>
 
                             <div class="single-item-options">
-                                <label>Số lượng ( Còn {{$product->qty}} sản phẩm )</label>
-                                <div>
-                                <input type='text' class="wc-select" name="color" style='width:50px'>
+                                <label style='float:none;'>Số lượng ( Còn {{$product->qty}} sản phẩm )</label>
+                                <div style='float:none;;margin-top: 10px'>
+                                <input type='number' class='wc-select input-number' name="qty" value='1'
+                                       maxval='{{$product->qty}}' style='width:50px; border-radius: 5px'>
                                 <a class="add-to-cart" href="{{route('AddToCart',$product->id)}}"><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                                 <div class="clearfix"></div>
@@ -165,7 +165,31 @@
         </div> <!-- #content -->
     </div> <!-- .container -->
 
-
+    <script>
+        $(document).ready(function () {
+//            $('.qty-prd-card').keypress(function (e) {
+//                var keyCode = (e.which) ? e.which : window.event.keyCode;
+//
+//                if(keyCode < 48 || keyCode > 57) {
+//                    if(keyCode == 48 || keyCode == 8) {
+//                        return ;
+//                    }
+//                    return false;
+//                }
+//            });
+//
+//            $('#qty-prd-card').change(function () {
+//                var value = parseInt($(this).val());
+//                var max = parseInt($(this).attr('maxval'));
+//                if(value > max) {
+//                    $(this).val(max);
+//                }
+//                else if (value < 1) {
+//                    $(this).val(1);
+//                }
+//            });
+        })
+    </script>
 @endsection
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>

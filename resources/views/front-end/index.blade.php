@@ -15,10 +15,7 @@
                     <div class="col-sm-12">
                         <div class="beta-products-list">
                             <h4>Sản Phẩm Mới</h4>
-                            <div class="beta-products-details">
-                                <p class="pull-left">Có {{$totalNew}} sản phẩm</p>
-                                <div class="clearfix"></div>
-                            </div>
+
                             <div class="row">
                                 <div style='text-align: right'>
                                     <a href='{{route('list-prd')}}'>
@@ -61,10 +58,7 @@
 
                         <div class="beta-products-list">
                             <h4>Sản Phẩm Được Quan Tâm</h4>
-                            <div class="beta-products-details">
-                                <p class="pull-left">Có {{$totalBest}} sản phẩm</p>
-                                <div class="clearfix"></div>
-                            </div>
+
                             <div style='text-align: right'>
                                 <a href='{{route('list-prd')}}'>
                                     Xem tất cả

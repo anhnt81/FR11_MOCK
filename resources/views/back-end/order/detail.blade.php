@@ -92,7 +92,7 @@
                     <tr>
                         <td>{{$item->product->id}}</td>
                         <td>{{$item->product->name}}</td>
-                        <td><img src='{{url('uploads/images/'.explode(',', $item->product->images)[0])}}'></td>
+                        <td><img style='max-height: 80px;' src='{{url('images/front-end/product/'.explode(',', $item->product->images)[0])}}'></td>
                         <td>{{$item->product->unit_price}} VNĐ</td>
                         <td>{{$item->qty}}</td>
                         <td>{{$item->total}} VNĐ</td>

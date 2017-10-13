@@ -72,6 +72,7 @@ class Helper
     }
 
     /*
+     * Recursive list of categories id
      * @param $objCat : Category object should get the ID list
      * @param @listCat : All category object
      * @return $list : list Id
@@ -85,5 +86,38 @@ class Helper
             }
         }
         return $list;
+    }
+
+    /*
+     * Recursive list of categories : html
+     * @param $categories : All Category object should get the ID list
+     * @param $parentId : Id category parent
+     * @return $list : list Id
+     */
+    public static function listCatRecursive($categories, $parentId = 0)
+    {
+        $html = '';
+        $cate_child = array();
+        foreach ($categories as $key => $item)
+        {
+            if ($item['parentId'] == $parentId)
+            {
+                $cate_child[] = $item;
+                unset($categories[$key]);
+            }
+        }
+
+        if ($cate_child)
+        {
+            $html = '<ul>';
+            foreach ($cate_child as $key => $item)
+            {
+                echo '<li>'.$item['title'];
+
+                Self::listCatRecursive($categories, $item['id']);
+                echo '</li>';
+            }
+            echo '</ul>';
+        }
     }
 }

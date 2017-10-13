@@ -23,8 +23,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     //handle logout
     Route::get('dang-xuat', ['as' => 'logout', 'uses' => 'Admin\LoginController@logout']);
     //Todo new Route
-    Route::get('setting',['as'=>'setting','uses'=>'Admin\SettingController@setting']);
-    Route::post('setting',['as'=>'setting','uses'=>'Admin\SettingController@postSetting']);
     //Hien: Brand
     Route::group(['prefix' => '/brand'], function () {
         Route::get('/', ['as' => 'listBrand', 'uses' => 'Admin\BrandController@listBrand']);
@@ -215,8 +213,6 @@ Route::get('/', ['as' => 'homePage', 'uses' => 'Frontend\HomePageController@home
 
 Route::get('/contact', ['as' => 'contact', 'uses' => 'Frontend\ContactController@getContact']);
 
-Route::post('/contact', ['as' => 'post-contact', 'uses' => 'Frontend\ContactController@postContact']);
-
 Route::get('/gioi-thieu', ['as' => 'gioi-thieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
 
 Route::get('dang-nhap', ['as' => 'dang-nhap', 'uses' => 'Frontend\AuthController@getLogin']);
@@ -232,9 +228,14 @@ Route::get('add-to-cart/{id}', ['as' => 'AddToCart', 'uses' => 'Frontend\Product
 
 Route::get('product-detail/{id}', ['as' => 'DetailProduct', 'uses' => 'Frontend\ProductController@getProductDetail']);
 
-Route::get('xoa-gio-hang/{id}', ['as' => 'xoa-gio-hang', 'uses' => 'Frontend\ProductController@deleteCart']);
+Route::get('xoa-gio-hang/{id}', ['as' => 'removeSigleCart', 'uses' => 'Frontend\ProductController@deleteCart']);
+
+Route::get('xoa-ca-gio-hang', ['as' => 'removeAllCart', 'uses' => 'Frontend\ProductController@deleteAllCart']);
+
+Route::get('sua-gio-hang', ['as' => 'changeCart', 'uses' => 'Frontend\ProductController@changeCart']);
 
 Route::get('dat-hang', ['as' => 'dat-hang', 'uses' => 'Frontend\ProductController@getBookCart']);
+Route::post('dat-hang', ['as' => 'postOrder', 'uses' => 'Frontend\ProductController@postOrder']);
 
 Route::post('addcmt', ['uses' => 'Frontend\ProductController@addComment']);
 
@@ -242,10 +243,12 @@ Route::get('cam-on', ['as' => 'success', 'uses' => 'Frontend\AuthController@succ
 
 Route::get('dang-xuat', ['as' => 'logout', 'uses' => 'Frontend\AuthController@logout']);
 
-Route::get('san-pham', ['as' => 'list-prd', 'uses' => 'Frontend\ProductController@list']);
+Route::get('san-pham', ['as' => 'list-prd', 'uses' => 'Frontend\ProductController@getListProduct']);
 
 Route::post('loc-san-pham', ['uses' => 'Frontend\ProductController@filter']);
 
 Route::get('chuyen-muc/{id}', ['as' => 'cat-page', 'uses' => 'Frontend\ProductController@category']);
 
-Route::get('search',['as'=>'search','uses'=>'Frontend\ProductController@getSearch']);
+Route::get('test', function () {
+    return view('front-end.success');
+});

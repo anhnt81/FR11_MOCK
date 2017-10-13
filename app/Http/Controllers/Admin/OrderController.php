@@ -88,40 +88,12 @@ class OrderController extends Controller
         return view('back-end.order.index', compact('list', 'status', 'start', 'end', 'total', 'data'));
     }
 
-//    public function filter(Request $r)
-//    {
-//        $status = Helper::orderStatusArr();
-//        $data['key'] = $r->search;
-//        $data['sort'] = $r->sort;
-//        $data['type'] = $r->type_sort;
-//        $data['status'] = $r->status;
-//        $data['from'] = ($r->from == '') ? 0 : $r->from;
-//        $data['to'] = ($r->to == '') ? 999999999999 : $r->to;
-//
-//        $temp = empty($r->status) ? '<>' : '=';
-//
-//        $list = $this->__order->where('cid', 'LIKE', '%' . $data['key'] . '%')
-//            ->where('status', $temp, $data['status'])
-//            ->where('total', '>=', $data['from'])
-//            ->where('total', '<=', $data['to'])
-//            ->orderBy($data['sort'], $data['type'])
-//            ->paginate(5)
-//            ->withPath("?search={$data['key']}&sort={$data['sort']}&type_sort={$data['type']}&status={$data['status']}".
-//                    "&from={$data['from']}&to={$data['to']}");
-//
-//        for ($i = 0; $i < count($list); $i++){
-//            $list[$i]->st = Helper::valOfArr(Helper::orderStatusArr(), $list[$i]->status);
-//        }
-//
-//        return view('back-end.order.index', compact('list', 'status', 'data'));
-//    }
-
     public function viewDetail($id)
     {
         $total = 0;
         $order = $this->__order->find($id);
         $order->s_status = Helper::valOfArr(Helper::orderStatusArr(), $order->status);
-        $cus = $this->__cus->find($order->id);
+        $cus = $this->__cus->find($order->cid);
         $cus->s_gender = Helper::valOfArr(Helper::genderArr(), $cus->gender);
         $detail = $order->orderDetail;
 
