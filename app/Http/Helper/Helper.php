@@ -77,12 +77,12 @@ class Helper
      * @param @listCat : All category object
      * @return $list : list Id
      */
-    public static function getid($objCat,$listCat)
+    public static function getid($objCat, $listCat)
     {
         $list[] = $objCat->id;
         foreach ($listCat as $key => $value) {
             if ($value->parentId == $objCat->id) {
-                $list[] = Self::getid($value,$listCat);
+                $list[] = Self::getid($value, $listCat);
             }
         }
         return $list;
@@ -94,27 +94,25 @@ class Helper
      * @param $parentId : Id category parent
      * @return $list : list Id
      */
-    public static function listCatRecursive($categories, $parentId = 0)
+    public static function multiMenu($categories, $parentId = 0)
     {
-        $html = '';
-        $cate_child = array();
-        foreach ($categories as $key => $item)
-        {
-            if ($item['parentId'] == $parentId)
-            {
-                $cate_child[] = $item;
+        $child = array();
+        foreach ($categories as $key => $item) {
+            if ($item['parentId'] == $parentId) {
+                $child[] = $item;
                 unset($categories[$key]);
             }
         }
 
-        if ($cate_child)
-        {
-            $html = '<ul>';
-            foreach ($cate_child as $key => $item)
-            {
-                echo '<li>'.$item['title'];
+        if ($child) {
+            echo "<ul class='sub-menu'>";
+            foreach ($child as $key => $item) {
 
-                Self::listCatRecursive($categories, $item['id']);
+                echo "<li><a href='chuyen-muc/{$item->id}'>{$item->name} ".
+                        "<span> ({$item->totalPrd})</span></a>";
+
+                Self::multiMenu($categories, $item->id);
+
                 echo '</li>';
             }
             echo '</ul>';

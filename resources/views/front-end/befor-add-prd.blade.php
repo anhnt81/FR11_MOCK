@@ -21,7 +21,7 @@
         $('.add-to-cart').click(function (e) {
             e.preventDefault();
 
-                    @if(Auth::check())
+            @if(Auth::check())
             var qty = $('#qty-prd-card').val();
             if (!qty) {
                 qty = 1;

@@ -67,26 +67,33 @@
                             <div class="your-order-body" style="padding: 0px 10px">
                                 <div class="your-order-item">
                                     @if(Session::has('cart'))
-                                        @foreach($product_cart as $cart)
+                                        @foreach($product_cart as $key => $cart)
                                             <div>
                                                 <!--  one item	 -->
-                                                <div class="media">
-                                                    <img width="25%" src="{{asset('images/front-end/product/'.explode(',', $cart['item']['images'])[0])}}" class="pull-left">
+                                                <div class="media checkout-prd">
+                                                    <img src="{{asset('images/front-end/product/'.explode(',', $cart['item']['images'])[0])}}" class="pull-left">
                                                     <div class="media-body">
-                                                        <p class="font-large"></p>
-                                                        <span class="color-gray your-order-info">{{$cart['item']['name']}}</span>
-                                                        <span class="color-gray your-order-info">Số Lượng:
+                                                        <div >
+                                                            <p class="font-large"></p>
+                                                            <span class="color-gray your-order-info">{{$cart['item']['name']}}</span>
+                                                            <span class="color-gray your-order-info">Số Lượng:
                                                             <input class='input-number checkout-qty' maxval='{{$cart['total_qty']}}'
                                                                    style="width: 40px;height: 25px;text-align: center" type="number" name="qty" value="{{$cart['qty']}}">
                                                         </span>
-                                                        <span class="color-gray your-order-info">Đơn Giá: {{$cart['aprice']}}</span>
+                                                            <span class="color-gray your-order-info">Đơn Giá: {{$cart['aprice']}}</span>
+                                                        </div>
+                                                        <div >
+                                                            <button type='button' class='btn btn-default update-cart' pid='{{$key}}' qty='{{$cart['qty']}}'>
+                                                                <span class='glyphicon glyphicon-refresh'></span>
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- end one item -->
                                             </div>
                                         @endforeach
                                     @endif
-                                        <button id='save-cart' class="beta-btn primary text-center">Lưu lại <i class="fa fa-chevron-right"></i></button>
+                                        {{--<button id='save-cart' class="beta-btn primary text-center">Lưu lại <i class="fa fa-chevron-right"></i></button>--}}
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="your-order-item">
@@ -138,26 +145,24 @@
     <!--customjs-->
     <script>
         $(document).ready(function () {
-            $('#save-cart').click(function () {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    url: 'loc-san-pham',
-                    type: 'post',
-                    contentType: false,
-                    processData: false,
-                    cache: false,
-                    data: data,
-                    success: function (responce) {
-                        $('#list-product').html(responce);
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-                    }
-                });
+            $('.update-cart').click(function () {
+                var input = $(this).parent().parent().find('input[name="qty"]')[0];
+                var pid = $(this).attr('pid');
+                var qty = $(input).val();
+
+                if(qty != $(this).attr('qty')) {
+                    $.ajax({
+                        url: 'sua-gio-hang/' + pid + '/' + qty,
+                        success: function (responce) {
+                            if(responce == 'ok') {
+                                window.location = $(location).attr('href');
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                        }
+                    });
+                }
             });
             $('#checkout-frm').submit(function () {
                 $('.err').remove();

@@ -40,6 +40,24 @@ class Cart extends Model
         $this->totalPrice += $price_unit_or_promotion * $qty;
     }
 
+    public function updateCart($id, $qty)
+    {
+        foreach ($this->items as $key => $item) {
+            if($key == $id) {
+                $this->totalPrice -= $item['price'];
+                $this->totalQty -= $item['qty'];
+
+                $this->items[$key]['price'] = $item['aprice'] * $qty;
+                $this->items[$key]['qty'] = $qty;
+
+                $this->totalPrice += $this->items[$key]['price'];
+                $this->totalQty += $qty;
+
+                return;
+            }
+        }
+    }
+
     //xóa 1
     public function removeItem($id)
     {

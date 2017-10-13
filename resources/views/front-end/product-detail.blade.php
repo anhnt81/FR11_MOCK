@@ -47,14 +47,14 @@
                             <div class="space20">&nbsp;</div>
 
                             <div class="single-item-desc">
-                                <p>{{$product->description}}</p>
+                                {!! $product->description !!}
                             </div>
                             <div class="space20">&nbsp;</div>
 
                             <div class="single-item-options">
                                 <label style='float:none;'>Số lượng ( Còn {{$product->qty}} sản phẩm )</label>
                                 <div style='float:none;;margin-top: 10px'>
-                                <input type='number' class='wc-select input-number' name="qty" value='1'
+                                <input type='number' class='wc-select input-number' name="qty" value='1' id='qty-prd-card'
                                        maxval='{{$product->qty}}' style='width:50px; border-radius: 5px'>
                                 <a class="add-to-cart" href="{{route('AddToCart',$product->id)}}"><i class="fa fa-shopping-cart"></i></a>
                                 </div>
@@ -74,7 +74,7 @@
                                         <img style="height: 80px" src="{{asset('images/front-end/product/'.$item)}}" class="img-fluid">
                                     </a>
                             @endforeach
-                            <p>{{$product->description}}</p>
+                            <p>{{($product->description)}}</p>
                         </div>
                     </div>
                     <div class="space50">&nbsp;</div>

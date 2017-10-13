@@ -7,7 +7,9 @@
         <div class="container">
             <h4 style="margin-top: 20px;">Danh Sách Sản phẩm</h4>
             @include('front-end.filter')
-            @include('front-end.list-prd')
+            <div id='list-product'>
+                @include('front-end.list-prd')
+            </div>
         </div>
     </div>
 @endsection

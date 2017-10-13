@@ -159,7 +159,7 @@
             ]);
 
             var options = {
-                title: 'Theo sô lượng đơn hàng',
+                title: 'Theo sô lượng bán ra',
                 bars: 'horizontal'
             };
 

@@ -15,9 +15,23 @@ use Illuminate\Support\Facades\DB;
 use Session;
 use Request;
 use function Sodium\compare;
+use Illuminate\Support\Facades\File;
+
 
 class ProductController extends Controller
 {
+    private $__paginate;
+    public function __construct()
+    {
+        if(File::exists('file.txt'))
+        {
+            $this->__paginate = File::get('file.txt');
+        }
+        else
+        {
+            $this->__paginate = 10;
+        }
+    }
     public function getAddToCart(\Illuminate\Http\Request $req, $id){
         $qty = $req->qty;
         $product = Product::find($id);
@@ -44,16 +58,15 @@ class ProductController extends Controller
         return view('front-end.product-detail',compact('product','sp_tuongtu', 'cmt', 'prdSameCat', 'prdSameBr', 'rate','images'));
     }
 
-    public function changeCart(\Illuminate\Http\Request $req, $id)
+    public function changeCart(\Illuminate\Http\Request $req, $id, $qty)
     {
-        $qty = $req->qty;
         $product = Product::find($id);
         $oldCart = Session('cart') ? Session::get('cart') : null;
         $Cart = new Cart($oldCart);
-        $Cart->addCart($product,$id, $qty);
+        $Cart->updateCart($id, $qty);
         $req->session()->put('cart',$Cart);
 
-        return view('front-end.cart');
+        return 'ok';
     }
 
     public function deleteCart( $id )
@@ -85,16 +98,20 @@ class ProductController extends Controller
         $cart = Session::get('cart');
 
         DB::insert("INSERT INTO tb_customer (name, uid, address, phone, email, gender, created_at, updated_at)".
-            "VALUES ('{$r->name}', '{$r->uid}', '{$r->address}', '{$r->phone}', '{$r->email}', '{$r->gender}', now(), now)");
+            "VALUES ('{$r->name}', '{$r->uid}', '{$r->address}', '{$r->phone}', '{$r->email}', '{$r->gender}', now(), now())");
         $cid = DB::select('SELECT max(id) as idmax from tb_customer')[0]->idmax;
 
         DB::insert("INSERT INTO tb_order (cid, total, note, status, created_at, updated_at)".
-            "VALUES ('{$cid}', '{$cart->totalPrice}', '{$r->note}', 1, now(), now)");
+            "VALUES ('{$cid}', '{$cart->totalPrice}', '{$r->note}', 1, now(), now())");
         $oid = DB::select('SELECT max(id) as idmax from tb_order')[0]->idmax;
 
         foreach ($cart['items'] as $key => $item) {
-            DB::insert("INSERT INTO tb_order_detail (oid, pid, total, qty, created_at, updated_at) 
-                  VALUES ('$oid', '{$key}', '{$item['price']}', '{$item['qty']}'), now(), now");
+            DB::insert("INSERT INTO tb_order_detail (oid, pid, total, qty, created_at, updated_at) ".
+                  "VALUES ('$oid', '{$key}', '{$item['price']}', '{$item['qty']}', now(), now())");
+
+            $prd = DB::select('select * from tb_product where id=' . $key);
+
+            DB::update("update tb_product set qty=" . ($prd[0]->qty - $item['price']) ."  where id=" . $key);
         }
 
         $r->session()->forget('cart');
@@ -111,7 +128,7 @@ class ProductController extends Controller
 
         $listProduct = Product::whereIn('cid', $listId)
             ->orderBy('updated_at', 'desc')
-            ->paginate(12);
+            ->paginate($this->__paginate);
         $listBr = Brand::all();
 
         return view('front-end.cat-page', compact('listProduct', 'cat', 'listBr'));
@@ -124,12 +141,12 @@ class ProductController extends Controller
             if(empty($_POST['brand'])) {
                 $ope = '<>';
             }
-           $list = Product::where('bid', $ope, $_POST['brand'])
+           $listProduct = Product::where('bid', $ope, $_POST['brand'])
                 ->whereBetween('unit_price', [$_POST['from'], $_POST['to']])
                 ->orderBy($_POST['sort'], $_POST['type'])
-                ->paginate(12);
+                ->paginate($this->__paginate);
 
-            return view('front-end.list-prd', compact('list'));
+            return view('front-end.list-prd', compact('listProduct'));
         }
     }
 
@@ -199,8 +216,7 @@ class ProductController extends Controller
     }
 
     public function getListProduct(){
-        $listProduct = Product::orderBy('updated_at')->paginate(8)
-            ;
+        $listProduct = Product::orderBy('updated_at')->paginate($this->__paginate);
         $listBr = Brand::all();
         return view('front-end.new-product',compact('listProduct','listBr'));
     }
