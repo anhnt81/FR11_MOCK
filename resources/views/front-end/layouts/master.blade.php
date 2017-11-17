@@ -9,6 +9,7 @@
     <link href='http://fonts.googleapis.com/css?family=Dosis:300,400' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href='{{asset('css/bootstrap.min.css')}}'>
+    <link rel="stylesheet" href='{{asset('css/cloudzoom.css')}}'>
     <link rel="stylesheet" href='{{asset('css/starrr.css')}}'>
     <link rel="stylesheet" href="front-end/assets/dest/css/font-awesome.min.css">
     <link rel="stylesheet" href="front-end/assets/dest/vendors/colorbox/example3/colorbox.css">
@@ -54,6 +55,7 @@
 <script src="front-end/assets/dest/js/wow.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.min.js"></script>
 <script src="{{ asset('js/site.js') }}"></script>
+<script src="{{ asset('js/cloudzoom.js') }}"></script>
 <!--customjs-->
 {{--<script src="front-end/assets/dest/js/custom2.js"></script>--}}
 

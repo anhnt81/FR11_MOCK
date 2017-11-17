@@ -40,7 +40,7 @@
     <div class="header-body">
         <div class="container beta-relative">
             <div class="pull-left">
-                <a href="" id="logo"><img src="front-end/assets/dest/images/logo-cake.jpg" width="600px" height="80px" alt=""></a>
+                <a href="" id="logo"><img src="front-end/assets/dest/images/logo-cake.jpg" width="520px" height="80px" alt=""></a>
             </div>
             <div class="pull-right beta-components space-left ov">
                 <div class="space10">&nbsp;</div>

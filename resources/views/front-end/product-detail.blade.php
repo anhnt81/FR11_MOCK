@@ -25,10 +25,24 @@
                 <div class="col-sm-9">
 
                     <div class="row">
-                        <div class="col-sm-4">
-                            <img src="images/front-end/product/{{$product->avatar}}" alt="">
+                        <div class="col-sm-6">
+                            <img class="cloudzoom" alt="{{$product->name}}"
+                                 id="zoom1" src="images/front-end/product/{{$product->avatar}}"
+                                 title="{{$product->name}}"
+                                 data-cloudzoom='
+                                 zoomImage:"images/front-end/product/{{$product->avatar}}",
+                                 tintColor:"#000",
+                                 tintOpacity:0.25,
+                                 maxMagnification:4,
+                                zoomClass:"cloudzoom-zoom",
+                                lensClass:"cloudzoom-lens",
+                                lensWidth:200,
+                                 zoomWidth:300,
+                                 zoomHeight:300,
+                                 '>
                         </div>
-                        <div class="col-sm-8">
+
+                        <div class="col-sm-6">
                             <div class="single-item-body">
                                 <p class="single-item-title">
                                 <h3>{{$product->name}}</h3></p>
@@ -54,9 +68,11 @@
                             <div class="single-item-options">
                                 <label style='float:none;'>Số lượng ( Còn {{$product->qty}} sản phẩm )</label>
                                 <div style='float:none;;margin-top: 10px'>
-                                <input type='number' class='wc-select input-number' name="qty" value='1' id='qty-prd-card'
-                                       maxval='{{$product->qty}}' style='width:50px; border-radius: 5px'>
-                                <a class="add-to-cart" href="{{route('AddToCart',$product->id)}}"><i class="fa fa-shopping-cart"></i></a>
+                                    <input type='number' class='wc-select input-number' name="qty" value='1'
+                                           id='qty-prd-card'
+                                           maxval='{{$product->qty}}' style='width:50px; border-radius: 5px'>
+                                    <a class="add-to-cart" href="{{route('AddToCart',$product->id)}}"><i
+                                                class="fa fa-shopping-cart"></i></a>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -70,9 +86,11 @@
                         </ul>
                         <div class="panel" id="tab-description">
                             @foreach($images as $item)
-                                    <a style="padding: 10px;" href="{{asset('images/front-end/product/'.$item)}}" class="open-image" class="col-sm-4">
-                                        <img style="height: 80px" src="{{asset('images/front-end/product/'.$item)}}" class="img-fluid">
-                                    </a>
+                                <a style="padding: 10px;" href="{{asset('images/front-end/product/'.$item)}}"
+                                   class="open-image" class="col-sm-4">
+                                    <img style="height: 80px" src="{{asset('images/front-end/product/'.$item)}}"
+                                         class="img-fluid">
+                                </a>
                             @endforeach
                             <p>{{($product->description)}}</p>
                         </div>
@@ -192,6 +210,19 @@
     </script>
 @endsection
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="{{ asset('js/cloudzoom.js') }}"></script>
+<script type="text/javascript">
+    CloudZoom.quickStart();
+    $(function(){
+        $('#zoom1').bind('click',function(){            // Bind a click event to a Cloud Zoom instance.
+            var cloudZoom = $(this).data('CloudZoom');  // On click, get the Cloud Zoom object,
+            cloudZoom.closeZoom();
+            $.fancybox.open(cloudZoom.getGalleryList());// and pass Cloud Zoom's image list to Fancy Box.
+            return false;
+        });
+    });
+</script>
+
 <script>
     $(document).ready(function () {
         //Programmatically call
