@@ -44,6 +44,30 @@ class ProductController extends Controller
     }
 
     public function getProductDetail($id){
+        $productOld = Product::find($id);
+        $views = $productOld->views;
+        if($views == null){
+            $views = 1;
+        }else{
+            $views += 1;
+        }
+
+        DB::table('tb_product')
+            ->where('id', $id)
+            ->update([
+                'name' => $productOld->name,
+                'images' => $productOld->images,
+                'cid' => $productOld->cid,
+                'bid' => $productOld->bid,
+                'description' => $productOld->description,
+                'unit_price' => $productOld->unit_price,
+                'promotion_price' => $productOld->promotion_price,
+                'qty' => $productOld->qty,
+                'status' => $productOld->status,
+                'new' => $productOld->new,
+                'views' => $views,
+                'avatar' => $productOld->avatar,
+            ]);
         $product = Product::find($id);
         $cmt = Comment::where('pid', $product->id)->get();
         $prdSameCat = Product::where('cid', $product->cid)

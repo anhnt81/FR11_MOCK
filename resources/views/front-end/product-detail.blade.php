@@ -74,6 +74,7 @@
                                     <a class="add-to-cart" href="{{route('AddToCart',$product->id)}}"><i
                                                 class="fa fa-shopping-cart"></i></a>
                                 </div>
+                                <p style="color: dodgerblue;float:none;;margin-top: 10px">Có {{$product->views}} lượt xem</p>
                                 <div class="clearfix"></div>
                             </div>
                         </div>
