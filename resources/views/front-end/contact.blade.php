@@ -40,7 +40,7 @@
                             <input name="email" type="email" placeholder="Your Email (required)">
                         </div>
                         <div class="form-block">
-                            <input name="subject" type="text" placeholder="Subject">
+                            <input name="telephone" type="text" placeholder="Số điện thoại">
                         </div>
                         <div class="form-block">
                             <textarea name="message" placeholder="Your Message"></textarea>
@@ -76,4 +76,18 @@
         </div>
     </div> <!-- #content -->
     </div> <!-- .container -->
+    <div id='contact-modal' class='modal fade' role='dialog'>
+        <div class='modal-dialog'>
+            <div class='modal-content'>
+                <div class='modal-body alert-success'>
+                    Cảm ơn bạn đã ghé thăm cửa hàng. Chúng tôi sẽ liên hệ với bạn vào thời gian sớm nhất !
+                </div>
+                <div class='modal-footer'>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
 @endsection

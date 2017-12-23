@@ -215,6 +215,8 @@ Route::get('/', ['as' => 'homePage', 'uses' => 'Frontend\HomePageController@home
 
 Route::get('/contact', ['as' => 'contact', 'uses' => 'Frontend\ContactController@getContact']);
 
+Route::post('/contact', ['as' => 'post-contact', 'uses' => 'Frontend\ContactController@postContact']);
+
 Route::get('/gioi-thieu', ['as' => 'gioi-thieu', 'uses' => 'Frontend\GioithieuController@getGioithieu']);
 
 Route::get('dang-nhap', ['as' => 'dang-nhap', 'uses' => 'Frontend\AuthController@getLogin']);

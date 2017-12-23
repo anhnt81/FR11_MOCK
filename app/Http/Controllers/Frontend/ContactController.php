@@ -13,21 +13,18 @@ class ContactController extends Controller
     }
 
     public function postContact(Request $req){
-        $username = $req->name;
-        $email = $req->email;
-        $subject = $req->subject;
-        $message = $req->message;
         $data = array(
-          'username' => $username,
-          'email' => $email,
-          'subject' => $subject,
-          'message' => $message,
+            'name' => $req->input('name'),
+            'email' => $req->input('email'),
+            'telephone' => $req->input('telephone'),
+            'message' => $req->input('message'),
         );
-        Mail::send('front-end.email', $data, function($message) {
-            $message->from('anhnt9@smartosc.com','Tuấn Anh');
-            $message->subject('aaaa');
+
+        Mail::send('front-end.email', ['list' => $data], function($message) use ($data)
+        {
+            $message->from('chipstart1994@gmail.com', 'Send mail Contact');
+            $message->to('thuhangitepu@gmail.com', 'Thu Hằng')->subject('Information custom web Fresh-Garden');
         });
-        dd('Mail Send Successfully');
-        echo "HTML Email Sent. Check your inbox.";
+        return redirect()->route('success');
     }
 }

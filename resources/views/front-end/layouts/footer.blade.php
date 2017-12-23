@@ -39,7 +39,7 @@
             <div class="col-sm-3">
                 <div class="widget">
                     <h4 class="widget-title">Lê Đức Thịnh</h4>
-                    <a href="#"><img style="width: 150px;height: 150px;"  src="front-end\assets\dest\images\thinhld.jpg" alt="" /></a>
+                    <a href="#"><img style="width: 150px;height: 150px;"  src="" alt="" /></a>
                 </div>
             </div>
         </div> <!-- .row -->
