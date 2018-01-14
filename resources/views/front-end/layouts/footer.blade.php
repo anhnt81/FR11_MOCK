@@ -4,7 +4,6 @@
             <div class="col-sm-3">
                 <div class="widget">
                     <h4 class="widget-title">Instagram Feed</h4>
-                    <div id="beta-instagram-feed"><div></div></div>
                 </div>
             </div>
             <div class="col-sm-2">
@@ -34,12 +33,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="widget">
-                    <h4 class="widget-title">Lê Đức Thịnh</h4>
-                    <a href="#"><img style="width: 150px;height: 150px;"  src="" alt="" /></a>
                 </div>
             </div>
         </div> <!-- .row -->

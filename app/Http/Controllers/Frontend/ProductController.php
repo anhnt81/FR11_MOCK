@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Session;
 use Request;
+use Mail;
 use function Sodium\compare;
 use Illuminate\Support\Facades\File;
 
@@ -32,13 +33,13 @@ class ProductController extends Controller
             $this->__paginate = 10;
         }
     }
-    public function getAddToCart(\Illuminate\Http\Request $req, $id){
-        $qty = $req->qty;
+    public function getAddToCart(\Illuminate\Http\Request $r, $id){
+        $qty = $r->qty;
         $product = Product::find($id);
         $oldCart = Session('cart') ? Session::get('cart') : null;
         $Cart = new Cart($oldCart);
         $Cart->addCart($product,$id, $qty);
-        $req->session()->put('cart',$Cart);
+        $r->session()->put('cart',$Cart);
 
         return view('front-end.cart');
     }
@@ -82,13 +83,13 @@ class ProductController extends Controller
         return view('front-end.product-detail',compact('product','sp_tuongtu', 'cmt', 'prdSameCat', 'prdSameBr', 'rate','images'));
     }
 
-    public function changeCart(\Illuminate\Http\Request $req, $id, $qty)
+    public function changeCart(\Illuminate\Http\Request $r, $id, $qty)
     {
         $product = Product::find($id);
         $oldCart = Session('cart') ? Session::get('cart') : null;
         $Cart = new Cart($oldCart);
         $Cart->updateCart($id, $qty);
-        $req->session()->put('cart',$Cart);
+        $r->session()->put('cart',$Cart);
 
         return 'ok';
     }
@@ -137,9 +138,23 @@ class ProductController extends Controller
 
             DB::update("update tb_product set qty=" . ($prd[0]->qty - $item['price']) ."  where id=" . $key);
         }
+        $data = array(
+            'name' => $r->input('name'),
+            'email' => $r->input('email'),
+            'address' => $r->input('address'),
+            'gender' => $r->input('gender'),
+            'phone' => $r->input('phone'),
+            'note' => $r->input('note'),
+        );
+
+
+        Mail::send('front-end.email-order', ['list' => $data], function($message) use ($data)
+        {
+            $message->from('chipstart1994@gmail.com', 'Send mail Contact');
+            $message->to('thuhangitepu@gmail.com', 'Thu Hằng')->subject('Information custom order product web Fresh-Garden');
+        });
 
         $r->session()->forget('cart');
-
         return redirect()->route('success');
     }
 

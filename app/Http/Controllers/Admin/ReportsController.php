@@ -93,7 +93,6 @@ class ReportsController extends Controller
             }
             $result['catOrder'] = array_slice($result['catOrder'], 0, 10);
         }
-
         return $result;
     }
 
